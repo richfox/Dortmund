@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+# -*- coding: ISO-8859-1 -*-
+#
+# Configuration file
+#
+
+-->
+
+<config>
+  <image>
+    <!-- Exmaple for a local directory to fetch binaries from: D:/usr3/hicad/180X/developerimages  -->
+    <!-- Exmaple for a network directory to fetch binaries from: //intl/Networked Files/R&amp;D/Buildresults/builds  -->
+    <downloadUrlPrefix>//srv011/Binaries/builds</downloadUrlPrefix>
+    <branchID>2100.X</branchID>
+    <build>128</build>
+    <fetch32Bit>1</fetch32Bit>
+    <fetch64Bit>1</fetch64Bit>
+    <fetchDebug val="1">
+      <fetchDebugExecutables>1</fetchDebugExecutables>
+      <fetchDebugImportLibraries>1</fetchDebugImportLibraries>
+      <fetchDebugDebugSymbols>1</fetchDebugDebugSymbols>
+      <fetchDebugFullLinkageFiles>1</fetchDebugFullLinkageFiles>
+    </fetchDebug>
+    <fetchRelease val="1">
+      <fetchReleaseExecutables>1</fetchReleaseExecutables>
+      <fetchReleaseImportLibraries>1</fetchReleaseImportLibraries>
+      <fetchReleaseDebugSymbols>1</fetchReleaseDebugSymbols>
+      <fetchReleaseFullLinkageFiles>1</fetchReleaseFullLinkageFiles>
+    </fetchRelease>
+    <fetchGenerated>1</fetchGenerated>
+  </image>
+</config>
+
