@@ -542,6 +542,47 @@ namespace
 map<int,Fenster> FensterManager::_mapFenster;
 
 
+//12.10.2017
+//test const
+class Leg
+{
+public:
+   Leg(int idx)
+      :subleg(new Leg(0)),
+      _idx(idx)
+   {}
+
+   ~Leg()
+   {
+      delete subleg;
+   }
+
+   void SetIdx(int idx)
+   {
+      _idx = idx;
+   }
+
+   int GetIdx() const
+   {
+      return _idx;
+   }
+
+private:
+   int _idx;
+public:
+   Leg* subleg;
+};
+
+void setLeg(const Leg& leg)
+{
+   //leg.SetIdx(8); //error: 因为const，这里不能调用
+   leg.GetIdx();
+   leg.subleg->SetIdx(8); //但是子对象却能够调用
+   //leg.subleg = new Leg(10); //error: const在这里要求的是指针指向的地址不变！！！
+}
+
+
+
 void _tmain(int argc, _TCHAR* argv[])
 {
 	///////////////TEST C++多态////////////////////
@@ -1016,6 +1057,9 @@ void _tmain(int argc, _TCHAR* argv[])
       {
          cout << s << endl;
       }
+
+      virtual void foo()
+      {}
    };
 
    class Bvc : virtual public Avc
@@ -1026,6 +1070,9 @@ void _tmain(int argc, _TCHAR* argv[])
       {
          cout << s2 << endl;
       }
+
+      virtual void foo()
+      {}
    };
 
    class Cvc : virtual public Avc
@@ -1095,6 +1142,8 @@ void _tmain(int argc, _TCHAR* argv[])
    //虚基类先于非虚基类构造
    //调用顺序为Avc,Bvc,Cvc,Dvc
    Dvc dvc("class Avc","class Bvc","class Cvc","class Dvc");
+   //钻石性质继承关系里子类调用最近的虚函数
+   dvc.foo();
    //如果不用虚基类
    //调用顺序为Avc,Bvc,Avc,Cvc,Dvc
    DDvc ddvc("class Avc","class Bvc","class Cvc","class Dvc");
@@ -1186,6 +1235,7 @@ void _tmain(int argc, _TCHAR* argv[])
 
    //isd-xfu, 03.08.2016 
    //test 继承后的访问性质
+   //不管是哪种继承，都是基类的公有成员和保护成员可被派生类访问
    class AAA
    {
    public:
@@ -1366,7 +1416,7 @@ void _tmain(int argc, _TCHAR* argv[])
     delete dib3;
     delete dib4;
     delete dib5;
-    
+
 
 	_getch();
 }
