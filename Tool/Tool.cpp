@@ -16,7 +16,7 @@
 #include <vector>
 #include <map>
 #include <memory>
-
+#include <regex>
 
 
 
@@ -141,6 +141,11 @@ int _tmain(int argc, _TCHAR* argv[])
    CHECK_ERROR(is_positive_and_null_float(L"34.")==false,L"error");
    CHECK_ERROR(is_positive_and_null_float(L"34.66")==true,L"error");
    CHECK_ERROR(is_positive_and_null_float(L"r34.66")==false,L"error");
+   
+   wstring testexpress = L"<Import Project=\"$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props\" Condition=\"exists(\'$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props\')\" Label=\"LocalAppDataPlatform\" />";
+   wregex wre = wregex(str_to_ecmascript_regex(L"$(UserRootDir)\\Microsoft"));
+   CHECK_ERROR(regex_search(testexpress,wre)==true,L"error");
+   CHECK_ERROR(testexpress.length()-regex_replace(testexpress,wre,L"").length()==wstring(L"$(UserRootDir)\\Microsoft").length()*2,L"error");
 
    return 0;
 }
