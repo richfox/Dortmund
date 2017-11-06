@@ -3,7 +3,7 @@
 #include <regex>
 #include <stdint.h>
 #include <atlstr.h>
-#include "Globbing.h"
+#include "RegexUtil.h"
 
 
 using namespace std;
@@ -54,6 +54,23 @@ bool XFU::is_positive_integer(const std::wstring& in)
    {
       int iin = _wtoi(in.c_str());
       if (iin==0 || iin>INT32_MAX)
+         res = false;
+   }
+
+   return res;
+}
+
+bool XFU::is_positive_and_null_float(const std::wstring& in)
+{
+   bool res = false;
+
+   wregex rx(L"^[0-9]+([.]{1}[0-9]+){0,1}$");
+   res = regex_search(in,rx);
+   if (res)
+   {
+      wchar_t* endptr = nullptr;
+      double iin = wcstod(in.c_str(),&endptr);
+      if (iin > DBL_MAX)
          res = false;
    }
 

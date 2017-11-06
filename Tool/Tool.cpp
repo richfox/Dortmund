@@ -8,6 +8,7 @@
 #include "meta.h"
 #include "Factorial.h"
 #include "path.h"
+#include "RegexUtil.h"
 #include <conio.h>
 #include <sstream>
 #include <fstream>
@@ -133,6 +134,13 @@ int _tmain(int argc, _TCHAR* argv[])
    _wgetcwd(currentPath,_countof(currentPath));
    CHECK_ERROR(XFUPath::FindFileInPath(currentPath,L"Tool.exe")==false,L"error");
    CHECK_ERROR(XFUPath::FindFileInPath(currentPath,L"Tool.obj")==true,L"error");
+
+
+   //test regex
+   CHECK_ERROR(is_positive_and_null_float(L"34")==true,L"error");
+   CHECK_ERROR(is_positive_and_null_float(L"34.")==false,L"error");
+   CHECK_ERROR(is_positive_and_null_float(L"34.66")==true,L"error");
+   CHECK_ERROR(is_positive_and_null_float(L"r34.66")==false,L"error");
 
    return 0;
 }
