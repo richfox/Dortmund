@@ -1,13 +1,7 @@
-AsychAgent/AsychAgent.vcxproj.user
-DesignPattern/DesignPattern.vcxproj.user
 ipch/
-Bildverarbeitung/Bildverarbeitung.vcxproj.user
-Regular_Expression/Regular_Expression.vcxproj.user
-RvalueRef/RvalueRef.vcxproj.user
-Tool/Tool.vcxproj.user
-new_test_at_dortmund.sdf
-new_test_at_dortmund.v11.suo
-ipch/tool-6834bd49/tool-e7838d4b.ipch
-new_test_at_dortmund/new_test_at_dortmund.vcxproj.user
 ConsoleCS/obj/
 LibraryCS/obj/
+*.vcxproj.user
+new_test_at_dortmund.v11.suo
+new_test_at_dortmund.sdf
+new_test_at_dortmund.opensdf
