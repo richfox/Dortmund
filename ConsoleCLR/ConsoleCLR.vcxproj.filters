@@ -44,6 +44,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="readme.docx" />
+    <None Include="项目设置在CPP中调用CS.docx" />
   </ItemGroup>
 </Project>

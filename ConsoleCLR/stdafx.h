@@ -7,5 +7,8 @@
 
 // TODO: Hier auf zusätzliche Header, die das Programm erfordert, verweisen.
 
-
-#using "..\DotNet\LibraryCS.dll"
+#ifdef _DEBUG
+#using "..\..\install\Debug\LibraryCS.dll"
+#else
+#using "..\..\install\Release\LibraryCS.dll"
+#endif
