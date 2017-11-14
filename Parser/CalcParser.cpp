@@ -12,6 +12,7 @@
 #include "CalcParser.h"
 #include <regex>
 #include <memory>
+#include "CalcParserTree.h"
 
 
 using namespace std;
@@ -19,16 +20,16 @@ using namespace XFU;
 
 
 
-bool Parser::Run()
+SharedNodes Parser::Run()
 {
    _tokenit = _tokens.begin();
 
    if (Expr())
    {
-      return true;
+      _success = true;
    }
 
-   return false;
+   return _tree;
 }
 
 
@@ -160,5 +161,7 @@ bool Parser::Factor()
 bool XFU::run_parser(const std::vector<std::wstring>& tokens)
 {
    std::unique_ptr<Parser> parser(new Parser(tokens));
-   return parser->Run();
+   parser->Run();
+
+   return parser->IsSuccess();
 }

@@ -32,22 +32,32 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <memory>
 
 
 namespace XFU
 {
+   class CalcParserTreeNode;
+
    class Parser
    {
    public:
       Parser(const std::vector<std::wstring>& tokens)
          :_tokens(tokens),
-         _tokenit()
+         _tokenit(),
+         _tree(),
+         _success(false)
       {}
 
       ~Parser()
       {}
 
-      bool Run();
+      std::vector<std::shared_ptr<CalcParserTreeNode>> Run();
+
+      bool IsSuccess() const
+      {
+         return _success;
+      }
 
    private:
       bool Expr();
@@ -55,12 +65,15 @@ namespace XFU
       bool Term();
       bool TermTail();
       bool Factor();
+
       bool Number();
       bool NextToken();
 
    private:
       std::vector<std::wstring> _tokens;
       std::vector<std::wstring>::const_iterator _tokenit;
+      bool _success;
+      std::vector<std::shared_ptr<CalcParserTreeNode>> _tree;
    };
 
 
