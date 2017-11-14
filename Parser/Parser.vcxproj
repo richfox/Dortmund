@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="CalcParser.h" />
     <ClInclude Include="CalcTokenizer.h" />
+    <ClInclude Include="CalcParserTree.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Walker.h" />

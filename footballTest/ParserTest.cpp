@@ -9,6 +9,7 @@
 #include "stdafx.h"
 #include "ParserTest.h"
 #include "..\Parser\CalcTokenizer.h"
+#include "..\Parser\CalcParser.h"
 
 using namespace std;
 
@@ -29,12 +30,23 @@ void ParserTest::testTokenizer()
    tokens = XFU::run_tokenizer(L"(11+22)*33");
    CPPUNIT_ASSERT(tokens.size() == 7);
    CPPUNIT_ASSERT(tokens[6] == L"33");
+   CPPUNIT_ASSERT(XFU::run_parser(tokens)==true);
 
-   tokens = XFU::run_tokenizer(L"11+22*3");
+   tokens = XFU::run_tokenizer(L"11+22*33");
    CPPUNIT_ASSERT(tokens.size() == 5);
-   CPPUNIT_ASSERT(tokens[4] == L"3");
+   CPPUNIT_ASSERT(tokens[4] == L"33");
+   CPPUNIT_ASSERT(XFU::run_parser(tokens)==true);
 
    tokens = XFU::run_tokenizer(L"  (11 + 22)*33  ");
    CPPUNIT_ASSERT(tokens.size() == 7);
    CPPUNIT_ASSERT(tokens[2] == L"+");
+
+   tokens = XFU::run_tokenizer(L"11+22*");
+   CPPUNIT_ASSERT(XFU::run_parser(tokens)==false);
+
+   tokens = XFU::run_tokenizer(L"11+(22");
+   CPPUNIT_ASSERT(XFU::run_parser(tokens)==false);
+
+   tokens = XFU::run_tokenizer(L"11+(22)");
+   CPPUNIT_ASSERT(XFU::run_parser(tokens)==true);
 }

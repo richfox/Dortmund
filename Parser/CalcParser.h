@@ -18,6 +18,16 @@
 //       |   num
 
 //根据语法生成语法树AST
+//  (四则运算表达式的根 3*(1+2) ) 
+//    |       |           |
+// Factor     op       Factor       
+//    |       |        /  |  \       
+//    3       *       ( Expr  )     
+//                     /  | \
+//                 Factor op Factor      
+//                   |    |    |    
+//                   1    +    2  
+
 
 #pragma once
 #include <string>
@@ -30,7 +40,8 @@ namespace XFU
    {
    public:
       Parser(const std::vector<std::wstring>& tokens)
-         :_tokenit(tokens.begin())
+         :_tokens(tokens),
+         _tokenit()
       {}
 
       ~Parser()
@@ -39,9 +50,19 @@ namespace XFU
       bool Run();
 
    private:
-      void NextToken();
+      bool Expr();
+      bool ExprTail();
+      bool Term();
+      bool TermTail();
+      bool Factor();
+      bool Number();
+      bool NextToken();
 
    private:
+      std::vector<std::wstring> _tokens;
       std::vector<std::wstring>::const_iterator _tokenit;
    };
+
+
+   bool __declspec(dllexport) run_parser(const std::vector<std::wstring>& tokens);
 }
