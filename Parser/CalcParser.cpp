@@ -20,8 +20,11 @@ using namespace XFU;
 
 
 
-SharedNodes Parser::Run()
+std::shared_ptr<CalcParserTreeNode> Parser::Run()
 {
+   std::shared_ptr<CalcParserTreeNode> tree(new CalcParserTreeNode(CalcTreeNodeType::Root));
+   _currentnode = tree.get();
+
    _tokenit = _tokens.begin();
 
    if (Expr())
@@ -29,7 +32,7 @@ SharedNodes Parser::Run()
       _success = true;
    }
 
-   return _tree;
+   return tree;
 }
 
 
@@ -56,8 +59,14 @@ bool Parser::NextToken()
 //Expr -> Term ExprTail
 bool Parser::Expr()
 {
+   std::shared_ptr<CalcParserTreeNodeExpr> node(new CalcParserTreeNodeExpr);
+   _currentnode->AddChild(node);
+   _currentnode = node.get();
+
    if (Term())
    {
+      _currentnode = node.get(); //Factor过程中current node可能被改变了，我们重置一下
+
       return ExprTail();
    }
 
@@ -69,12 +78,20 @@ bool Parser::Expr()
 //         |  null
 bool Parser::ExprTail()
 {
+   std::shared_ptr<CalcParserTreeNodeExprTail> node(new CalcParserTreeNodeExprTail);
+   _currentnode->AddChild(node);
+   _currentnode = node.get();
+
    if (*_tokenit==L"+" || *_tokenit==L"-")
    {
+      node->SetOp(*_tokenit);
+
       if (NextToken()) //Next token always after matching
       {
          if (Term())
          {
+            _currentnode = node.get(); //Factor过程中current node可能被改变了，我们重置一下
+
             return ExprTail();
          }
          else
@@ -94,8 +111,14 @@ bool Parser::ExprTail()
 //Term -> Factor TermTail
 bool Parser::Term()
 {
+   std::shared_ptr<CalcParserTreeNodeTerm> node(new CalcParserTreeNodeTerm);
+   _currentnode->AddChild(node);
+   _currentnode = node.get();
+
    if (Factor())
    {
+      _currentnode = node.get(); //Factor过程中current node可能被改变了，我们重置一下
+
       return TermTail();
    }
 
@@ -107,12 +130,20 @@ bool Parser::Term()
 //         |  null
 bool Parser::TermTail()
 {
+   std::shared_ptr<CalcParserTreeNodeTermTail> node(new CalcParserTreeNodeTermTail);
+   _currentnode->AddChild(node);
+   _currentnode = node.get();
+
    if (*_tokenit==L"*" || *_tokenit==L"/")
    {
+      node->SetOp(*_tokenit);
+
       if (NextToken())
       {
          if (Factor())
          {
+            _currentnode = node.get(); //Factor过程中current node可能被改变了，我们重置一下
+
             return TermTail();
          }
          else
@@ -133,6 +164,10 @@ bool Parser::TermTail()
 //       |  num
 bool Parser::Factor()
 {
+   std::shared_ptr<CalcParserTreeNodeFactor> node(new CalcParserTreeNodeFactor);
+   _currentnode->AddChild(node);
+   _currentnode = node.get();
+
    if (*_tokenit == L"(")
    {
       if (NextToken())
@@ -149,6 +184,8 @@ bool Parser::Factor()
    }
    else if (Number())
    {
+      node->SetNumber(*_tokenit);
+
       NextToken();
       return true;
    }

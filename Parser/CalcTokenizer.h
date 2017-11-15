@@ -35,6 +35,7 @@ namespace XFU
       ~Tokenizer()
       {}
 
+      //run tokenizer, return a vector of token
       std::vector<std::wstring> Run();
       
    private:

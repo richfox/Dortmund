@@ -17,6 +17,19 @@
 //Factor ->  (Expr)
 //       |   num
 
+//<=>
+
+//Expr     -> Term ExprTail
+//ExprTail -> + Term ExprTail
+//         |  - Term ExprTail
+//         |  null
+//Term     -> Factor TermTail
+//TermTail -> * Factor TermTail
+//         |  / Factor TermTail
+//         |  null
+//Factor   -> (Expr)
+//         |  num
+
 //根据语法生成语法树AST
 //  (四则运算表达式的根 3*(1+2) ) 
 //    |       |           |
@@ -45,14 +58,15 @@ namespace XFU
       Parser(const std::vector<std::wstring>& tokens)
          :_tokens(tokens),
          _tokenit(),
-         _tree(),
-         _success(false)
+         _success(false),
+         _currentnode()
       {}
 
       ~Parser()
       {}
 
-      std::vector<std::shared_ptr<CalcParserTreeNode>> Run();
+      //run parser, return a syntax tree
+      std::shared_ptr<CalcParserTreeNode> Run();
 
       bool IsSuccess() const
       {
@@ -73,7 +87,7 @@ namespace XFU
       std::vector<std::wstring> _tokens;
       std::vector<std::wstring>::const_iterator _tokenit;
       bool _success;
-      std::vector<std::shared_ptr<CalcParserTreeNode>> _tree;
+      CalcParserTreeNode* _currentnode;
    };
 
 

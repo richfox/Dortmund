@@ -19,12 +19,12 @@ namespace XFU
    enum class CalcTreeNodeType
    {
       Undef = -1,
+      Root,
       Expr,
       ExprTail,
       Term,
       TermTail,
-      Factor,
-      NumLeaf
+      Factor
    };
 
    //Tree Node Base
@@ -32,11 +32,23 @@ namespace XFU
    {
    public:
       CalcParserTreeNode()
-         :_type(CalcTreeNodeType::Undef)
+         :_type(CalcTreeNodeType::Undef),
+         _children()
       {}
 
       explicit CalcParserTreeNode(const CalcTreeNodeType& type)
-         :_type(type)
+         :_type(type),
+         _children()
+      {}
+
+      CalcParserTreeNode(const CalcTreeNodeType& type,std::shared_ptr<CalcParserTreeNode>& child)
+         :_type(type),
+         _children(1,child)
+      {}
+
+      CalcParserTreeNode(const CalcTreeNodeType& type,const std::vector<std::shared_ptr<CalcParserTreeNode>>& children)
+         :_type(type),
+         _children(children)
       {}
 
       virtual ~CalcParserTreeNode()
@@ -47,91 +59,57 @@ namespace XFU
          return _type;
       }
 
-      void SetType(const CalcTreeNodeType& type)
+      void AddChild(const std::shared_ptr<CalcParserTreeNode>& child)
       {
-         _type = type;
+         _children.push_back(child);
       }
 
    private:
       CalcTreeNodeType _type;
+      std::vector<std::shared_ptr<CalcParserTreeNode>> _children;
    };
 
-   typedef std::shared_ptr<CalcParserTreeNode> SharedNode;
-   typedef std::vector<SharedNode> SharedNodes;
 
 
-   //Factor Base
-   class CalcParserTreeNodeFactor : public CalcParserTreeNode
+
+   //Factor ->  (Expr)
+   //       |   num
+   class CalcParserTreeNodeFactor final : public CalcParserTreeNode
    {
    public:
       CalcParserTreeNodeFactor()
-         :CalcParserTreeNode(CalcTreeNodeType::Factor)
+         :CalcParserTreeNode(CalcTreeNodeType::Factor),
+         _number()
       {}
 
       virtual ~CalcParserTreeNodeFactor()
       {}
-   };
 
-   typedef std::shared_ptr<CalcParserTreeNodeFactor> SharedFactor;
-
-   //Factor -> num
-   class CalcParserTreeNodeNum final : public CalcParserTreeNodeFactor
-   {
-   public:
-      CalcParserTreeNodeNum(const std::wstring& number)
-         :CalcParserTreeNodeFactor()
+      void SetNumber(const std::wstring& number)
       {
-         SetType(CalcTreeNodeType::NumLeaf);
+         _number = number;
       }
-
-      ~CalcParserTreeNodeNum()
-      {}
 
    private:
       std::wstring _number;
    };
 
-   //Factor -> (Expr)
-   class CalcParserTreeNodeExpr;
-   typedef std::shared_ptr<CalcParserTreeNodeExpr> SharedExpr;
-   class CalcParserTreeNodeOpExpr final : public CalcParserTreeNodeFactor
-   {
-   public:
-      CalcParserTreeNodeOpExpr(const SharedExpr& expr)
-         :CalcParserTreeNodeFactor(),
-         _expr(expr)
-      {}
 
-      ~CalcParserTreeNodeOpExpr()
-      {}
 
-   private:
-      SharedExpr _expr;
-   };
-
-   
 
    //Term -> Factor TermTail
-   class CalcParserTreeNodeTermTail;
-   typedef std::shared_ptr<CalcParserTreeNodeTermTail> SharedTermTail;
    class CalcParserTreeNodeTerm final : public CalcParserTreeNode
    {
    public:
-      CalcParserTreeNodeTerm(const SharedFactor& factor,const SharedTermTail& termtail)
-         :CalcParserTreeNode(CalcTreeNodeType::TermTail),
-         _factor(factor),
-         _termtail(termtail)
+      CalcParserTreeNodeTerm()
+         :CalcParserTreeNode(CalcTreeNodeType::Term)
       {}
 
       ~CalcParserTreeNodeTerm()
       {}
-
-   private:
-      SharedFactor _factor;
-      SharedTermTail _termtail;
    };
 
-   typedef std::shared_ptr<CalcParserTreeNodeTerm> SharedTerm;
+
 
 
    //TermTail -> * Factor TermTail
@@ -142,43 +120,32 @@ namespace XFU
    public:
       CalcParserTreeNodeTermTail()
          :CalcParserTreeNode(CalcTreeNodeType::TermTail),
-         _op(L""),
-         _factor(),
-         _termtail()
+         _op(L"")
       {}
 
-      CalcParserTreeNodeTermTail(const std::wstring& op,const SharedFactor& factor,const SharedTermTail& termtail)
-         :CalcParserTreeNode(CalcTreeNodeType::TermTail),
-         _op(op),
-         _factor(factor),
-         _termtail(termtail)
+      ~CalcParserTreeNodeTermTail()
       {}
+
+      void SetOp(const std::wstring& op)
+      {
+         _op = op;
+      }
 
    private:
       std::wstring _op;
-      SharedFactor _factor;
-      SharedTermTail _termtail;
    };
 
 
    //Expr -> Term ExprTail
-   class CalcParserTreeNodeExprTail;
-   typedef std::shared_ptr<CalcParserTreeNodeExprTail> SharedExprTail;
    class CalcParserTreeNodeExpr final : public CalcParserTreeNode
    {
    public:
-      CalcParserTreeNodeExpr(const SharedTerm& term,const SharedExprTail& exprtail)
-         :CalcParserTreeNode(CalcTreeNodeType::Expr),
-         _term(term),
-         _exprtail(exprtail)
+      CalcParserTreeNodeExpr()
+         :CalcParserTreeNode(CalcTreeNodeType::Expr)
       {}
 
       ~CalcParserTreeNodeExpr()
       {}
-
-   private:
-      SharedTerm _term;
-      SharedExprTail _exprtail;
    };
 
 
@@ -190,44 +157,16 @@ namespace XFU
    public:
       CalcParserTreeNodeExprTail()
          :CalcParserTreeNode(CalcTreeNodeType::ExprTail),
-         _op(L""),
-         _term(),
-         _exprtail()
+         _op(L"")
       {}
 
-      CalcParserTreeNodeExprTail(const std::wstring& op,const SharedTerm& term,const SharedExprTail& exprtail)
-         :CalcParserTreeNode(CalcTreeNodeType::ExprTail),
-         _op(op),
-         _term(term),
-         _exprtail(exprtail)
-      {}
-
-   private:
-      std::wstring _op;
-      SharedTerm _term;
-      SharedExprTail _exprtail;
-   };
-
-
-   ///////////////////////////////
-   class CalcParserTree final
-   {
-   public:
-      CalcParserTree()
-         :_children()
-      {}
-
-      explicit CalcParserTree(const SharedNodes& children)
-         :_children(children)
-      {}
-
-      const SharedNodes& GetChildren() const
+      void SetOp(const std::wstring& op)
       {
-         return _children;
+         _op = op;
       }
 
    private:
-      SharedNodes _children;
+      std::wstring _op;
    };
 
 }
