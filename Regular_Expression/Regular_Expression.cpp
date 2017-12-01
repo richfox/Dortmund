@@ -1417,6 +1417,26 @@ void _tmain(int argc, _TCHAR* argv[])
     delete dib4;
     delete dib5;
 
+    //test shared_ptr
+    class FOO
+    {
+    public:
+       FOO(DRImpBase* base)
+          :_base(base)
+       {}
+
+       ~FOO()
+       {}
+
+    private:
+       std::shared_ptr<DRImpBase> _base;
+    };
+
+    std::shared_ptr<DRImpBase> base(new DRImpBase(8));
+    std::shared_ptr<DRImpBase> base2(base);
+    {
+       FOO foo(base.get());
+    }
 
 	_getch();
 }
