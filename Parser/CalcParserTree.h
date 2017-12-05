@@ -64,6 +64,18 @@ namespace XFU
          _children.push_back(child);
       }
 
+      bool HasChild() const
+      {
+         return !_children.empty();
+      }
+
+      std::shared_ptr<CalcParserTreeNode> GetChild(int idx) const
+      {
+         return _children[idx];
+      }
+
+      virtual std::wstring ToString() const;
+
    private:
       CalcTreeNodeType _type;
       std::vector<std::shared_ptr<CalcParserTreeNode>> _children;
@@ -90,6 +102,13 @@ namespace XFU
          _number = number;
       }
 
+      const std::wstring& GetNumber() const
+      {
+         return _number;
+      }
+
+      std::wstring ToString() const;
+
    private:
       std::wstring _number;
    };
@@ -107,6 +126,8 @@ namespace XFU
 
       ~CalcParserTreeNodeTerm()
       {}
+
+      std::wstring ToString() const;
    };
 
 
@@ -131,6 +152,13 @@ namespace XFU
          _op = op;
       }
 
+      const std::wstring& GetOp() const
+      {
+         return _op;
+      }
+
+      std::wstring ToString() const;
+
    private:
       std::wstring _op;
    };
@@ -146,6 +174,8 @@ namespace XFU
 
       ~CalcParserTreeNodeExpr()
       {}
+
+      std::wstring ToString() const;
    };
 
 
@@ -164,6 +194,13 @@ namespace XFU
       {
          _op = op;
       }
+
+      const std::wstring& GetOp() const
+      {
+         return _op;
+      }
+
+      std::wstring ToString() const;
 
    private:
       std::wstring _op;

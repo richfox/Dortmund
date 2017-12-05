@@ -195,10 +195,16 @@ bool Parser::Factor()
 
 
 
-bool XFU::run_parser(const std::vector<std::wstring>& tokens)
+bool XFU::test_parser(const std::vector<std::wstring>& tokens)
 {
    std::unique_ptr<Parser> parser(new Parser(tokens));
    parser->Run();
 
    return parser->IsSuccess();
+}
+
+std::shared_ptr<CalcParserTreeNode> XFU::run_parser(const std::vector<std::wstring>& tokens)
+{
+   std::unique_ptr<Parser> parser(new Parser(tokens));
+   return parser->Run();
 }

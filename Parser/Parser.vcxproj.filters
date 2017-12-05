@@ -36,6 +36,9 @@
     <ClInclude Include="CalcParserTree.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="CalcVisitor.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +54,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Walker.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CalcVisitor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CalcParserTree.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

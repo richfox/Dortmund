@@ -91,5 +91,6 @@ namespace XFU
    };
 
 
-   bool __declspec(dllexport) run_parser(const std::vector<std::wstring>& tokens);
+   bool __declspec(dllexport) test_parser(const std::vector<std::wstring>& tokens);
+   std::shared_ptr<CalcParserTreeNode> __declspec(dllexport) run_parser(const std::vector<std::wstring>& tokens);
 }
