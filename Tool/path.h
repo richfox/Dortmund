@@ -47,7 +47,7 @@ namespace XFU
          wchar_t buffer[MAX_PATH];
          GetModuleFileNameW(nullptr,buffer,sizeof(buffer)); //D:\xfu_studio_files\new_test_at_dortmund\x64\Debug\Tool.exe
 
-         return std::tr2::sys::wpath(buffer).parent_path().parent_path().parent_path(); //D:\xfu_studio_files\new_test_at_dortmund
+         return std::tr2::sys::path(buffer).parent_path().parent_path().parent_path(); //D:\xfu_studio_files\new_test_at_dortmund
       }
 
       static const std::wstring GetSystemTempPath()
@@ -73,9 +73,9 @@ namespace XFU
 
       static bool FindFileInPath(const std::wstring& path,const std::wstring& file)
       {
-         fs::wpath mainpath(path.c_str());
-         fs::wdirectory_iterator it(mainpath);
-         fs::wdirectory_iterator endit;
+         fs::path mainpath(path.c_str());
+         fs::directory_iterator it(mainpath);
+         fs::directory_iterator endit;
          for (; it!=endit; it++)
          {
             if (fs::is_directory(it->status()))

@@ -703,7 +703,7 @@ void _tmain(int argc, _TCHAR* argv[])
 	std::unique_ptr<int> p1(new int(42));
 	std::unique_ptr<int> p2 = std::move(p1); // transfer ownership
 
-	cout << p1 << endl; 
+	cout << p1.get() << endl; 
 	cout << *p2 << endl;
 
 	auto p3 = make_shared<int>(242);
@@ -1332,11 +1332,11 @@ void _tmain(int argc, _TCHAR* argv[])
 
 
     ///isd-xfu, 29.11.2016 
-    std::tr2::sys::wpath path(L"C:\\temp\\temp\\");
-    wstring wstrpath = path.parent_path().string();
-    wstrpath = path.parent_path().parent_path().string();
-    wstrpath = path / std::tr2::sys::wpath(L"temp");
-    wstrpath = path.parent_path() / std::tr2::sys::wpath(L"temp");
+    std::tr2::sys::path path(L"C:\\temp\\temp\\");
+    wstring wstrpath = path.parent_path().wstring();
+    wstrpath = path.parent_path().parent_path().wstring();
+    wstrpath = path / std::tr2::sys::path(L"temp");
+    wstrpath = path.parent_path() / std::tr2::sys::path(L"temp");
 
 
 
