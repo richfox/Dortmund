@@ -266,6 +266,25 @@ public:
 		return *this = ObjectString<T>(*this,string,index,count);
 	}
 
+    ObjectString<T>& Replace(const ObjectString<T>& target,const ObjectString<T>& placement)
+    {
+       size_t idx = 0;
+       size_t pos = _nopos;
+       do
+       {
+          pos = Find(target,idx);
+          if (pos != _nopos)
+          {
+             Replace(pos,target.Length(),placement);
+             idx = pos + target.Length();
+          }
+          else
+             break;
+       }while (idx < Length());
+
+       return *this;
+    }
+
 	ObjectString<T>& TrimLeft(T c)
 	{
 		size_t count = 0;

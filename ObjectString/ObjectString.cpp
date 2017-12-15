@@ -107,6 +107,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	string.Replace(4,3,WOString::_empty);
 	TEST_ASSERT(string==L"testxfu");
 
+    WOString string4_5 = L" test x f u ";
+    string4_5.Replace(L" ",L"");
+    TEST_ASSERT(string4_5==L"testxfu");
+    string4_5 = L"test x f u";
+    string4_5.Replace(L" ",L"");
+    TEST_ASSERT(string4_5==L"testxfu");
+    string4_5 = L"testtest";
+    string4_5.Replace(L"test",L"test1");
+    TEST_ASSERT(string4_5==L"test1test1");
+
 	WOString string5 = WOString(L"test")+L"foo";
 	TEST_ASSERT(string5 == L"testfoo");
 	string5 = L"foo" + string5;
