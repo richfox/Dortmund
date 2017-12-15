@@ -3,6 +3,7 @@
 
 
 
+
 class Object
 {
 public:
@@ -81,3 +82,24 @@ T&& ForwardValue(typename RemoveRef<T>::Type& value)
    return static_cast<T&&>(value);
 }
 
+struct Nothing
+{};
+
+template<typename ...TArgs>
+struct FOO
+{};
+
+template<typename T>
+struct KeyType
+{
+   typedef T Type;
+};
+
+template<typename T>
+using EnumUnderlyingT = typename std::enable_if_t<std::is_enum<T>::value,typename std::underlying_type_t<T>>;
+
+template<typename T>
+constexpr inline EnumUnderlyingT<T> to_underlying(T&& t) noexcept
+{
+   return static_cast<typename std::underlying_type_t<T>>(t);
+}

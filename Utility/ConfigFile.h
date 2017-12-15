@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "basedef.h"
+#include "macro.h"
 
 #pragma warning (push)
 #pragma warning (disable: 4251)

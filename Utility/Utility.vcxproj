@@ -154,7 +154,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="basedef.h" />
+    <ClInclude Include="macro.h" />
     <ClInclude Include="ConfigFile.h" />
     <ClInclude Include="RegWriter.h" />
     <ClInclude Include="Resource.h" />

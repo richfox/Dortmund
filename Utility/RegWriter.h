@@ -13,7 +13,7 @@
 #pragma once
 
 #include <string>
-#include "basedef.h"
+#include "macro.h"
 
 
 #pragma warning (push)
