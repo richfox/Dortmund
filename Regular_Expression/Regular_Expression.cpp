@@ -239,20 +239,6 @@ namespace
 
 	
 
-	bool IsSymmetrical(char* pBegin, char* pEnd)  
-	{  
-		if(pBegin == NULL || pEnd == NULL || pBegin > pEnd)  
-			return false;  
-		while(pBegin < pEnd)  
-		{  
-			if(*pBegin != *pEnd)  
-				return false;  
-			pBegin++;  
-			pEnd --;  
-		}  
-		return true;  
-	}
-
 	class Base
 	{
 	public:
@@ -685,10 +671,6 @@ void _tmain(int argc, _TCHAR* argv[])
 
 
 
-	///////////////TEST TEMP 测试////////////////////
-	char* sytest = "testtset";
-	bool yn = IsSymmetrical(sytest,&sytest[strlen(sytest)-1]);
-	char sytest2[] = "dgtesg";
 
 	///////////////TEST TEMP 泛型函数////////////////////
 	wchar_t tmp[1024] = L"test";

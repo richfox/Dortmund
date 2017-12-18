@@ -546,3 +546,19 @@ struct StringConverter<AOString,WOString>
    }
 };
 
+template<typename T>
+bool is_symmetrical(const ObjectString<T>& string)
+{
+   const T* begin = string.Buffer();
+   const T* end = string.Buffer() + string.Length() - 1;
+
+   while (begin < end)
+   {
+      if (*begin != *end)
+         return false;
+      begin++;
+      end--;
+   }
+
+   return true;
+}

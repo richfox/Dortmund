@@ -128,6 +128,13 @@ int _tmain(int argc, _TCHAR* argv[])
     WOString string7 = StringConverter<AOString,WOString>::Convert(string6);
     TEST_ASSERT(string7 == string5);
 
+    WOString string8 = L"testtset";
+    TEST_ASSERT(is_symmetrical(string8)==true);
+    string8 = L"test tset";
+    TEST_ASSERT(is_symmetrical(string8)==true);
+    string8 = L"test _tset";
+    TEST_ASSERT(is_symmetrical(string8)==false);
+
 	return 0;
 }
 
