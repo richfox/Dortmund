@@ -6,22 +6,22 @@
 //########################################################
 
 #pragma once
-#include <memory>
 #include "cppunit\TestFixture.h"
 #include "cppunit/extensions/HelperMacros.h"
 
 
-
-
-class ParserTest : public CppUnit::TestFixture
+class BGLTest : public CppUnit::TestFixture
 {
-   CPPUNIT_TEST_SUITE(ParserTest);
+   CPPUNIT_TEST_SUITE(BGLTest);
    CPPUNIT_TEST(test);
    CPPUNIT_TEST_SUITE_END();
 
 public:
-   void setUp();
-   void tearDown();
+   void setUp()
+   {}
+
+   void tearDown()
+   {}
 
    void test();
 };

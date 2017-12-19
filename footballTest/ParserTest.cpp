@@ -25,7 +25,7 @@ void ParserTest::tearDown()
 {}
 
 
-void ParserTest::testTokenizer()
+void ParserTest::test()
 {
    vector<wstring> tokens;
 
