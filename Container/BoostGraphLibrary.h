@@ -7,18 +7,87 @@
 //BGL
 //http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/index.html
 //https://www.ibm.com/developerworks/cn/aix/library/au-aix-boost-graph/index.html
+//https://www.youtube.com/watch?v=bIA8HEEUxZI
 
 #pragma once
+#include <iostream>
+#include <vector>
+#include <string>
 #include "boost/graph/adjacency_list.hpp"
+#include "boost/graph/depth_first_search.hpp"
+#include "boost/graph/breadth_first_search.hpp"
+#include "boost/graph/graph_traits.hpp"
+#include "boost/property_map/property_map.hpp"
 
 
 namespace XFU
 {
-   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::undirectedS> undirectedGraph;
-   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::directedS> directedGraph;
-   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::bidirectionalS> bidirectedGraph;
+   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::undirectedS> UndirectedGraph;
+   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::directedS> DirectedGraph;
+   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::bidirectionalS> BidirectedGraph;
+   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::undirectedS,boost::no_property,boost::property<boost::edge_weight_t,int>> EdgeWeightGraph;
 
-   undirectedGraph __declspec(dllexport) create_undirected_graph();
-   directedGraph __declspec(dllexport) create_directed_graph();
-   bidirectedGraph __declspec(dllexport) create_bidirected_graph();
+
+   UndirectedGraph __declspec(dllexport) create_undirected_graph();
+   DirectedGraph __declspec(dllexport) create_directed_graph();
+   EdgeWeightGraph __declspec(dllexport) create_directed_edge_weight_graph();
+   BidirectedGraph __declspec(dllexport) create_bidirected_graph();
+
+   struct VertexProperty
+   {
+      VertexProperty()
+      {}
+
+      VertexProperty(int i,const std::string& n)
+         :_index(i),_name(n)
+      {}
+
+      size_t _index;
+      std::string _name;
+   };
+
+   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::undirectedS,VertexProperty> MyGraph;
+   typedef boost::graph_traits<MyGraph>::vertex_descriptor MyVertex; 
+   typedef boost::graph_traits<MyGraph>::edge_descriptor MyEdge;
+
+   class DFSVisitor : public boost::default_dfs_visitor
+   {
+   public:
+      template<typename V,typename G>
+      void discover_vertex(V v,const G& g) const
+      {
+         std::cout << "At " << v << std::endl;
+      }
+
+      template<typename E,typename G>
+      void examine_edge(E e,const G& g) const
+      {
+         std::cout << "Examining edges" << e << std::endl;
+      }
+   };
+
+   template<typename C>
+   class BFSVisitor : public boost::default_bfs_visitor
+   {
+      typedef typename boost::property_traits<C>::value_type T;
+   public:
+      BFSVisitor(C map,T& t)
+         :_map(map),_time(t)
+      {}
+
+      template<typename V,typename G>
+      void discover_vertex(V v,const G& g) const
+      {
+         boost::put(_map,v,_time++);
+      }
+
+   private:
+      C _map;
+      T& _time;
+   };
+
+   MyGraph create_my_graph();
+
+   void dfs(const MyGraph& g);
+   void __declspec(dllexport) bfs();
 }
