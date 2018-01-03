@@ -9,6 +9,7 @@
 #include "BoostGraphLibrary.h"
 #include <tuple>
 
+#include "boost/pending/indirect_cmp.hpp"
 
 
 using namespace std;
@@ -112,6 +113,8 @@ BidirectedGraph XFU::create_bidirected_graph()
    return g;
 }
 
+
+
 MyGraph XFU::create_my_graph()
 {
    //https://www.youtube.com/watch?v=bIA8HEEUxZI
@@ -127,13 +130,15 @@ MyGraph XFU::create_my_graph()
    //    \|
    //     G
 
-   enum : int {A,B,C,D,E,F,G,H}; 
-   const char* name[] = {"A","B","C","D","E","F","G","H"};
+   enum : int {A,B,C,D,E,F,G,H};
+
+   const string name[] = {"A","B","C","D","E","F","G","H"};
+   
    
 
-   MyGraph g(H);
-   boost::property_map<MyGraph,size_t VertexProperty::*>::type getidx = get(&VertexProperty::_index,g);
-   boost::property_map<MyGraph,string VertexProperty::*>::type getname = get(&VertexProperty::_name,g);
+   MyGraph g;
+   //boost::property_map<MyGraph,size_t VertexProperty::*>::type getidx = get(&VertexProperty::_index,g);
+   //boost::property_map<MyGraph,string VertexProperty::*>::type getname = get(&VertexProperty::_name,g);
 
 
    MyVertex va = add_vertex(VertexProperty(A,name[A]),g);
@@ -144,6 +149,7 @@ MyGraph XFU::create_my_graph()
    MyVertex vf = add_vertex(VertexProperty(F,name[F]),g);
    MyVertex vg = add_vertex(VertexProperty(G,name[G]),g);
    MyVertex vh = add_vertex(VertexProperty(H,name[H]),g);
+
 
    add_edge(va,vb,g);
    add_edge(va,vd,g);
@@ -158,25 +164,72 @@ MyGraph XFU::create_my_graph()
    return g;
 }
 
-void XFU::dfs(const MyGraph& g)
+string XFU::dfs()
 {
-   DFSVisitor vis;
+   string order;
+
+   MyGraph& g = create_my_graph();
+   size_t N = num_vertices(g);
+
+   // a vector to hold the discover time property for each vertex
+   vector<MySize> dtime(N);
+   MySize time = 0;
+   DFSVisitor<MySize*> vis(&dtime[0],time);
    depth_first_search(g,visitor(vis));
+
+   for (size_t i=0; i<N; i++)
+   {
+      //cout << dtime[i] << g[dtime[i]]._name << " ";
+   }
+
+   // use std::sort to order the vertices by their discover time
+   vector<MySize> discover_order(N);
+   integer_range<size_t> range(0,N);
+   copy(range.begin(),range.end(),discover_order.begin());
+   sort(discover_order.begin(),discover_order.end(),indirect_cmp<MySize*,less<MySize>>(&dtime[0]));
+
+   for (size_t i=0; i<N; i++)
+   {
+      cout << discover_order[i] << g[discover_order[i]]._name << " ";
+      order += g[discover_order[i]]._name;
+   }
+   cout << endl;
+
+   return order;
 }
 
-void XFU::bfs()
-{
-   MyGraph& g = create_my_graph();
 
-   vector<graph_traits<MyGraph>::vertices_size_type> map(num_vertices(g));
-   graph_traits<MyGraph>::vertices_size_type time = 0;
-   BFSVisitor<graph_traits<MyGraph>::vertices_size_type*> vis(&map[0],time);
+string XFU::bfs()
+{
+   string order;
+
+   MyGraph& g = create_my_graph();
+   size_t N = num_vertices(g);
+
+   // a vector to hold the discover time property for each vertex
+   vector<MySize> dtime(N);
+   MySize time = 0;
+   BFSVisitor<MySize*> vis(&dtime[0],time);
    breadth_first_search(g,0,visitor(vis));
 
-   boost::property_map<MyGraph,size_t VertexProperty::*>::type getidx = boost::get(&VertexProperty::_index,g);
-   boost::property_map<MyGraph,string VertexProperty::*>::type getname = boost::get(&VertexProperty::_name,g);
+   
+   for (size_t i=0; i<N; i++)
+   {
+      //cout << dtime[i] << g[dtime[i]]._name << " ";
+   }
 
-   for (int i=0; i<num_vertices(g); i++)
-      cout << getname[map[i]] << map[i] << boost::get(getidx,map[i]) << " ";
+   // use std::sort to order the vertices by their discover time
+   vector<MySize> discover_order(N);
+   integer_range<size_t> range(0,N);
+   copy(range.begin(),range.end(),discover_order.begin());
+   sort(discover_order.begin(),discover_order.end(),indirect_cmp<MySize*,less<MySize>>(&dtime[0]));
+
+   for (size_t i=0; i<N; i++)
+   {
+      cout << discover_order[i] << g[discover_order[i]]._name << " ";
+      order += g[discover_order[i]]._name;
+   }
    cout << endl;
+
+   return order;
 }

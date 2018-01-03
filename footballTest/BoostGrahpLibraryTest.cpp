@@ -39,5 +39,8 @@ void BGLTest::test()
 
 
    cout << "BFS discovery order: " << endl;
-   bfs();
+   CPPUNIT_ASSERT(bfs()=="ABDGEFCH");
+
+   cout << "DFS discovery order: " << endl;
+   CPPUNIT_ASSERT(dfs()=="ABEGFCHD");
 }

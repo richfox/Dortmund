@@ -49,27 +49,36 @@ namespace XFU
    typedef boost::adjacency_list<boost::listS,boost::vecS,boost::undirectedS,VertexProperty> MyGraph;
    typedef boost::graph_traits<MyGraph>::vertex_descriptor MyVertex; 
    typedef boost::graph_traits<MyGraph>::edge_descriptor MyEdge;
+   typedef boost::graph_traits<MyGraph>::vertices_size_type MySize;
 
+   //Depth First Search Visitor
+   template<typename C>
    class DFSVisitor : public boost::default_dfs_visitor
    {
+      typedef typename boost::property_traits<C>::value_type T;
+
    public:
+      DFSVisitor(C map,T& t)
+         :_map(map),_time(t)
+      {}
+
       template<typename V,typename G>
-      void discover_vertex(V v,const G& g) const
+      void discover_vertex(V v, const G& g) const
       {
-         std::cout << "At " << v << std::endl;
+         boost::put(_map,v,_time++);
       }
 
-      template<typename E,typename G>
-      void examine_edge(E e,const G& g) const
-      {
-         std::cout << "Examining edges" << e << std::endl;
-      }
+   private:
+      C _map;
+      T& _time;
    };
 
+   //Breadth First Search Visitor
    template<typename C>
    class BFSVisitor : public boost::default_bfs_visitor
    {
       typedef typename boost::property_traits<C>::value_type T;
+
    public:
       BFSVisitor(C map,T& t)
          :_map(map),_time(t)
@@ -88,6 +97,6 @@ namespace XFU
 
    MyGraph create_my_graph();
 
-   void dfs(const MyGraph& g);
-   void __declspec(dllexport) bfs();
+   std::string __declspec(dllexport) dfs();
+   std::string __declspec(dllexport) bfs();
 }
