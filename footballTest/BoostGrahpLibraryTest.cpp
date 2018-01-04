@@ -43,4 +43,8 @@ void BGLTest::test()
 
    cout << "DFS discovery order: " << endl;
    CPPUNIT_ASSERT(dfs()=="ABEGFCHD");
+
+   const auto distance = dijkstra();
+   CPPUNIT_ASSERT(distance[4]==-1);
+   CPPUNIT_ASSERT(distance[6]==70);
 }

@@ -7,7 +7,8 @@
 //BGL
 //http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/index.html
 //https://www.ibm.com/developerworks/cn/aix/library/au-aix-boost-graph/index.html
-//https://www.youtube.com/watch?v=bIA8HEEUxZI
+
+
 
 #pragma once
 #include <iostream>
@@ -26,7 +27,7 @@ namespace XFU
    typedef boost::adjacency_list<boost::listS,boost::vecS,boost::directedS> DirectedGraph;
    typedef boost::adjacency_list<boost::listS,boost::vecS,boost::bidirectionalS> BidirectedGraph;
    typedef boost::adjacency_list<boost::listS,boost::vecS,boost::undirectedS,boost::no_property,boost::property<boost::edge_weight_t,int>> EdgeWeightGraph;
-
+   typedef boost::adjacency_list<boost::listS,boost::vecS,boost::directedS,boost::no_property,boost::property<boost::edge_weight_t,int>> DirectedEdgeWeightGraph;
 
    UndirectedGraph __declspec(dllexport) create_undirected_graph();
    DirectedGraph __declspec(dllexport) create_directed_graph();
@@ -99,4 +100,5 @@ namespace XFU
 
    std::string __declspec(dllexport) dfs();
    std::string __declspec(dllexport) bfs();
+   std::vector<size_t> __declspec(dllexport) dijkstra();
 }
