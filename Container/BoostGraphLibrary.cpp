@@ -244,14 +244,13 @@ std::vector<size_t> XFU::dijkstra()
   typedef graph_traits<DirectedEdgeWeightGraph>::vertex_descriptor vertex_descriptor;
   typedef std::pair<int, int> Edge;
 
-  const int num_nodes = 5;
-  enum nodes {A, B, C, D, E, F, G, H};
+  enum nodes {A, B, C, D, E, F, G, H, NUM};
   char name[] = "ABCDEFGH";
   Edge edge_array[] = { Edge(A,B), Edge(A,D), Edge(A,G), Edge(B,F), Edge(C,D), Edge(C,F), Edge(C,H),
      Edge(D,C), Edge(D,G), Edge(E,B), Edge(E,G), Edge(F,C), Edge(F,D), Edge(G,A)};
   int weights[] = {20, 80, 90, 10, 10, 50, 20, 10, 20, 50, 30, 10, 40, 20};
   int num_arcs = sizeof(edge_array) / sizeof(Edge);
-  DirectedEdgeWeightGraph g(edge_array, edge_array + num_arcs, weights, num_nodes);
+  DirectedEdgeWeightGraph g(edge_array, edge_array + num_arcs, weights, NUM);
   property_map<DirectedEdgeWeightGraph, edge_weight_t>::type weightmap = get(edge_weight, g);
   std::vector<vertex_descriptor> p(num_vertices(g));
   std::vector<vertex_descriptor> d(num_vertices(g));
