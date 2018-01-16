@@ -11,6 +11,7 @@
 
 #include "boost/pending/indirect_cmp.hpp"
 #include "boost/graph/dijkstra_shortest_paths.hpp"
+#include "boost/graph/kruskal_min_spanning_tree.hpp"
 
 
 using namespace std;
@@ -270,4 +271,34 @@ std::vector<size_t> XFU::dijkstra()
   std::cout << std::endl;
 
   return d;
+}
+
+int XFU::kruskal()
+{
+   //https://www.youtube.com/watch?v=GJ17vvqY6aE
+
+   int sweight = 0;
+   typedef graph_traits<EdgeWeightGraph>::edge_descriptor EdgeDescriptor;
+   typedef std::pair<int, int> Edge;
+
+   enum nodes {A, B, C, D, E, F, G, H, NUM};
+   char name[] = "ABCDEFGH";
+   Edge edge_array[] = { Edge(A,B), Edge(A,C), Edge(A,D), Edge(B,D), Edge(B,F), Edge(C,D), Edge(C,F),
+      Edge(D,E), Edge(D,F), Edge(D,G), Edge(D,H), Edge(E,H), Edge(F,G), Edge(G,H)};
+   int weights[] = {4, 3, 5, 3, 6, 2, 8, 5, 6, 5, 7, 6, 4, 2};
+
+   EdgeWeightGraph g(edge_array,edge_array+_countof(edge_array),weights,NUM);
+   property_map<EdgeWeightGraph, edge_weight_t>::type weightmap = get(edge_weight,g);
+   vector<EdgeDescriptor> tree;
+
+   kruskal_minimum_spanning_tree(g,std::back_inserter(tree));
+
+   cout << "Print the edges in the MST:" << endl;
+   for(vector<EdgeDescriptor>::iterator ei=tree.begin(); ei!=tree.end(); ei++)
+   {
+      cout << name[source(*ei,g)] << " <--> " << name[target(*ei,g)] << " with weight of " << weightmap[*ei] << endl;
+      sweight += weightmap[*ei];
+   }
+
+   return sweight;
 }

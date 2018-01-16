@@ -6,7 +6,6 @@
 //########################################################
 //BGL
 //http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/index.html
-//https://www.ibm.com/developerworks/cn/aix/library/au-aix-boost-graph/index.html
 
 
 
@@ -101,4 +100,5 @@ namespace XFU
    std::string __declspec(dllexport) dfs();
    std::string __declspec(dllexport) bfs();
    std::vector<size_t> __declspec(dllexport) dijkstra();
+   int __declspec(dllexport) kruskal();
 }

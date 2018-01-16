@@ -47,4 +47,7 @@ void BGLTest::test()
    const auto distance = dijkstra();
    CPPUNIT_ASSERT(distance[4]==-1);
    CPPUNIT_ASSERT(distance[6]==70);
+
+   const auto treeweight = kruskal();
+   CPPUNIT_ASSERT(treeweight==24);
 }
