@@ -27,20 +27,6 @@ using namespace XFU;
 
 
 
-int globaltemp = 0;
-
-const int get_temp()
-{
-   return globaltemp;
-}
-
-void set_temp(const int& t)
-{
-   globaltemp = t;
-}
-
-
-
 
 
 
@@ -95,26 +81,13 @@ int _tmain(int argc, _TCHAR* argv[])
    CHECK_ERROR(get_cache(ttt).Cached()->find(1)->second==20,L"error");
    CHECK_ERROR(get_cache(ttt).Cached()->find(2)->second==3,L"error");
 
-   //test Guard
-   XFU::Guard<int> guard([&]()->int
-   {
-      return globaltemp;
-   },[&](const int& t)
-   {
-      globaltemp = t;
-   });
 
-   globaltemp = 1;
-
-   std::unique_ptr<XFU::Guard<int>> guardheap(new XFU::Guard<int>(get_temp,set_temp));
-
-   globaltemp = 2;
 
    //test Factorial
    CHECK_ERROR(XFU::Factorial<5>::value==XFU::fac(5),L"error");
 
    //test Path
-   CHECK_ERROR(XFU::XFUPath::GetModulePath()==L"D:\\xfu_studio_files\\new_test_at_dortmund",L"error");
+   CHECK_ERROR(XFU::XFUPath::GetModulePath()==L"D:\\xfu_studio_files\\install",L"error");
    CHECK_ERROR(XFU::XFUPath::GetSystemTempPath()==L"C:\\Users\\XFU~1.INT\\AppData\\Local\\Temp\\xfu",L"error");
    
    wstring roaming = XFU::XFUPath::GetRoamingPath();

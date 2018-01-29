@@ -16,7 +16,7 @@ namespace XFU
          _data = _getter();
       }
 
-      Guard(const T (*getter)(),void (*setter)(const T&))
+      Guard(const T& (*getter)(),void (*setter)(const T&))
          :_getter(getter),
          _setter(setter)
       {
