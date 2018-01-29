@@ -9,7 +9,7 @@ namespace XFU
    class Guard sealed : public Object, private NonCopyable
    {
    public:
-      Guard(std::function<const T()>&& getter,std::function<void(const T&)>&& setter)
+      Guard(std::function<const T&()>&& getter,std::function<void(const T&)>&& setter)
          :_getter(getter),
          _setter(setter)
       {
