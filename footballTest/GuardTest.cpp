@@ -16,7 +16,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(GuardTest);
 
 int globaltemp = 0;
 
-const int& get_temp()
+const int get_temp()
 {
    return globaltemp;
 }
