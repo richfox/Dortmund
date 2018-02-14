@@ -164,6 +164,7 @@
     <ClInclude Include="DecoratorTest.h" />
     <ClInclude Include="footballTest.h" />
     <ClInclude Include="GuardTest.h" />
+    <ClInclude Include="ObjectStringTest.h" />
     <ClInclude Include="ParserTest.h" />
     <ClInclude Include="SingletonTest.h" />
     <ClInclude Include="stdafx.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="footballTest.cpp" />
     <ClCompile Include="GuardTest.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectStringTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="SingletonTest.cpp" />
     <ClCompile Include="stdafx.cpp">
