@@ -136,4 +136,9 @@ void ObjectStringTest::test()
    CPPUNIT_ASSERT(is_symmetrical(string8)==true);
    string8 = L"test _tset";
    CPPUNIT_ASSERT(is_symmetrical(string8)==false);
+
+   int dis = edit_distance<wchar_t>(L"Sunday",L"Saturday",1,1,1);
+   CPPUNIT_ASSERT(dis == 3);
+   dis = edit_distance<wchar_t>(L"Sitting",L"Kitten",1,1,1);
+   CPPUNIT_ASSERT(dis == 3);
 }
