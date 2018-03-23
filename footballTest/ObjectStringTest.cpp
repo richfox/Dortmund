@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "ObjectStringTest.h"
 #include "..\Container\ObjectString.h"
+#include "..\Container\StringUtil.h"
 
 using namespace std;
 using namespace XFU;
@@ -141,4 +142,9 @@ void ObjectStringTest::test()
    CPPUNIT_ASSERT(dis == 3);
    dis = edit_distance<wchar_t>(L"Sitting",L"Kitten",1,1,1);
    CPPUNIT_ASSERT(dis == 3);
+
+   size_t close = -1;
+   bool res = search_close_bracket(L"(((1+2)*3)-1)",0,close);
+   CPPUNIT_ASSERT(res == true);
+   CPPUNIT_ASSERT(close == 12);
 }
