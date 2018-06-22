@@ -19,3 +19,37 @@
 #define DP_FUNC_(c)      _DP_SPEC c DP_CV
 #define DP_FUNC_INL      _DP_INL_SPEC DP_CV
 #define DP_FUNC_INL_(c)  _DP_INL_SPEC c DP_CV
+
+
+
+class Object
+{
+public:
+   virtual ~Object()
+   {}
+};
+
+
+class NonCopyable
+{
+protected:
+   NonCopyable()
+   {}
+
+private:
+   NonCopyable(const NonCopyable&)
+   {}
+
+   NonCopyable& operator=(const NonCopyable&)
+   {
+      return *this;
+   }
+};
+
+
+class Interface : private NonCopyable
+{
+public:
+   virtual ~Interface()
+   {}
+};

@@ -39,6 +39,9 @@
     <ClInclude Include="LokiThreads.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -48,6 +51,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

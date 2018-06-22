@@ -100,7 +100,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(OutDir);D:\xfu_studio_files\externalSDKs\boost\lib\x86;D:\xfu_studio_files\externalSDKs\cppunit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Container.lib;cppunitd.lib;football.lib;Parser.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Container.lib;DesignPattern.lib;cppunitd.lib;football.lib;Parser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,7 +115,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(OutDir);D:\xfu_studio_files\externalSDKs\boost\lib\x64;D:\xfu_studio_files\externalSDKs\cppunit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Container.lib;cppunit64d.lib;football.lib;Parser.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Container.lib;DesignPattern.lib;cppunit64d.lib;football.lib;Parser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,7 +134,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(OutDir);D:\xfu_studio_files\externalSDKs\boost\lib\x86;D:\xfu_studio_files\externalSDKs\cppunit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Container.lib;cppunit.lib;football.lib;Parser.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Container.lib;DesignPattern.lib;cppunit.lib;football.lib;Parser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,7 +153,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(OutDir);D:\xfu_studio_files\externalSDKs\boost\lib\x64;D:\xfu_studio_files\externalSDKs\cppunit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Container.lib;cppunit64.lib;football.lib;Parser.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Container.lib;DesignPattern.lib;cppunit64.lib;football.lib;Parser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -165,6 +165,7 @@
     <ClInclude Include="footballTest.h" />
     <ClInclude Include="GuardTest.h" />
     <ClInclude Include="ObjectStringTest.h" />
+    <ClInclude Include="ObserverTest.h" />
     <ClInclude Include="ParserTest.h" />
     <ClInclude Include="SingletonTest.h" />
     <ClInclude Include="stdafx.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="GuardTest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectStringTest.cpp" />
+    <ClCompile Include="ObserverTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="SingletonTest.cpp" />
     <ClCompile Include="stdafx.cpp">
