@@ -26,6 +26,11 @@ namespace XFU
          return _x;
       }
 
+      void SetX(int x)
+      {
+         _x = x;
+      }
+
    private:
       int _x;
    };
