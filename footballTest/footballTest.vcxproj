@@ -164,6 +164,7 @@
     <ClInclude Include="DecoratorTest.h" />
     <ClInclude Include="footballTest.h" />
     <ClInclude Include="GuardTest.h" />
+    <ClInclude Include="Miscellaneous.h" />
     <ClInclude Include="ObjectStringTest.h" />
     <ClInclude Include="ObserverTest.h" />
     <ClInclude Include="ParserTest.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="footballTest.cpp" />
     <ClCompile Include="GuardTest.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Miscellaneous.cpp" />
     <ClCompile Include="ObjectStringTest.cpp" />
     <ClCompile Include="ObserverTest.cpp" />
     <ClCompile Include="ParserTest.cpp" />

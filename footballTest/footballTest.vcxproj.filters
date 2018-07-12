@@ -48,6 +48,9 @@
     <ClInclude Include="ObserverTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Miscellaneous.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObserverTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Miscellaneous.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
