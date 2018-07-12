@@ -18,7 +18,9 @@ void MiscellaneousTest::testFoo()
 {
    int32_t foo = 0xFFFFFFFF;
    CPPUNIT_ASSERT(foo == -1);
+   CPPUNIT_ASSERT(foo == 0xFFFFFFFF);
 
    foo = 0xFFFFFFFE;
    CPPUNIT_ASSERT(foo == -2);
+   CPPUNIT_ASSERT(foo == 0xFFFFFFFE);
 }
