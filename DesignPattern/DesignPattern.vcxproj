@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="basedef.h" />
     <ClInclude Include="Decorator.h" />
+    <ClInclude Include="Iterator.h" />
     <ClInclude Include="LokiThreads.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Singleton.h" />
