@@ -9,6 +9,7 @@
 #include "Factorial.h"
 #include "path.h"
 #include "RegexUtil.h"
+#include "Operator.h"
 #include <conio.h>
 #include <sstream>
 #include <fstream>
@@ -119,6 +120,20 @@ int _tmain(int argc, _TCHAR* argv[])
    wregex wre = wregex(str_to_ecmascript_regex(L"$(UserRootDir)\\Microsoft"));
    CHECK_ERROR(regex_search(testexpress,wre)==true,L"error");
    CHECK_ERROR(testexpress.length()-regex_replace(testexpress,wre,L"").length()==wstring(L"$(UserRootDir)\\Microsoft").length()*2,L"error");
+
+   //test for with index
+   int idx = 0;
+   std::vector<int> testv(2,6);
+   FOR_OPERATOR(std::vector<int>,it,testv,ii)
+   {
+      if (idx == 0)
+      {
+         CHECK_ERROR(ii==0,L"error");
+         CHECK_ERROR(*it==6,L"error");
+      }
+      idx++;
+   }
+   CHECK_ERROR(idx==2,L"error");
 
    return 0;
 }

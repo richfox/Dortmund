@@ -103,3 +103,4 @@ constexpr inline EnumUnderlyingT<T> to_underlying(T&& t) noexcept
 {
    return static_cast<typename std::underlying_type_t<T>>(t);
 }
+

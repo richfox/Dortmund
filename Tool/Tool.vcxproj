@@ -170,6 +170,7 @@
     <ClInclude Include="Factorial.h" />
     <ClInclude Include="Guard.h" />
     <ClInclude Include="meta.h" />
+    <ClInclude Include="Operator.h" />
     <ClInclude Include="path.h" />
     <ClInclude Include="RegexUtil.h" />
     <ClInclude Include="stdafx.h" />
