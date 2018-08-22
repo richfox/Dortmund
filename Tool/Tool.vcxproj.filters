@@ -54,7 +54,7 @@
     <ClInclude Include="RegexUtil.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Operator.h">
+    <ClInclude Include="Operation.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

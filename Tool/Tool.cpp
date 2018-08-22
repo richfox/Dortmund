@@ -9,7 +9,7 @@
 #include "Factorial.h"
 #include "path.h"
 #include "RegexUtil.h"
-#include "Operator.h"
+#include "Operation.h"
 #include <conio.h>
 #include <sstream>
 #include <fstream>
