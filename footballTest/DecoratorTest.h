@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <memory>
@@ -8,7 +8,7 @@
 
 
 /***********************************************************/
-/* Klasse f�r %BASE                                        */
+/* Klasse für %BASE                                        */
 /***********************************************************/
 class SymAttString
 {
@@ -35,8 +35,9 @@ protected:
 };
 
 /***********************************************************/
-/* Klasse f�r Decorator von %BASE                          */
+/* Klasse für Decorator von %BASE                          */
 /***********************************************************/
+//Decorator 必须继承基类，同时聚合一个基类子对象
 class SymAttStringDecorator : public XFU::Decorator<SymAttString>
 {
 protected:
@@ -63,7 +64,7 @@ protected:
 };
 
 /***********************************************************/
-/* Klasse f�r %PARENT(%BASE)                               */
+/* Klasse für %PARENT(%BASE)                               */
 /***********************************************************/
 class ParentString : public SymAttString, public SymAttStringDecorator
 {
@@ -88,7 +89,7 @@ public:
 };
 
 /***********************************************************/
-/* Klasse f�r %NOBASE                          */
+/* Klasse für %NOBASE                          */
 /***********************************************************/
 class NoSymAttString : public XFU::NonDecoratable<NoSymAttString>
 {
@@ -116,7 +117,7 @@ protected:
 
 
 /***********************************************************/
-/* Klasse f�r Test                      */
+/* Klasse für Test                      */
 /***********************************************************/
 class DecoratorTest : public CppUnit::TestFixture
 {
