@@ -38,11 +38,12 @@ protected:
 /* Klasse für Decorator von %BASE                          */
 /***********************************************************/
 //Decorator 必须继承基类，同时聚合一个基类子对象
-class SymAttStringDecorator : public XFU::Decorator<SymAttString>
+class SymAttStringDecorator : public SymAttString, public XFU::Decorator<SymAttString>
 {
 protected:
    SymAttStringDecorator(SymAttString* str)
-      :XFU::Decorator<SymAttString>(str)
+      :SymAttString(*str),
+      XFU::Decorator<SymAttString>(str)
    {
       _sastr = GetDecoratedType();
    }
@@ -66,12 +67,11 @@ protected:
 /***********************************************************/
 /* Klasse für %PARENT(%BASE)                               */
 /***********************************************************/
-class ParentString : public SymAttString, public SymAttStringDecorator
+class ParentString : public SymAttStringDecorator
 {
 public:
    ParentString(SymAttString* sa)
-      :SymAttString(*sa),
-      SymAttStringDecorator(sa)
+      :SymAttStringDecorator(sa)
    {}
 
    virtual ~ParentString()
