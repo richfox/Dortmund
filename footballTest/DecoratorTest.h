@@ -51,7 +51,7 @@ protected:
    virtual ~SymAttStringDecorator()
    {}
 
-   void SetWithKeyWord()
+   virtual void SetWithKeyWord()
    {
       _sastr->SetWithKeyWord();
    }
