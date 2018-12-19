@@ -9,6 +9,7 @@
 #include "ObjectStringTest.h"
 #include "..\Container\ObjectString.h"
 #include "..\Container\StringUtil.h"
+#include "..\LibraryManaged\LibraryManaged.h"
 
 using namespace std;
 using namespace XFU;
@@ -147,4 +148,6 @@ void ObjectStringTest::test()
    bool res = search_close_bracket(L"(((1+2)*3)-1)",0,close);
    CPPUNIT_ASSERT(res == true);
    CPPUNIT_ASSERT(close == 12);
+
+   CPPUNIT_ASSERT(Managed::test_string_converter() == true);
 }
