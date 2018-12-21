@@ -13,6 +13,18 @@ namespace XFU
    };
 
 
+   //Alias template
+   template<typename T>
+   using stdstr = std::basic_string<T,std::char_traits<T>,std::allocator<T>>;
+
+   template<typename T>
+   struct DotNetTypeConverter<System::String^,stdstr<T>>
+   {
+      static void ConvertToNative(const System::String^% in,stdstr<T>& out);
+      static void ConvertToManaged(const stdstr<T>& in,System::String^% out);
+   };
+
+
    template<typename T>
    struct DotNetTypeConverter<System::String^,ObjectString<T>>
    {
