@@ -88,7 +88,7 @@ int _tmain(int argc, _TCHAR* argv[])
    CHECK_ERROR(XFU::Factorial<5>::value==XFU::fac(5),L"error");
 
    //test Path
-   CHECK_ERROR(XFU::XFUPath::GetModulePath()==L"D:\\xfu_studio_files\\install",L"error");
+   CHECK_ERROR(XFU::XFUPath::GetModulePath()==L"D:\\xfu_studio_files\\new_test_at_dortmund\\..\\install",L"error");
    CHECK_ERROR(XFU::XFUPath::GetSystemTempPath()==L"C:\\Users\\XFU~1.INT\\AppData\\Local\\Temp\\xfu",L"error");
    
    wstring roaming = XFU::XFUPath::GetRoamingPath();
@@ -107,7 +107,7 @@ int _tmain(int argc, _TCHAR* argv[])
    wchar_t currentPath[MAX_PATH];
    _wgetcwd(currentPath,_countof(currentPath));
    CHECK_ERROR(XFUPath::FindFileInPath(currentPath,L"Tool.exe")==false,L"error");
-   CHECK_ERROR(XFUPath::FindFileInPath(currentPath,L"Tool.obj")==true,L"error");
+   CHECK_ERROR(XFUPath::FindFileInPath(currentPath,L"Tool.cpp")==true,L"error");
 
 
    //test regex
@@ -134,6 +134,12 @@ int _tmain(int argc, _TCHAR* argv[])
       idx++;
    }
    CHECK_ERROR(idx==2,L"error");
+
+   //test variadic
+   int a=0,b=0,c=0;
+   double d = 1.1;
+   std::wstring e = L"test";
+   auto t = NUMARGS(a,b,c,d,e);
 
    return 0;
 }

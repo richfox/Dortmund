@@ -4,7 +4,10 @@
 #include <type_traits>
 #include <vector>
 #include <map>
+#include <tuple>
 
+
+#define NUMARGS(...) std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value
 
 namespace XFU
 {
