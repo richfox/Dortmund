@@ -1363,10 +1363,10 @@ void _tmain(int argc, _TCHAR* argv[])
     for (const Child& child : children)
     {
        std::cout << child._name << " was born in " << child._birthday.c_str() << std::endl;
-       LOGMESSAGE(std::wstring(child._nationality.begin(),child._nationality.end()).c_str());
+       CONSOLE_MESSAGE(std::wstring(child._nationality.begin(),child._nationality.end()).c_str());
        wstringstream wss;
        wss << __FILE__ << L":" << __LINE__ << L":" << child._nationality.c_str() << L"\n";
-       LOGMESSAGE(wss.str().c_str());
+       CONSOLE_MESSAGE(wss.str().c_str());
     }
 
 #ifdef  _WIN64
