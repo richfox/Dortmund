@@ -24,7 +24,7 @@ private:
    {
       _count++;
    }
-
+public:
    ~FOO()
    {
       _count--;
@@ -36,6 +36,8 @@ private:
    friend FOO& get_static_singleton();
 
    friend struct Loki::CreateUsingNew<FOO>;
+
+   friend FOO get_local_singleton();
 };
 
 int FOO::_count = 0;
@@ -46,7 +48,11 @@ FOO& get_static_singleton()
    return t;
 }
 
-
+FOO get_local_singleton()
+{
+   static FOO t;
+   return t;
+}
 
 class SingletonTest : public CppUnit::TestFixture
 {
