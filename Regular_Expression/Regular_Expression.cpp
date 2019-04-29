@@ -568,6 +568,59 @@ void setLeg(const Leg& leg)
 }
 
 
+class TPoint1
+{
+public:
+   TPoint1(int x,int y)
+   {
+      _X = x;
+      _Y = y;
+   }
+   TPoint1(const TPoint1& p)
+   {
+      _X = p._X;
+      _Y = p._Y;
+      cout << "Copy constructor called\n";
+   }
+   TPoint1& operator=(const TPoint1& p)
+   {
+      _X = p._X;
+      _Y = p._Y;
+      cout << "Copy operator called\n";
+      return *this;
+   }
+   TPoint1 operator[](const TPoint1& p)
+   {
+      _X = p._X;
+      _Y = p._Y;
+      cout << "Copy operator called\n";
+      return *this;
+   }
+   ~TPoint1()
+   {
+      cout << "Destructor called\n";
+   }
+   int Xcoord()
+   {
+      return _X;
+   }
+   int Ycoord()
+   {
+      return _Y;
+   }
+private:
+   int _X, _Y;
+};
+
+TPoint1 fun(TPoint1 Q)
+{
+   cout << "ok\n";
+   int x = Q.Xcoord() + 10;
+   int y = Q.Ycoord() + 15;
+   TPoint1 R(x,y);
+   return R;
+}
+
 
 void _tmain(int argc, _TCHAR* argv[])
 {
@@ -1419,6 +1472,63 @@ void _tmain(int argc, _TCHAR* argv[])
     {
        FOO foo(base.get());
     }
+
+
+    //test copy constructor
+    TPoint1 M(12,20), P(0,0), S(0,0);
+    TPoint1 N(M);
+    P = fun(N);
+    S = M;
+    cout << "P=" << P.Xcoord() << "," << P.Ycoord() << endl;
+    cout << "S=" << S.Xcoord() << "," << S.Ycoord() << endl;
+    cout << endl;
+    //运行结果
+    //Copy contructor called : 执行语句TPoint1 N(M)时调用拷贝构造
+    //Copy contructor called : 执行语句fun(N)实参初始化形参时候调用拷贝构造
+    //ok
+    //Copy contructor called : 执行语句return R后退出函数前创建临时变量时调用拷贝构造
+    //Destructor called : 析构fun函数体内的R对象
+    //Destructor called : 析构fun函数体内的Q对象
+    //Copy operator called : 执行语句P = fun(N)临时对象被释放之前，将它的内容赋值给对象P
+    //Destructor called : 析构fun函数临时对象
+    //Copy operator called : 执行语句S = M
+    //P=22,35
+    //S=12,20
+    //Destructor called : 析构N对象
+    //Destructor called : 析构S对象
+    //Destructor called : 析构P对象
+    //Destructor called : 析构M对象
+
+    TPoint1 M2(12,20), P2(0,0), S2(0,0);
+    TPoint1 N2(M2);
+    P2[fun(N2)];
+    S2[M2];
+    cout << "P2=" << P2.Xcoord() << "," << P2.Ycoord() << endl;
+    cout << "S2=" << S2.Xcoord() << "," << S2.Ycoord() << endl;
+    //运行结果
+    //Copy contructor called : 执行语句TPoint1 N2(M2)时调用拷贝构造
+    //Copy contructor called : 执行语句fun(N2)实参初始化形参时候调用拷贝构造
+    //ok
+    //Copy contructor called : 执行语句return R后退出函数前创建临时变量时调用拷贝构造
+    //Destructor called : 析构fun函数体内的R对象
+    //Destructor called : 析构fun函数体内的Q对象
+    //Copy operator called : 执行语句P2[fun(N2)]临时对象被释放之前，将它的内容赋值给对象P2
+    //Copy contructor called : 执行语句return *this后退出函数前创建临时变量时调用拷贝构造，因为这里返回不是引用
+    //Destructor called : 析构fun函数临时对象
+    //Destructor called : 析构operator[]临时对象
+    //Copy operator called : 执行语句S2[M2]
+    //Copy contructor called : 执行语句return *this后退出函数前创建临时变量时调用拷贝构造，因为这里返回不是引用
+    //Destructor called : 析构operator[]临时对象
+    //P=22,35
+    //S=12,20
+    //Destructor called : 析构N2对象
+    //Destructor called : 析构S2对象
+    //Destructor called : 析构P2对象
+    //Destructor called : 析构M2对象
+    //Destructor called : 析构N对象
+    //Destructor called : 析构S对象
+    //Destructor called : 析构P对象
+    //Destructor called : 析构M对象
 
 	_getch();
 }
