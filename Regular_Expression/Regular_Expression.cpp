@@ -7,6 +7,7 @@
 #include <set>
 #include <regex>
 #include <windows.h>
+#include <fstream>
 #include <sstream>
 #include <iostream>
 #include <unordered_map>
@@ -14,6 +15,7 @@
 #include <filesystem>
 #include "..\Tool\basedef.h"
 #include "..\Tool\Debug.h"
+#include "..\Tool\path.h"
 
 using namespace std;
 
@@ -1529,6 +1531,16 @@ void _tmain(int argc, _TCHAR* argv[])
     //Destructor called : 析构S对象
     //Destructor called : 析构P对象
     //Destructor called : 析构M对象
+
+
+    //test logging
+    wstring target = XFU::XFUPath::GetSystemTempPath() + L"\\log.txt";
+    std::wofstream ofs(target.c_str());
+	_time64(&t);
+    ofs << "[" << t << "]" << " ====== Logging started ======" << "\r\n";
+    Sleep(2000);
+    _time64(&t);
+    ofs << "[" << t << "]" << " ====== Logging stopped ======" << "\r\n";
 
 	_getch();
 }
