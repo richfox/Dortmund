@@ -16,6 +16,7 @@
 #include "..\Tool\basedef.h"
 #include "..\Tool\Debug.h"
 #include "..\Tool\path.h"
+#include "..\Tool\logging.h"
 
 using namespace std;
 
@@ -1542,11 +1543,14 @@ void _tmain(int argc, _TCHAR* argv[])
     char dbuf[128] = "";
     _strtime_s(tbuf,_countof(tbuf));
     _strdate_s(dbuf,_countof(dbuf));
-    ofs << "[" << dbuf << ", " << tbuf << ", " <<utc << "]" << " ====== Logging started ======" << "\r\n";
+    ofs << "[" << dbuf << ", " << tbuf << ", " <<utc << "]" << " ====== Logging started ======" << "\n";
     Sleep(2000);
     _time64(&t);
-    ofs << "[" << utc << "]" << " ====== Logging stopped ======" << "\r\n";
+    ofs << "[" << utc << "]" << " ====== Logging stopped ======" << "\n";
+    ofs.close();
 
+    LOG_MESSAGE(target,L"====== Logging started ======");
+    LOG_MESSAGE(target,L"====== Logging stopped ======");
 	_getch();
 }
 

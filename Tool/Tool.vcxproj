@@ -169,6 +169,7 @@
     <ClInclude Include="Error.h" />
     <ClInclude Include="Factorial.h" />
     <ClInclude Include="Guard.h" />
+    <ClInclude Include="logging.h" />
     <ClInclude Include="meta.h" />
     <ClInclude Include="Operation.h" />
     <ClInclude Include="path.h" />
