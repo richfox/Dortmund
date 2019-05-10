@@ -1536,11 +1536,16 @@ void _tmain(int argc, _TCHAR* argv[])
     //test logging
     wstring target = XFU::XFUPath::GetSystemTempPath() + L"\\log.txt";
     std::wofstream ofs(target.c_str());
-	_time64(&t);
-    ofs << "[" << t << "]" << " ====== Logging started ======" << "\r\n";
+	__time64_t utc;
+    _time64(&utc);
+    char tbuf[128] = "";
+    char dbuf[128] = "";
+    _strtime_s(tbuf,_countof(tbuf));
+    _strdate_s(dbuf,_countof(dbuf));
+    ofs << "[" << dbuf << ", " << tbuf << ", " <<utc << "]" << " ====== Logging started ======" << "\r\n";
     Sleep(2000);
     _time64(&t);
-    ofs << "[" << t << "]" << " ====== Logging stopped ======" << "\r\n";
+    ofs << "[" << utc << "]" << " ====== Logging stopped ======" << "\r\n";
 
 	_getch();
 }
