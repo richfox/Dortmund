@@ -317,6 +317,19 @@ public:
 		return TrimLeft(c).TrimRight(c);
 	}
 
+    ObjectString<T>& Reverse()
+    {
+       size_t i = 0;
+       size_t j = _length -1;
+       while (i < j)
+       {
+          std::swap(_buffer[i],_buffer[j]);
+          i++;
+          j--;
+       }
+       return *this;
+    }
+
 	size_t Find(const T* buffer,size_t index,size_t count) const
 	{
 		CHECK_ERROR(index>=0 && index<=_length,L"ObjectString<T>::Find(const T*,size_t,size_t):Argument index out of range.");

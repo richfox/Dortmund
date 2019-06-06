@@ -139,6 +139,11 @@ void ObjectStringTest::test()
    string8 = L"test _tset";
    CPPUNIT_ASSERT(is_symmetrical(string8)==false);
 
+   WOString string9 = L"test";
+   CPPUNIT_ASSERT(string9.Reverse() == L"tset");
+   string9 = L"te_st";
+   CPPUNIT_ASSERT(string9.Reverse() == L"ts_et");
+
    int dis = edit_distance<wchar_t>(L"Sunday",L"Saturday",1,1,1);
    CPPUNIT_ASSERT(dis == 3);
    dis = edit_distance<wchar_t>(L"Sitting",L"Kitten",1,1,1);
