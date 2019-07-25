@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include <string>
+#include <conio.h>
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -55,7 +56,7 @@ struct FetchConfig
 		}
 
 		std::wofstream ofs(filename);
-		const auto settings = pt::xml_writer_make_settings<std::wstring>(L' ',3);
+		const auto settings = pt::xml_writer_make_settings<std::wstring>(L'&',3);
 		pt::write_xml(ofs,tree,settings);
 	}
 };
@@ -74,7 +75,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		std::cout << "Error: " << e.what() << std::endl;
 	}
-
+    _getch();
 	return 0;
 }
 
