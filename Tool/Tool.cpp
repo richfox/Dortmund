@@ -10,6 +10,7 @@
 #include "path.h"
 #include "RegexUtil.h"
 #include "Operation.h"
+#include "Invoker.h"
 #include <conio.h>
 #include <sstream>
 #include <fstream>
@@ -22,11 +23,54 @@
 
 
 
-
 using namespace std;
 using namespace XFU;
 
 
+int add(int a,int b)
+{
+   return a + b;
+};
+
+class Add
+{
+public:
+   int add(int a,int b)
+   {
+      return a + b;
+   }
+
+   int operator()(int a,int b)
+   {
+      return a + b;
+   }
+};
+
+class Foo
+{
+public:
+   Foo()
+      :_fInvoker(add),
+      _sum(0)
+   {
+      _sum += _fInvoker(1,2);
+   }
+
+   int Sum()
+   {
+      return _sum;
+   }
+
+private:
+   FreeInvoker<int,int,int> _fInvoker;
+   int _sum;
+};
+
+int do_it_once()
+{
+   static Foo ito;
+   return ito.Sum();
+}
 
 
 
@@ -140,6 +184,24 @@ int _tmain(int argc, _TCHAR* argv[])
    double d = 1.1;
    std::wstring e = L"test";
    auto t = NUMARGS(a,b,c,d,e);
+
+   //test invoker
+   FreeInvoker<int,int,int> fInvoker(add);
+   CHECK_ERROR(fInvoker.Invoke(1,2)==3,L"FreeInvoker error");
+   CHECK_ERROR(fInvoker(1,2)==3,L"FreeInvoker error");
+
+   Add madd;
+   MemberInvoker<Add,int,int,int> mInvoker(&madd,&Add::add);
+   CHECK_ERROR(mInvoker.Invoke(1,2)==3,L"MemberInvoker error");
+   CHECK_ERROR(mInvoker(1,2)==3,L"MemberInvoker error");
+   MemberInvoker<Add,int,int,int> mInvoker2(&madd,&Add::operator());
+   CHECK_ERROR(mInvoker2.Invoke(1,2)==3,L"MemberInvoker error");
+   CHECK_ERROR(mInvoker2(1,2)==3,L"MemberInvoker error");
+   
+   for (int i=0; i<10; i++)
+   {
+      CHECK_ERROR(do_it_once()==3,L"DoItOnce error");
+   }
 
    return 0;
 }
