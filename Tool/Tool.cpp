@@ -44,6 +44,11 @@ public:
    {
       return a + b;
    }
+
+   static int add2(int a,int b)
+   {
+      return a + b;
+   }
 };
 
 class Foo
@@ -71,8 +76,6 @@ int do_it_once()
    static Foo ito;
    return ito.Sum();
 }
-
-
 
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -189,6 +192,9 @@ int _tmain(int argc, _TCHAR* argv[])
    FreeInvoker<int,int,int> fInvoker(add);
    CHECK_ERROR(fInvoker.Invoke(1,2)==3,L"FreeInvoker error");
    CHECK_ERROR(fInvoker(1,2)==3,L"FreeInvoker error");
+   FreeInvoker<int,int,int> fInvoker2(Add::add2);
+   CHECK_ERROR(fInvoker2.Invoke(1,2)==3,L"FreeInvoker error");
+   CHECK_ERROR(fInvoker2(1,2)==3,L"FreeInvoker error");
 
    Add madd;
    MemberInvoker<Add,int,int,int> mInvoker(&madd,&Add::add);
@@ -198,6 +204,7 @@ int _tmain(int argc, _TCHAR* argv[])
    CHECK_ERROR(mInvoker2.Invoke(1,2)==3,L"MemberInvoker error");
    CHECK_ERROR(mInvoker2(1,2)==3,L"MemberInvoker error");
    
+
    for (int i=0; i<10; i++)
    {
       CHECK_ERROR(do_it_once()==3,L"DoItOnce error");
