@@ -78,6 +78,25 @@ int do_it_once()
    return ito.Sum();
 }
 
+template<typename T>
+class Foo2
+{
+public:
+   Foo2(const T& value,const wstring& key)
+      :_fInvoker(TmpConfig<T>::save_tmp_setting)
+   {
+      _fInvoker(value,key);
+   }
+
+private:
+   FreeInvoker<void,const T&,const wstring&> _fInvoker;
+};
+
+void do_it_once2()
+{
+   static Foo2<wstring> foo2(L"xfu",L"config.wstring");
+}
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -216,6 +235,12 @@ int _tmain(int argc, _TCHAR* argv[])
    CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==1,L"config error");
    TmpConfig<int>::save_tmp_setting(2,L"config.int");
    CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==2,L"config error");
+
+   for (int i=0; i<10; i++)
+   {
+      do_it_once2();
+   }
+   CHECK_ERROR(TmpConfig<wstring>::load_tmp_setting(L"config.wstring")==L"xfu",L"config error");
 
    return 0;
 }

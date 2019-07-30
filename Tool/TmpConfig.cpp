@@ -51,4 +51,4 @@ void TmpConfig<T>::save_tmp_setting(const T& setting,const wstring& node)
 //Explizite Instantiierungen
 template class TmpConfig<int>;
 template class TmpConfig<bool>;
-template class TmpConfig<wchar_t*>;
+template class TmpConfig<wstring>;
