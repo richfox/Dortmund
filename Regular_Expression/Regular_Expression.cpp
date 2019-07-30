@@ -1535,7 +1535,7 @@ void _tmain(int argc, _TCHAR* argv[])
 
 
     //test logging
-    wstring target = XFU::XFUPath::GetSystemTempPath() + L"\\log.txt";
+    wstring target = XFU::XFUPath::GetSystemTempPath() + L"log.txt";
     std::wofstream ofs(target.c_str());
 	__time64_t utc;
     _time64(&utc);

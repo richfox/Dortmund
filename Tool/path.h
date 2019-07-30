@@ -46,8 +46,9 @@ namespace XFU
       {
          wchar_t buffer[MAX_PATH];
          GetModuleFileNameW(nullptr,buffer,sizeof(buffer)); //D:\xfu_studio_files\new_test_at_dortmund\..\install\x64\Debug\Tool.exe
-
-         return std::tr2::sys::path(buffer).parent_path().parent_path().parent_path(); //D:\xfu_studio_files\install
+         
+         std::wstring path = std::tr2::sys::path(buffer).parent_path().parent_path().parent_path();
+         return path + L"\\"; //D:\xfu_studio_files\install
       }
 
       static const std::wstring GetSystemTempPath()
@@ -58,7 +59,7 @@ namespace XFU
          if (retval==0 || retval>_countof(buffer))
             throw Error(L"GetTempPath failed");
 
-         return std::wstring(buffer) + L"xfu"; //C:\Users\xfu.INTL\AppData\Local\Temp\xfu
+         return std::wstring(buffer) + L"xfu\\"; //C:\Users\xfu.INTL\AppData\Local\Temp\xfu
       }
 
       static const std::wstring GetRoamingPath()
@@ -68,7 +69,7 @@ namespace XFU
   
          _wgetenv_s(&requiredSize,buffer,_countof(buffer),L"APPDATA");  
 
-         return std::wstring(buffer) + L"\\xfu"; //C:\Users\xfu.INTL\AppData\Roaming\xfu
+         return std::wstring(buffer) + L"\\xfu\\"; //C:\Users\xfu.INTL\AppData\Roaming\xfu
       }
 
       static bool FindFileInPath(const std::wstring& path,const std::wstring& file)

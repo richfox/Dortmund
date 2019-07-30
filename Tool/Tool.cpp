@@ -11,6 +11,7 @@
 #include "RegexUtil.h"
 #include "Operation.h"
 #include "Invoker.h"
+#include "TmpConfig.h"
 #include <conio.h>
 #include <sstream>
 #include <fstream>
@@ -135,11 +136,11 @@ int _tmain(int argc, _TCHAR* argv[])
    CHECK_ERROR(XFU::Factorial<5>::value==XFU::fac(5),L"error");
 
    //test Path
-   CHECK_ERROR(XFU::XFUPath::GetModulePath()==L"D:\\xfu_studio_files\\new_test_at_dortmund\\..\\install",L"error");
-   CHECK_ERROR(XFU::XFUPath::GetSystemTempPath()==L"C:\\Users\\XFU~1.INT\\AppData\\Local\\Temp\\xfu",L"error");
+   CHECK_ERROR(XFU::XFUPath::GetModulePath()==L"D:\\xfu_studio_files\\new_test_at_dortmund\\..\\install\\",L"error");
+   CHECK_ERROR(XFU::XFUPath::GetSystemTempPath()==L"C:\\Users\\XFU~1.INT\\AppData\\Local\\Temp\\xfu\\",L"error");
    
    wstring roaming = XFU::XFUPath::GetRoamingPath();
-   CHECK_ERROR(roaming==L"C:\\Users\\xfu.INTL\\AppData\\Roaming\\xfu",L"error");
+   CHECK_ERROR(roaming==L"C:\\Users\\xfu.INTL\\AppData\\Roaming\\xfu\\",L"error");
    if (XFUPath::Exist(roaming))
    {
       XFUPath::Delete(roaming);
@@ -209,6 +210,12 @@ int _tmain(int argc, _TCHAR* argv[])
    {
       CHECK_ERROR(do_it_once()==3,L"DoItOnce error");
    }
+
+   //test temp config
+   TmpConfig::save_tmp_setting(1,L"config.int");
+   CHECK_ERROR(TmpConfig::load_tmp_setting(L"config.int")==1,L"config error");
+   TmpConfig::save_tmp_setting(2,L"config.int");
+   CHECK_ERROR(TmpConfig::load_tmp_setting(L"config.int")==2,L"config error");
 
    return 0;
 }

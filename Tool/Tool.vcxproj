@@ -178,9 +178,11 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="TmpConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RegexUtil.cpp" />
+    <ClCompile Include="TmpConfig.cpp" />
     <ClCompile Include="Tool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
