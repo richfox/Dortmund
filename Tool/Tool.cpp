@@ -212,10 +212,10 @@ int _tmain(int argc, _TCHAR* argv[])
    }
 
    //test temp config
-   TmpConfig::save_tmp_setting(1,L"config.int");
-   CHECK_ERROR(TmpConfig::load_tmp_setting(L"config.int")==1,L"config error");
-   TmpConfig::save_tmp_setting(2,L"config.int");
-   CHECK_ERROR(TmpConfig::load_tmp_setting(L"config.int")==2,L"config error");
+   TmpConfig<int>::save_tmp_setting(1,L"config.int");
+   CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==1,L"config error");
+   TmpConfig<int>::save_tmp_setting(2,L"config.int");
+   CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==2,L"config error");
 
    return 0;
 }

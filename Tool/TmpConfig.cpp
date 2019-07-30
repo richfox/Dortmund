@@ -11,21 +11,22 @@ using namespace std;
 using namespace XFU;
 namespace pt = boost::property_tree;
 
+template<typename T>
+wstring TmpConfig<T>::_fname = L"xfu_setting.xml";
 
-wstring TmpConfig::_fname = L"xfu_setting.xml";
-
-
-int TmpConfig::load_tmp_setting(const wstring& node)
+template<typename T>
+const T TmpConfig<T>::load_tmp_setting(const wstring& node)
 {
    pt::wptree tree;
    wstring tpath = XFUPath::GetSystemTempPath();
    wifstream ifs(tpath + _fname);
    pt::read_xml(ifs,tree);
 
-   return tree.get<int>(node);
+   return tree.get<T>(node);
 }
 
-void TmpConfig::save_tmp_setting(int setting,const wstring& node)
+template<typename T>
+void TmpConfig<T>::save_tmp_setting(const T& setting,const wstring& node)
 {
    pt::wptree tree;
    wstring tpath = XFUPath::GetSystemTempPath();
@@ -46,3 +47,8 @@ void TmpConfig::save_tmp_setting(int setting,const wstring& node)
       pt::write_xml(ofs,tree);
    }
 }
+
+//Explizite Instantiierungen
+template class TmpConfig<int>;
+template class TmpConfig<bool>;
+template class TmpConfig<wchar_t*>;
