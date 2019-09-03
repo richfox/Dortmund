@@ -45,10 +45,10 @@ namespace XFU
       static const std::wstring GetModulePath()
       {
          wchar_t buffer[MAX_PATH];
-         GetModuleFileNameW(nullptr,buffer,sizeof(buffer)); //D:\xfu_studio_files\new_test_at_dortmund\..\install\x64\Debug\Tool.exe
+         GetModuleFileNameW(nullptr,buffer,sizeof(buffer)); //E:\xfu_studio_files\new_test_at_dortmund\..\install\x64\Debug\Tool.exe
          
          std::wstring path = std::tr2::sys::path(buffer).parent_path().parent_path().parent_path();
-         return path + L"\\"; //"D:\xfu_studio_files\install\"
+         return path + L"\\"; //"E:\xfu_studio_files\install\"
       }
 
       static const std::wstring GetSystemTempPath()
