@@ -155,11 +155,13 @@ int _tmain(int argc, _TCHAR* argv[])
    CHECK_ERROR(XFU::Factorial<5>::value==XFU::fac(5),L"error");
 
    //test Path
-   CHECK_ERROR(XFU::XFUPath::GetModulePath()==L"D:\\xfu_studio_files\\new_test_at_dortmund\\..\\install\\",L"error");
-   CHECK_ERROR(XFU::XFUPath::GetSystemTempPath()==L"C:\\Users\\XFU~1.INT\\AppData\\Local\\Temp\\xfu\\",L"error");
+   wstring current = XFU::XFUPath::GetCurrentPath();
+   wstring currentparent = tr2::sys::path(current).parent_path();
+   CHECK_ERROR(XFU::XFUPath::GetModulePath()== currentparent + L"\\..\\install\\",L"error");
+   CHECK_ERROR(XFU::XFUPath::GetSystemTempPath()==L"C:\\Users\\xfu\\AppData\\Local\\Temp\\xfu\\",L"error");
    
    wstring roaming = XFU::XFUPath::GetRoamingPath();
-   CHECK_ERROR(roaming==L"C:\\Users\\xfu.INTL\\AppData\\Roaming\\xfu\\",L"error");
+   CHECK_ERROR(roaming==L"C:\\Users\\xfu\\AppData\\Roaming\\xfu\\",L"error");
    if (XFUPath::Exist(roaming))
    {
       XFUPath::Delete(roaming);

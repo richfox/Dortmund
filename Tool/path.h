@@ -40,7 +40,13 @@ namespace XFU
          return _wrmdir(path.c_str()) == 0;
       }
 
+	  static const std::wstring GetCurrentPath()
+	  {
+		  wchar_t buffer[MAX_PATH];
+		  _wgetcwd(buffer,_countof(buffer));
 
+		  return buffer;
+	  }
 
       static const std::wstring GetModulePath()
       {
