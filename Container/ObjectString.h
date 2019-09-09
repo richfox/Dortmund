@@ -151,6 +151,27 @@ public:
 		return _nopos;
     }
 
+    size_t CountOf(const ObjectString<T>& sub) const
+    {
+       CHECK_ERROR(!sub.Empty(),L"ObjectString<T>::CountOf(const ObjectString<T>&):Empty substring.");
+       size_t count = 0;
+       size_t idx = 0;
+       size_t pos = _nopos;
+       do
+       {
+          pos = Find(sub,idx);
+          if (pos != _nopos)
+          {
+             count++;
+             idx = pos + sub.Length();
+          }
+          else
+             break;
+       }while (idx < Length());
+
+       return count;
+    }
+
 	ObjectString<T>& Assign(const ObjectString<T>& string)
 	{
 		if (this != &string)
@@ -285,6 +306,39 @@ public:
 
        return *this;
     }
+
+   
+
+   std::vector<ObjectString<T>> Split(const ObjectString<T>& separator,size_t num=0) const
+   {
+      CHECK_ERROR(!separator.Empty(),L"ObjectString<T>::Split(const ObjectString<T>&):Empty separator.");
+
+      std::vector<ObjectString<T>> res;
+      size_t idx = 0;
+      size_t pos = _nopos;
+      do
+      {
+         pos = Find(separator,idx);
+         if (pos != _nopos)
+         {
+            res.push_back(Substr(idx,pos-idx));
+            idx = pos + separator.Length();
+         }
+         else
+         {
+            res.push_back(Substr(idx));
+            break;
+         }
+
+         if (num>0 && res.size()==num)
+         {
+            res.push_back(Substr(idx));
+            break;
+         }
+      }while (idx < Length());
+
+      return res;
+   }
 
 	ObjectString<T>& TrimLeft(T c)
 	{

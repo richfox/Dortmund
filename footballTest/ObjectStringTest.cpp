@@ -26,6 +26,7 @@ void ObjectStringTest::test()
    CPPUNIT_ASSERT(string.Length()==4);
    CPPUNIT_ASSERT(string[2]==L's');
    CPPUNIT_ASSERT(string.IndexOf(L't')==0);
+   CPPUNIT_ASSERT(string.CountOf(L't')==2);
 
    const auto t = string.Buffer();
    std::wstring ws(L"test");
@@ -64,6 +65,32 @@ void ObjectStringTest::test()
    substr = string.Substr(2);
    CPPUNIT_ASSERT(substr==L"stxfu");
    string.Substr(2,2).Buffer();
+
+   auto vec = string.Split(L't');
+   std::vector<WOString> vectmp{L"",L"es",L"xfu"};
+   CPPUNIT_ASSERT(vec == vectmp);
+   vec = string.Split(L"st");
+   vectmp = {L"te",L"xfu"};
+   CPPUNIT_ASSERT(vec == vectmp);
+   vec = string.Split(L"stt");
+   vectmp = {string};
+   CPPUNIT_ASSERT(vec == vectmp);
+   vectmp = {string};
+   string.Split(L"tttttttttttt");
+   CPPUNIT_ASSERT(vec == vectmp);
+   vectmp = {L"",L"estxfu"};
+   vec = string.Split(L"t",1);
+   CPPUNIT_ASSERT(vec == vectmp);
+   vectmp = {L"",L"es",L"xfu"};
+   vec = string.Split(L"t",2);
+   CPPUNIT_ASSERT(vec == vectmp);
+   vectmp = {L"",L"es",L"xfu"};
+   vec = string.Split(L"t",3);
+   CPPUNIT_ASSERT(vec == vectmp);
+   vec = string.Split(L"t",2);
+   CPPUNIT_ASSERT(vec.size() == string.CountOf(L"t") + 1);
+   vec = string.Split(L"t",-3);
+   CPPUNIT_ASSERT(vec.size() == string.CountOf(L"t") + 1);
 
    auto pos = string.Find(L"t",0,1);
    CPPUNIT_ASSERT(pos==0);
