@@ -193,7 +193,7 @@ int _tmain(int argc, _TCHAR* argv[])
    //test for with index
    int idx = 0;
    std::vector<int> testv(2,6);
-   FOR_OPERATOR(std::vector<int>,it,testv,ii)
+   FOR_EACH(testv,it,ii)
    {
       if (idx == 0)
       {
