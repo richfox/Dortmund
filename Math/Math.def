@@ -1,0 +1,5 @@
+LIBRARY "Math"
+
+EXPORTS
+   is_point_on_line
+   get_point_line_relation
