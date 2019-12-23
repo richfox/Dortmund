@@ -18,8 +18,6 @@ using namespace mat;
 CPPUNIT_TEST_SUITE_REGISTRATION(MathTest);
 
 
-static const double tol = 1.E-10;
-
 
 void MathTest::test()
 {
@@ -27,27 +25,35 @@ void MathTest::test()
 
    Point2 from(0,0);
    Point2 to(0,1);
-   Point2 query(0,0.5);
-   auto relation = get_point_line_relation(query,from,to,tol);
+   Point2 query(0,0);
+   auto relation = get_point_line_relation(query,from,to);
    CPPUNIT_ASSERT(relation == mat::PointInsideLine);
 
+   query = Point2(0,0.5);
+   relation = get_point_line_relation(query,from,to);
+   CPPUNIT_ASSERT(relation == mat::PointInsideLine);
+
+   query = Point2(0,1.5);
+   relation = get_point_line_relation(query,from,to);
+   CPPUNIT_ASSERT(relation == mat::PointOnLine);
+
    query = Point2(0,-0.5);
-   relation = get_point_line_relation(query,from,to,tol);
+   relation = get_point_line_relation(query,from,to);
    CPPUNIT_ASSERT(relation == mat::PointOnLine);
 
    query = Point2(-0.5,0.5);
-   relation = get_point_line_relation(query,from,to,tol);
+   relation = get_point_line_relation(query,from,to);
    CPPUNIT_ASSERT(relation == mat::LeftSide);
 
    query = Point2(-0.5,-0.5);
-   relation = get_point_line_relation(query,from,to,tol);
+   relation = get_point_line_relation(query,from,to);
    CPPUNIT_ASSERT(relation == mat::LeftSide);
 
    query = Point2(0.5,0.5);
-   relation = get_point_line_relation(query,from,to,tol);
+   relation = get_point_line_relation(query,from,to);
    CPPUNIT_ASSERT(relation == mat::RightSide);
 
    query = Point2(0.5,-0.5);
-   relation = get_point_line_relation(query,from,to,tol);
+   relation = get_point_line_relation(query,from,to);
    CPPUNIT_ASSERT(relation == mat::RightSide);
 }
