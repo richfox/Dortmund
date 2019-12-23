@@ -2,4 +2,6 @@ LIBRARY "Math"
 
 EXPORTS
    is_point_on_line
+   is_point_inside_line
    get_point_line_relation
+   is_point_inside_triangle
