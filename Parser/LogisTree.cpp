@@ -4,6 +4,8 @@
 //##        E-Mail:    tech@zhongwenshu.de              ##
 //##                                                    ##
 //########################################################
+#include "stdafx.h"
+#include "LogisTree.h"
 
 
-#pragma once
+using namespace std;
