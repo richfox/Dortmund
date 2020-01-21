@@ -7,6 +7,8 @@
 
 //四则运算语法分析器
 
+//递归下降分析器的构造方法就是为每一个非终结符写一个递归函数，
+//函数中对该非终结符可能转换成的所有情况的第一个token进行判断，然后做出对应的处理
 //递归下降的语法:
 //Expr   ->  Term + Expr
 //       |   Term - Expr
@@ -19,6 +21,7 @@
 
 //<=>
 
+//消除左递归和右递归后的语法
 //Expr     -> Term ExprTail
 //ExprTail -> + Term ExprTail
 //         |  - Term ExprTail

@@ -10,8 +10,8 @@
 
 
 //  (  表达式的根 %铁路(中通6666 + 圆通YT(8888 + 5641)) + %空运(JD0001-1-1) ) 
-//               |                        |                         |
-//             %铁路                      +                        %空运       
+//               |                                    |             |
+//             %铁路                                  +           %空运       
 //      /        |         \                                        |
 // 中通6666      +    圆通YT(8888 + 5641)                        JD0001-1-1
 //                    /            \
@@ -19,9 +19,8 @@
 //                              /     |     \
 //                           8888     +     5641
 
-//递归下降分析器的构造方法就是为每一个非终结符写一个递归函数，
-//函数中对该非终结符可能转换成的所有情况的第一个token进行判断，然后做出对应的处理
-//消除左递归后的文法
+
+//语法
 //Exp -> keyword (Exp) Exp'
 //     | Text Exp'
 //Exp' -> + Exp''
@@ -97,10 +96,17 @@ namespace XFU
          return !_children.empty();
       }
 
-      std::shared_ptr<LogisTreeNode> GetChild(int idx) const
+      const std::shared_ptr<LogisTreeNode>& GetChild(int idx) const
       {
          return _children[idx];
       }
+
+      const std::vector<std::shared_ptr<LogisTreeNode>>& GetChildren() const
+      {
+         return _children;
+      }
+
+      virtual std::wstring ToString() const;
 
    private:
       LogisNodeType _type;
@@ -114,11 +120,39 @@ namespace XFU
    {
    public:
       LogisTreeNodeExp()
-         :LogisTreeNode(LogisNodeType::Exp)
+         :LogisTreeNode(LogisNodeType::Exp),
+         _keyword(L""),
+         _text(L"")
       {}
 
       ~LogisTreeNodeExp()
       {}
+
+      void SetKeyword(const std::wstring& keyword)
+      {
+         _keyword = keyword;
+      }
+
+      const std::wstring GetKeyword() const
+      {
+         return _keyword;
+      }
+
+      void SetText(const std::wstring& text)
+      {
+         _text = text;
+      }
+
+      const std::wstring GetText() const
+      {
+         return _text;
+      }
+
+      std::wstring ToString() const;
+
+   private:
+      std::wstring _keyword;
+      std::wstring _text;
    };
 
 
@@ -133,6 +167,8 @@ namespace XFU
 
       ~LogisTreeNodeExp1()
       {}
+
+      std::wstring ToString() const;
    };
 
 
@@ -142,11 +178,39 @@ namespace XFU
    {
    public:
       LogisTreeNodeExp2()
-         :LogisTreeNode(LogisNodeType::Exp2)
+         :LogisTreeNode(LogisNodeType::Exp2),
+         _keyword(L""),
+         _text(L"")
       {}
 
       ~LogisTreeNodeExp2()
       {}
+
+      void SetKeyword(const std::wstring& keyword)
+      {
+         _keyword = keyword;
+      }
+
+      const std::wstring GetKeyword() const
+      {
+         return _keyword;
+      }
+
+      void SetText(const std::wstring& text)
+      {
+         _text = text;
+      }
+
+      const std::wstring GetText() const
+      {
+         return _text;
+      }
+
+      std::wstring ToString() const;
+
+   private:
+      std::wstring _keyword;
+      std::wstring _text;
    };
 
 
@@ -156,11 +220,27 @@ namespace XFU
    {
    public:
       LogisTreeNodeText()
-         :LogisTreeNode(LogisNodeType::Text)
+         :LogisTreeNode(LogisNodeType::Text),
+         _header(L"")
       {}
 
       ~LogisTreeNodeText()
       {}
+
+      void SetHeader(const std::wstring& header)
+      {
+         _header = header;
+      }
+
+      const std::wstring GetHeader() const
+      {
+         return _header;
+      }
+
+      std::wstring ToString() const;
+
+   private:
+      std::wstring _header;
    };
 
 
@@ -170,11 +250,27 @@ namespace XFU
    {
    public:
       LogisTreeNodeFactor()
-         :LogisTreeNode(LogisNodeType::Factor)
+         :LogisTreeNode(LogisNodeType::Factor),
+         _lbracket(false)
       {}
 
       ~LogisTreeNodeFactor()
       {}
+
+      void SetLbracket()
+      {
+         _lbracket = true;
+      }
+
+      bool HasLbracket() const
+      {
+         return _lbracket;
+      }
+
+      std::wstring ToString() const;
+
+   private:
+      bool _lbracket;
    };
 
 
@@ -184,10 +280,26 @@ namespace XFU
    {
    public:
       LogisTreeNodeTail()
-         :LogisTreeNode(LogisNodeType::Tail)
+         :LogisTreeNode(LogisNodeType::Tail),
+         _sn(L"")
       {}
 
       ~LogisTreeNodeTail()
       {}
+
+      void SetSn(const std::wstring& sn)
+      {
+         _sn = sn;
+      }
+
+      const std::wstring GetSn() const
+      {
+         return _sn;
+      }
+
+      std::wstring ToString() const;
+
+   private:
+      std::wstring _sn;
    };
 }

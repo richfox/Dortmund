@@ -69,9 +69,14 @@ namespace XFU
          return !_children.empty();
       }
 
-      std::shared_ptr<CalcParserTreeNode> GetChild(int idx) const
+      const std::shared_ptr<CalcParserTreeNode>& GetChild(int idx) const
       {
          return _children[idx];
+      }
+
+      const std::vector<std::shared_ptr<CalcParserTreeNode>>& GetChildren() const
+      {
+         return _children;
       }
 
       virtual std::wstring ToString() const;

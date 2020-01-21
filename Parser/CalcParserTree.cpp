@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "CalcParserTree.h"
+#include "..\Tool\Operation.h"
 
 
 using namespace std;
@@ -15,14 +16,17 @@ using namespace XFU;
 
 wstring CalcParserTreeNode::ToString() const
 {
+   wstring res = L"";
+
    if (HasChild())
    {
-      return GetChild(0)->ToString();
+      FOR_EACH(GetChildren(),it,i)
+      {
+         res += GetChild(i)->ToString();
+      }
    }
-   else
-   {
-      return L"";
-   }
+
+   return res;
 }
 
 wstring CalcParserTreeNodeExpr::ToString() const
