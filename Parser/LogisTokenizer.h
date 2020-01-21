@@ -28,7 +28,55 @@ namespace XFU
       std::vector<std::wstring> Run();
 
    private:
-      bool IsOperator(std::wstring::const_iterator it);
+      bool IsOperator(std::wstring::const_iterator it)
+      {
+         return *it==L'+';
+      }
+
+      bool IsParenthesis(std::wstring::const_iterator it)
+      {
+         return *it==L'(' || *it==L')';
+      }
+
+      bool IsWhiteSpace(std::wstring::const_iterator it)
+      {
+         return *it == L' ';
+      }
+
+      bool IsKeyword(std::wstring::const_iterator it)
+      {
+         wregex rx(L"^%[a-zA-Z0-9]+$");
+         return regex_search(wstring(1,*it),rx);
+      }
+
+      bool IsText(std::wstring::const_iterator it)
+      {
+         wregex rx(L"^[a-zA-Z0-9]+$");
+         return regex_search(wstring(1,*it),rx);
+      }
+
+      bool IsHeader(std::wstring::const_iterator it)
+      {
+         wregex rx(L"^[a-zA-Z0-9]+$");
+         return regex_search(wstring(1,*it),rx);
+      }
+
+      bool IsSn(std::wstring::const_iterator it)
+      {
+         wregex rx(L"^[a-zA-Z0-9\-]+$");
+         return regex_search(wstring(1,*it),rx);
+      }
+
+      bool IsValid(std::wstring::const_iterator it)
+      {
+         return IsOperator(it) || 
+                IsParenthesis(it) || 
+                IsWhiteSpace(it) || 
+                IsKeyword(it) || 
+                IsText(it) ||
+                IsHeader(it) ||
+                IsSn(it);
+      }
 
    private:
       std::wstring _expr;
