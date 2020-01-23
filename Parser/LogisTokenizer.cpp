@@ -18,13 +18,133 @@ using namespace std;
 using namespace XFU;
 
 
+
+
+bool LogisTokenizer::IsOperator(std::wstring::const_iterator it)
+{
+   return *it==L'+';
+}
+
+bool LogisTokenizer::IsParenthesis(std::wstring::const_iterator it)
+{
+   return *it==L'(' || *it==L')';
+}
+
+bool LogisTokenizer::IsSpace(std::wstring::const_iterator it)
+{
+   return *it==L' ' || *it==L'\t' || *it==L'\r' || *it==L'\n';
+}
+
+bool LogisTokenizer::IsKeywordStart(std::wstring::const_iterator it)
+{
+   return *it == L'%';
+}
+
+bool LogisTokenizer::IsText(std::wstring::const_iterator it)
+{
+   return *it>=L'0' && *it<='9' || *it>=L'A' && *it<='Z' || *it>=L'a' && *it<='z' || *it==L'-';
+}
+
+bool LogisTokenizer::IsValid(std::wstring::const_iterator it)
+{
+   return IsOperator(it) || 
+         IsParenthesis(it) || 
+         IsSpace(it) || 
+         IsText(it) ||
+         IsKeywordStart(it);
+}
+
+
+
 vector<wstring> LogisTokenizer::Run()
 {
    vector<wstring> tokens;
 
-   for (wstring::const_iterator it=_expr.begin(); it!=_expr.end(); it++)
+   wstring::const_iterator it = _expr.begin();
+   while (it != _expr.end())
    {
+      if (!IsValid(it))
+      {
+         throw runtime_error("invalid input");
+      }
 
+      if (IsSpace(it))
+      {
+         if (it==_expr.end()-1 && _token.length()>0)
+         {
+            tokens.push_back(_token);
+         }
+
+         while (IsSpace(++it))
+         {}
+
+         _status = TokenStatus::Undefined;
+         continue;
+      }
+
+      if (IsKeywordStart(it))
+      {
+         if (_status!=TokenStatus::Keyword && _token.length()>0)
+         {
+            tokens.push_back(_token);
+         }
+
+         _token.assign(1,*it);
+         while (IsText(++it))
+         {
+            _token.push_back(*it);
+         }
+
+         _status = TokenStatus::Keyword;
+         continue;
+      }
+
+      if (IsOperator(it))
+      {
+         if (_status!=TokenStatus::Operator && _token.length()>0)
+         {
+            tokens.push_back(_token);
+         }
+
+         _token.assign(1,*it);
+         while (IsOperator(++it))
+         {
+            _token.push_back(*it);
+         }
+
+         _status = TokenStatus::Operator;
+         continue;
+      }
+
+      if (IsParenthesis(it))
+      {
+         if (_status!=TokenStatus::Parenthesis && _token.length()>0)
+         {
+            tokens.push_back(_token);
+         }
+
+         _token.assign(1,*(it++));
+
+         _status = TokenStatus::Parenthesis;
+         continue;
+      }
+
+      if (IsText(it))
+      {
+         if (_status!=TokenStatus::Text && _token.length()>0)
+         {
+            tokens.push_back(_token);
+         }
+
+         _token.assign(1,*it);
+         while (IsText(++it))
+         {
+            _token.push_back(*it);
+         }
+
+         _status = TokenStatus::Text;
+         continue;
+      }
    }
 
    return tokens;
