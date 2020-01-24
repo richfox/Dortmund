@@ -18,19 +18,8 @@ namespace XFU
    class LogisTokenizer
    {
    public:
-      enum TokenStatus
-      {
-         Undefined = -1,
-         Operator,
-         Parenthesis,
-         Text,
-         Sn,
-         Keyword
-      };
-
       LogisTokenizer(const std::wstring& expr)
          :_expr(expr),
-         _status(TokenStatus::Undefined),
          _token(L"")
       {}
 
@@ -50,7 +39,6 @@ namespace XFU
 
    private:
       std::wstring _expr;
-      TokenStatus _status;
       std::wstring _token;
    };
 

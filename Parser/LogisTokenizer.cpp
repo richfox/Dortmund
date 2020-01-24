@@ -70,11 +70,6 @@ vector<wstring> LogisTokenizer::Run()
 
       if (IsSpace(it))
       {
-         if (it==_expr.end()-1 && _token.length()>0)
-         {
-            tokens.push_back(_token);
-         }
-
          while (true)
          {
             if (++it == _expr.end())
@@ -84,97 +79,92 @@ vector<wstring> LogisTokenizer::Run()
                break;
          }
 
-         _status = TokenStatus::Undefined;
          continue;
       }
 
       if (IsKeywordStart(it))
       {
-         if (_status!=TokenStatus::Keyword && _token.length()>0)
-         {
-            tokens.push_back(_token);
-         }
-
          _token.assign(1,*it);
          while (true)
          {
             if (++it == _expr.end())
+            {
+               tokens.push_back(_token);
                break;
+            }
 
             if (IsText(it))
+            {
                _token.push_back(*it);
+            }
             else
+            {
+               tokens.push_back(_token);
                break;
+            }
+
          }
 
-         _status = TokenStatus::Keyword;
          continue;
       }
 
       if (IsOperator(it))
       {
-         if (_status!=TokenStatus::Operator && _token.length()>0)
-         {
-            tokens.push_back(_token);
-         }
-
          _token.assign(1,*it);
          while (true)
          {
             if (++it == _expr.end())
+            {
+               tokens.push_back(_token);
                break;
+            }
 
             if (IsOperator(it))
+            {
                _token.push_back(*it);
+            }
             else
+            {
+               tokens.push_back(_token);
                break;
+            }
          }
 
-         _status = TokenStatus::Operator;
          continue;
       }
 
       if (IsParenthesis(it))
       {
-         if (_token.length()>0)
-         {
-            tokens.push_back(_token);
-         }
-
          _token.assign(1,*(it++));
+         tokens.push_back(_token);
 
-         _status = TokenStatus::Parenthesis;
          continue;
       }
 
       if (IsText(it))
       {
-         if (_status!=TokenStatus::Text && _token.length()>0)
-         {
-            tokens.push_back(_token);
-         }
-
          _token.assign(1,*it);
          while (true)
          {
             if (++it == _expr.end())
+            {
+               tokens.push_back(_token);
                break;
+            }
 
             if (IsText(it))
+            {
                _token.push_back(*it);
+            }
             else
+            {
+               tokens.push_back(_token);
                break;
+            }
          }
 
-         _status = TokenStatus::Text;
          continue;
       }
-   }
-
-   if (_token.length()>0)
-   {
-      tokens.push_back(_token);
-      _status = TokenStatus::Undefined;
    }
 
    return tokens;
