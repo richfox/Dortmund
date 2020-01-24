@@ -75,8 +75,14 @@ vector<wstring> LogisTokenizer::Run()
             tokens.push_back(_token);
          }
 
-         while (IsSpace(++it))
-         {}
+         while (true)
+         {
+            if (++it == _expr.end())
+               break;
+
+            if (!IsSpace(it))
+               break;
+         }
 
          _status = TokenStatus::Undefined;
          continue;
@@ -90,9 +96,15 @@ vector<wstring> LogisTokenizer::Run()
          }
 
          _token.assign(1,*it);
-         while (IsText(++it))
+         while (true)
          {
-            _token.push_back(*it);
+            if (++it == _expr.end())
+               break;
+
+            if (IsText(it))
+               _token.push_back(*it);
+            else
+               break;
          }
 
          _status = TokenStatus::Keyword;
@@ -107,9 +119,15 @@ vector<wstring> LogisTokenizer::Run()
          }
 
          _token.assign(1,*it);
-         while (IsOperator(++it))
+         while (true)
          {
-            _token.push_back(*it);
+            if (++it == _expr.end())
+               break;
+
+            if (IsOperator(it))
+               _token.push_back(*it);
+            else
+               break;
          }
 
          _status = TokenStatus::Operator;
@@ -118,7 +136,7 @@ vector<wstring> LogisTokenizer::Run()
 
       if (IsParenthesis(it))
       {
-         if (_status!=TokenStatus::Parenthesis && _token.length()>0)
+         if (_token.length()>0)
          {
             tokens.push_back(_token);
          }
@@ -137,9 +155,15 @@ vector<wstring> LogisTokenizer::Run()
          }
 
          _token.assign(1,*it);
-         while (IsText(++it))
+         while (true)
          {
-            _token.push_back(*it);
+            if (++it == _expr.end())
+               break;
+
+            if (IsText(it))
+               _token.push_back(*it);
+            else
+               break;
          }
 
          _status = TokenStatus::Text;
@@ -147,5 +171,18 @@ vector<wstring> LogisTokenizer::Run()
       }
    }
 
+   if (_token.length()>0)
+   {
+      tokens.push_back(_token);
+      _status = TokenStatus::Undefined;
+   }
+
    return tokens;
+}
+
+
+vector<wstring> XFU::run_logis_tokenizer(const std::wstring& expr)
+{
+   std::unique_ptr<LogisTokenizer> tokenizer(new LogisTokenizer(expr));
+   return tokenizer->Run();
 }

@@ -53,4 +53,6 @@ namespace XFU
       TokenStatus _status;
       std::wstring _token;
    };
+
+   std::vector<std::wstring> __declspec(dllexport) run_logis_tokenizer(const std::wstring& expr);
 }
