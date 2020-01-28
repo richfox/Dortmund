@@ -67,6 +67,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibraryManaged", "LibraryMa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "Math\Math.vcxproj", "{2D723928-F9F2-4F55-919D-5B921B74978D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Algorithm", "Algorithm\Algorithm.vcxproj", "{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -433,6 +435,20 @@ Global
 		{2D723928-F9F2-4F55-919D-5B921B74978D}.Release|Win32.Build.0 = Release|Win32
 		{2D723928-F9F2-4F55-919D-5B921B74978D}.Release|x64.ActiveCfg = Release|x64
 		{2D723928-F9F2-4F55-919D-5B921B74978D}.Release|x64.Build.0 = Release|x64
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Debug|Win32.Build.0 = Debug|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Debug|x64.ActiveCfg = Debug|x64
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Debug|x64.Build.0 = Debug|x64
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Release|Win32.ActiveCfg = Release|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Release|Win32.Build.0 = Release|Win32
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Release|x64.ActiveCfg = Release|x64
+		{E4DC3923-11AF-4F94-90A0-F300C56DEEAD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

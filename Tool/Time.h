@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Windows.h>
 #include <time.h>
 
 namespace XFU
@@ -14,17 +15,21 @@ namespace XFU
       return GetTickCount() - begin;
    }
 
-   //Start-Zeit definition, diese Zeit darf nie geändert werden!
-   const static __time64_t utcStartTime = 1397058688; //Dortmund 9.4.2014 17:50
-
-   //aktuelle UTC-Zeit als 32bit Integer umrechnen
-   int current_utc_time_to_int32()
+   class UTCtime
    {
-      __time64_t t;
-      _time64(&t);
+   public:
+      //Start-Zeit definition, diese Zeit darf nie geändert werden!
+      const static __time64_t utcStartTime = 1397058688; //Dortmund 9.4.2014 17:50
 
-      __time64_t diff = t - utcStartTime;
+      //aktuelle UTC-Zeit als 32bit Integer umrechnen
+      static int current_utc_time_to_int32()
+      {
+         __time64_t t;
+         _time64(&t);
 
-      return static_cast<int>(diff);
-   }
+         __time64_t diff = t - utcStartTime;
+
+         return static_cast<int>(diff);
+      }
+   };
 }
