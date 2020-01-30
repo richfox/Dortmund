@@ -45,6 +45,9 @@
     <ClInclude Include="LogisTokenizer.h">
       <Filter>LogisExpression</Filter>
     </ClInclude>
+    <ClInclude Include="LogisParser.h">
+      <Filter>LogisExpression</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,6 +72,9 @@
       <Filter>LogisExpression</Filter>
     </ClCompile>
     <ClCompile Include="LogisTokenizer.cpp">
+      <Filter>LogisExpression</Filter>
+    </ClCompile>
+    <ClCompile Include="LogisParser.cpp">
       <Filter>LogisExpression</Filter>
     </ClCompile>
   </ItemGroup>

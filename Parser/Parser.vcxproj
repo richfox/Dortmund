@@ -154,6 +154,7 @@
     <ClInclude Include="CalcTokenizer.h" />
     <ClInclude Include="CalcParserTree.h" />
     <ClInclude Include="CalcVisitor.h" />
+    <ClInclude Include="LogisParser.h" />
     <ClInclude Include="LogisTokenizer.h" />
     <ClInclude Include="LogisTree.h" />
     <ClInclude Include="stdafx.h" />
@@ -178,6 +179,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CalcParser.cpp" />
+    <ClCompile Include="LogisParser.cpp" />
     <ClCompile Include="LogisTokenizer.cpp" />
     <ClCompile Include="LogisTree.cpp" />
     <ClCompile Include="stdafx.cpp">
