@@ -21,7 +21,7 @@
 
 //<=>
 
-//消除左递归和右递归后的语法
+//消除左递归后的语法
 //Expr     -> Term ExprTail
 //ExprTail -> + Term ExprTail
 //         |  - Term ExprTail

@@ -143,7 +143,7 @@ namespace XFU
          _text = text;
       }
 
-      const std::wstring GetText() const
+      const std::wstring& GetText() const
       {
          return _text;
       }
@@ -168,7 +168,20 @@ namespace XFU
       ~LogisTreeNodeExp1()
       {}
 
+      void SetOp(const std::wstring& op)
+      {
+         _op = op;
+      }
+
+      const std::wstring& GetOp() const
+      {
+         return _op;
+      }
+
       std::wstring ToString() const;
+
+   private:
+      std::wstring _op;
    };
 
 
@@ -191,7 +204,7 @@ namespace XFU
          _keyword = keyword;
       }
 
-      const std::wstring GetKeyword() const
+      const std::wstring& GetKeyword() const
       {
          return _keyword;
       }
@@ -232,7 +245,7 @@ namespace XFU
          _header = header;
       }
 
-      const std::wstring GetHeader() const
+      const std::wstring& GetHeader() const
       {
          return _header;
       }
@@ -251,7 +264,8 @@ namespace XFU
    public:
       LogisTreeNodeFactor()
          :LogisTreeNode(LogisNodeType::Factor),
-         _lbracket(false)
+         _lbracket(false),
+         _sn(L"")
       {}
 
       ~LogisTreeNodeFactor()
@@ -267,10 +281,21 @@ namespace XFU
          return _lbracket;
       }
 
+      void SetSn(const std::wstring& sn)
+      {
+         _sn = sn;
+      }
+
+      const std::wstring& GetSn() const
+      {
+         return _sn;
+      }
+
       std::wstring ToString() const;
 
    private:
       bool _lbracket;
+      std::wstring _sn;
    };
 
 
@@ -292,7 +317,7 @@ namespace XFU
          _sn = sn;
       }
 
-      const std::wstring GetSn() const
+      const std::wstring& GetSn() const
       {
          return _sn;
       }

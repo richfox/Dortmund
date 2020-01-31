@@ -42,7 +42,7 @@ bool LogisTokenizer::IsKeywordStart(std::wstring::const_iterator it)
 
 bool LogisTokenizer::IsText(std::wstring::const_iterator it)
 {
-   return *it>=L'0' && *it<='9' || *it>=L'A' && *it<='Z' || *it>=L'a' && *it<='z' || *it==L'-';
+   return *it>=L'0' && *it<='9' || *it>=L'A' && *it<='Z' || *it>=L'a' && *it<='z' || *it==L'-' || *it==L'_';
 }
 
 bool LogisTokenizer::IsValid(std::wstring::const_iterator it)

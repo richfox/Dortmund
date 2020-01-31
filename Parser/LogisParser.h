@@ -46,6 +46,9 @@ namespace XFU
       bool Text();
       bool Factor();
       bool Tail();
+      bool Keyword();
+      bool Header();
+      bool Sn();
 
       bool NextToken();
 

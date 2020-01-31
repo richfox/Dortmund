@@ -47,6 +47,24 @@ bool LogisParser::NextToken()
    return false;
 }
 
+bool LogisParser::Keyword()
+{
+   wregex pattern(L"^%[a-zA-Z0-9-_\u4e00-\u9fa5]+$"); //以%开头，至少一个数字、字母、减号、下划线、汉字
+   return regex_search(*_tokenit,pattern);
+}
+
+bool LogisParser::Header()
+{
+   wregex pattern(L"^[a-zA-Z0-9-_\u4e00-\u9fa5]+$"); //至少一个数字、字母、减号、下划线、汉字
+   return regex_search(*_tokenit,pattern);
+}
+
+bool LogisParser::Sn()
+{
+   wregex pattern(L"^[a-zA-Z0-9-]+$"); //至少一个数字、字母、减号
+   return regex_search(*_tokenit,pattern);
+}
+
 //Exp -> keyword (Exp) Exp'
 //     | Text Exp'
 bool LogisParser::Exp()
@@ -55,6 +73,32 @@ bool LogisParser::Exp()
    _currentnode->AddChild(node);
    _currentnode = node.get();
 
+   if (Keyword())
+   {
+      node->SetKeyword(*_tokenit);
+      if (NextToken())
+      {
+         if (*_tokenit == L"(")
+         {
+            if (Exp())
+            {
+               if (*_tokenit == L")")
+               {
+                  _currentnode = node.get();
+                  return Exp2();
+               }
+            }
+         }
+      }
+   }
+   else if (Text())
+   {
+      if (NextToken())
+      {
+         _currentnode = node.get();
+         return Exp2();
+      }
+   }
 
    return false;
 }
@@ -67,6 +111,23 @@ bool LogisParser::Exp1()
    _currentnode->AddChild(node);
    _currentnode = node.get();
 
+   if (*_tokenit == L"+")
+   {
+      node->SetOp(*_tokenit);
+      if (NextToken())
+      {
+         return Exp2();
+      }
+      else
+      {
+         return false;
+      }
+   }
+   else
+   {
+      return true;
+   }
+
    return false;
 }
 
@@ -77,6 +138,28 @@ bool LogisParser::Exp2()
    shared_ptr<LogisTreeNodeExp2> node(new LogisTreeNodeExp2);
    _currentnode->AddChild(node);
    _currentnode = node.get();
+
+   if (Keyword())
+   {
+      node->SetKeyword(*_tokenit);
+      if (NextToken())
+      {
+         if (*_tokenit == L"(")
+         {
+            if (Exp())
+            {
+               if (*_tokenit == L")")
+               {
+                  return true;
+               }
+            }
+         }
+      }
+   }
+   else if (Text())
+   {
+      return true;
+   }
 
    return false;
 }
@@ -89,6 +172,19 @@ bool LogisParser::Text()
    _currentnode->AddChild(node);
    _currentnode = node.get();
 
+   if (Header())
+   {
+      node->SetHeader(*_tokenit);
+      if (NextToken())
+      {
+         return Factor();
+      }
+   }
+   else if (Factor())
+   {
+      return true;
+   }
+
    return false;
 }
 
@@ -100,6 +196,35 @@ bool LogisParser::Factor()
    _currentnode->AddChild(node);
    _currentnode = node.get();
 
+   if (*_tokenit == L"(")
+   {
+      node->SetLbracket();
+      if (NextToken())
+      {
+         if (Sn())
+         {
+            node->SetSn(*_tokenit);
+            if (NextToken())
+            {
+               if (Tail())
+               {
+                  if (NextToken())
+                  {
+                     if (*_tokenit == L")")
+                     {
+                        return true;
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+   else if (Sn())
+   {
+      return true;
+   }
+
    return false;
 }
 
@@ -110,6 +235,24 @@ bool LogisParser::Tail()
    shared_ptr<LogisTreeNodeTail> node(new LogisTreeNodeTail);
    _currentnode->AddChild(node);
    _currentnode = node.get();
+
+   if (*_tokenit == L"+")
+   {
+      if (NextToken())
+      {
+         if (Sn())
+         {
+            if (NextToken())
+            {
+               return Tail();
+            }
+         }
+      }
+   }
+   else
+   {
+      return true;
+   }
 
    return false;
 }
