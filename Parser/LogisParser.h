@@ -58,4 +58,8 @@ namespace XFU
       bool _success;
       LogisTreeNode* _currentnode;
    };
+
+
+   bool __declspec(dllexport) test_logis_parser(const std::vector<std::wstring>& tokens);
+   std::shared_ptr<LogisTreeNode> __declspec(dllexport) run_logis_parser(const std::vector<std::wstring>& tokens);
 }

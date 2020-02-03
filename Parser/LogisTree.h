@@ -27,7 +27,7 @@
 //      | null
 //Exp'' -> keyword (Exp)
 //       | Text
-//Text -> Header Factor
+//Text -> header Factor
 //      | Factor
 //Factor -> ( sn Tail )
 //        | sn
@@ -227,7 +227,7 @@ namespace XFU
    };
 
 
-   //Text -> Header Factor
+   //Text -> header Factor
    //      | Factor
    class LogisTreeNodeText final : public LogisTreeNode
    {

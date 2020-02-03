@@ -76,6 +76,7 @@ bool LogisParser::Exp()
    if (Keyword())
    {
       node->SetKeyword(*_tokenit);
+
       if (NextToken())
       {
          if (*_tokenit == L"(")
@@ -93,11 +94,8 @@ bool LogisParser::Exp()
    }
    else if (Text())
    {
-      if (NextToken())
-      {
-         _currentnode = node.get();
-         return Exp2();
-      }
+      _currentnode = node.get();
+      return Exp2();
    }
 
    return false;
@@ -114,13 +112,10 @@ bool LogisParser::Exp1()
    if (*_tokenit == L"+")
    {
       node->SetOp(*_tokenit);
+
       if (NextToken())
       {
          return Exp2();
-      }
-      else
-      {
-         return false;
       }
    }
    else
@@ -142,6 +137,7 @@ bool LogisParser::Exp2()
    if (Keyword())
    {
       node->SetKeyword(*_tokenit);
+
       if (NextToken())
       {
          if (*_tokenit == L"(")
@@ -164,7 +160,7 @@ bool LogisParser::Exp2()
    return false;
 }
 
-//Text -> Header Factor
+//Text -> header Factor
 //      | Factor
 bool LogisParser::Text()
 {
@@ -175,10 +171,8 @@ bool LogisParser::Text()
    if (Header())
    {
       node->SetHeader(*_tokenit);
-      if (NextToken())
-      {
-         return Factor();
-      }
+
+      return Factor();
    }
    else if (Factor())
    {
@@ -204,17 +198,13 @@ bool LogisParser::Factor()
          if (Sn())
          {
             node->SetSn(*_tokenit);
-            if (NextToken())
+
+            if (Tail())
             {
-               if (Tail())
+               if (*_tokenit == L")")
                {
-                  if (NextToken())
-                  {
-                     if (*_tokenit == L")")
-                     {
-                        return true;
-                     }
-                  }
+                  NextToken();
+                  return true;
                }
             }
          }
@@ -222,6 +212,9 @@ bool LogisParser::Factor()
    }
    else if (Sn())
    {
+      node->SetSn(*_tokenit);
+
+      NextToken();
       return true;
    }
 
@@ -242,10 +235,9 @@ bool LogisParser::Tail()
       {
          if (Sn())
          {
-            if (NextToken())
-            {
-               return Tail();
-            }
+            node->SetSn(*_tokenit);
+
+            return Tail();
          }
       }
    }
@@ -255,4 +247,19 @@ bool LogisParser::Tail()
    }
 
    return false;
+}
+
+
+bool XFU::test_logis_parser(const std::vector<std::wstring>& tokens)
+{
+   std::unique_ptr<LogisParser> parser(new LogisParser(tokens));
+   parser->Run();
+
+   return parser->IsSuccess();
+}
+
+std::shared_ptr<LogisTreeNode> XFU::run_logis_parser(const std::vector<std::wstring>& tokens)
+{
+   std::unique_ptr<LogisParser> parser(new LogisParser(tokens));
+   return parser->Run();
 }
