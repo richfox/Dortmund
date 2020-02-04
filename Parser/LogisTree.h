@@ -21,18 +21,14 @@
 
 
 //语法
-//Exp -> keyword (Exp) Exp'
+//Exp -> Keyexp Exp'
 //     | Text Exp'
-//Exp' -> + Exp''
+//Exp' -> + Keyexp Exp'
+//      | + Text Exp'
 //      | null
-//Exp'' -> keyword (Exp)
-//       | Text
-//Text -> header Factor
-//      | Factor
-//Factor -> ( sn Tail )
-//        | sn
-//Tail -> + sn Tail
-//      | null
+//Keyexp -> keyword (Exp)
+//Text -> (Exp)
+//      | sn
 
 #pragma once
 
@@ -49,10 +45,8 @@ namespace XFU
       Root,
       Exp,
       Exp1,
-      Exp2,
-      Text,
-      Factor,
-      Tail
+      Kexp,
+      Text
    };
 
    class LogisTreeNode
@@ -114,55 +108,31 @@ namespace XFU
    };
 
 
-   //Exp -> keyword (Exp) Exp'
+   //Exp -> Keyexp Exp'
    //     | Text Exp'
    class LogisTreeNodeExp final : public LogisTreeNode
    {
    public:
       LogisTreeNodeExp()
-         :LogisTreeNode(LogisNodeType::Exp),
-         _keyword(L""),
-         _text(L"")
+         :LogisTreeNode(LogisNodeType::Exp)
       {}
 
       ~LogisTreeNodeExp()
       {}
 
-      void SetKeyword(const std::wstring& keyword)
-      {
-         _keyword = keyword;
-      }
-
-      const std::wstring GetKeyword() const
-      {
-         return _keyword;
-      }
-
-      void SetText(const std::wstring& text)
-      {
-         _text = text;
-      }
-
-      const std::wstring& GetText() const
-      {
-         return _text;
-      }
-
       std::wstring ToString() const;
-
-   private:
-      std::wstring _keyword;
-      std::wstring _text;
    };
 
 
-   //Exp' -> + Exp''
+   //Exp' -> + Keyexp Exp'
+   //      | + Text Exp'
    //      | null
    class LogisTreeNodeExp1 final : public LogisTreeNode
    {
    public:
       LogisTreeNodeExp1()
-         :LogisTreeNode(LogisNodeType::Exp1)
+         :LogisTreeNode(LogisNodeType::Exp1),
+         _op(L"")
       {}
 
       ~LogisTreeNodeExp1()
@@ -185,18 +155,16 @@ namespace XFU
    };
 
 
-   //Exp'' -> keyword (Exp)
-   //       | Text
-   class LogisTreeNodeExp2 final : public LogisTreeNode
+   //Keyexp -> keyword (Exp)
+   class LogisTreeNodeKeyexp final : public LogisTreeNode
    {
    public:
-      LogisTreeNodeExp2()
-         :LogisTreeNode(LogisNodeType::Exp2),
-         _keyword(L""),
-         _text(L"")
+      LogisTreeNodeKeyexp()
+         :LogisTreeNode(LogisNodeType::Kexp),
+         _keyword(L"")
       {}
 
-      ~LogisTreeNodeExp2()
+      ~LogisTreeNodeKeyexp()
       {}
 
       void SetKeyword(const std::wstring& keyword)
@@ -209,107 +177,24 @@ namespace XFU
          return _keyword;
       }
 
-      void SetText(const std::wstring& text)
-      {
-         _text = text;
-      }
-
-      const std::wstring GetText() const
-      {
-         return _text;
-      }
-
       std::wstring ToString() const;
 
    private:
       std::wstring _keyword;
-      std::wstring _text;
    };
 
 
-   //Text -> header Factor
-   //      | Factor
+   //Text -> (Exp)
+   //      | sn
    class LogisTreeNodeText final : public LogisTreeNode
    {
    public:
       LogisTreeNodeText()
          :LogisTreeNode(LogisNodeType::Text),
-         _header(L"")
+         _sn(L"")
       {}
 
       ~LogisTreeNodeText()
-      {}
-
-      void SetHeader(const std::wstring& header)
-      {
-         _header = header;
-      }
-
-      const std::wstring& GetHeader() const
-      {
-         return _header;
-      }
-
-      std::wstring ToString() const;
-
-   private:
-      std::wstring _header;
-   };
-
-
-   //Factor -> ( sn Tail )
-   //        | sn
-   class LogisTreeNodeFactor final : public LogisTreeNode
-   {
-   public:
-      LogisTreeNodeFactor()
-         :LogisTreeNode(LogisNodeType::Factor),
-         _lbracket(false),
-         _sn(L"")
-      {}
-
-      ~LogisTreeNodeFactor()
-      {}
-
-      void SetLbracket()
-      {
-         _lbracket = true;
-      }
-
-      bool HasLbracket() const
-      {
-         return _lbracket;
-      }
-
-      void SetSn(const std::wstring& sn)
-      {
-         _sn = sn;
-      }
-
-      const std::wstring& GetSn() const
-      {
-         return _sn;
-      }
-
-      std::wstring ToString() const;
-
-   private:
-      bool _lbracket;
-      std::wstring _sn;
-   };
-
-
-   //Tail -> + sn Tail
-   //      | null
-   class LogisTreeNodeTail final : public LogisTreeNode
-   {
-   public:
-      LogisTreeNodeTail()
-         :LogisTreeNode(LogisNodeType::Tail),
-         _sn(L"")
-      {}
-
-      ~LogisTreeNodeTail()
       {}
 
       void SetSn(const std::wstring& sn)

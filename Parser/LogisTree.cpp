@@ -34,21 +34,14 @@ wstring LogisTreeNode::ToString() const
 
 wstring LogisTreeNodeExp::ToString() const
 {
-   if (GetKeyword().empty())
-   {
-      return GetText() + GetChild(0)->ToString();
-   }
-   else
-   {
-      return GetKeyword() + L"(" + GetChild(0)->ToString() + L")" + GetChild(1)->ToString();
-   }
+   return GetChild(0)->ToString() + GetChild(1)->ToString();
 }
 
 wstring LogisTreeNodeExp1::ToString() const
 {
-   if (HasChild())
+   if (!GetOp().empty())
    {
-      return wstring(L"+") + GetChild(0)->ToString();
+      return GetOp() + GetChild(0)->ToString() + GetChild(1)->ToString();
    }
    else
    {
@@ -56,50 +49,19 @@ wstring LogisTreeNodeExp1::ToString() const
    }
 }
 
-wstring LogisTreeNodeExp2::ToString() const
+wstring LogisTreeNodeKeyexp::ToString() const
 {
-   if (GetKeyword().empty())
-   {
-      return GetText();
-   }
-   else
-   {
-      return GetKeyword() + L"(" + GetChild(0)->ToString() + L")";
-   }
+   return GetKeyword() + L"(" + GetChild(0)->ToString() + L")";
 }
 
 wstring LogisTreeNodeText::ToString() const
 {
-   if (GetHeader().empty())
-   {
-      return GetChild(0)->ToString();
-   }
-   else
-   {
-      return GetHeader() + GetChild(0)->ToString();
-   }
-}
-
-wstring LogisTreeNodeFactor::ToString() const
-{
-   if (HasLbracket())
-   {
-      return wstring(L"(") + GetChild(0)->ToString() + GetChild(1)->ToString() + L")";
-   }
-   else
-   {
-      return GetChild(0)->ToString(); 
-   }
-}
-
-wstring LogisTreeNodeTail::ToString() const
-{
    if (HasChild())
    {
-      return wstring(L"+") + GetChild(0)->ToString() + GetChild(1)->ToString();
+      return wstring(L"(") + GetChild(0)->ToString() + wstring(L")");
    }
    else
    {
-      return L"";
+      return GetSn();
    }
 }

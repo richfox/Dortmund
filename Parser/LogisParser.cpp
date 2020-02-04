@@ -81,12 +81,15 @@ bool LogisParser::Exp()
       {
          if (*_tokenit == L"(")
          {
-            if (Exp())
+            if (NextToken())
             {
-               if (*_tokenit == L")")
+               if (Exp())
                {
-                  _currentnode = node.get();
-                  return Exp2();
+                  if (*_tokenit == L")")
+                  {
+                     _currentnode = node.get();
+                     return Exp1();
+                  }
                }
             }
          }
@@ -95,7 +98,7 @@ bool LogisParser::Exp()
    else if (Text())
    {
       _currentnode = node.get();
-      return Exp2();
+      return Exp1();
    }
 
    return false;
