@@ -8,6 +8,16 @@
 //物流表达式
 //%铁路(中通6666 + 圆通YT(8888 + 5641)) + %空运(JD0001-1-1)
 
+//语法
+//Exp -> Keyexp Exp'
+//     | Text Exp'
+//Exp' -> + Keyexp Exp'
+//      | + Text Exp'
+//      | null
+//Keyexp -> keyword (Exp)
+//Text -> (Exp)
+//      | sn
+
 #pragma once
 
 #include <string>
@@ -15,7 +25,7 @@
 #include <memory>
 
 
-namespace XFU
+namespace logis
 {
    class LogisTreeNode;
 
@@ -41,13 +51,10 @@ namespace XFU
 
    private:
       bool Exp();
-      bool Exp1();
-      bool Exp2();
+      bool PrimeExp();
+      bool KeyExp();
       bool Text();
-      bool Factor();
-      bool Tail();
       bool Keyword();
-      bool Header();
       bool Sn();
 
       bool NextToken();

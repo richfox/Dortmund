@@ -37,14 +37,14 @@
 #include <memory>
 
 
-namespace XFU
+namespace logis
 {
    enum class LogisNodeType
    {
       Undef = -1,
       Root,
       Exp,
-      Exp1,
+      PExp,
       Kexp,
       Text
    };
@@ -127,15 +127,15 @@ namespace XFU
    //Exp' -> + Keyexp Exp'
    //      | + Text Exp'
    //      | null
-   class LogisTreeNodeExp1 final : public LogisTreeNode
+   class LogisTreeNodePrimeExp final : public LogisTreeNode
    {
    public:
-      LogisTreeNodeExp1()
-         :LogisTreeNode(LogisNodeType::Exp1),
+      LogisTreeNodePrimeExp()
+         :LogisTreeNode(LogisNodeType::PExp),
          _op(L"")
       {}
 
-      ~LogisTreeNodeExp1()
+      ~LogisTreeNodePrimeExp()
       {}
 
       void SetOp(const std::wstring& op)
@@ -156,15 +156,15 @@ namespace XFU
 
 
    //Keyexp -> keyword (Exp)
-   class LogisTreeNodeKeyexp final : public LogisTreeNode
+   class LogisTreeNodeKeyExp final : public LogisTreeNode
    {
    public:
-      LogisTreeNodeKeyexp()
+      LogisTreeNodeKeyExp()
          :LogisTreeNode(LogisNodeType::Kexp),
          _keyword(L"")
       {}
 
-      ~LogisTreeNodeKeyexp()
+      ~LogisTreeNodeKeyExp()
       {}
 
       void SetKeyword(const std::wstring& keyword)

@@ -10,11 +10,10 @@
 
 #include "stdafx.h"
 #include "LogisTree.h"
-#include "..\Tool\Operation.h"
 
 
 using namespace std;
-using namespace XFU;
+using namespace logis;
 
 
 wstring LogisTreeNode::ToString() const
@@ -23,7 +22,8 @@ wstring LogisTreeNode::ToString() const
 
    if (HasChild())
    {
-      FOR_EACH(GetChildren(),it,i)
+      int i = 0;
+      for (auto it=GetChildren().begin(); it!=GetChildren().end(); it++,i++)
       {
          res += GetChild(i)->ToString();
       }
@@ -37,7 +37,7 @@ wstring LogisTreeNodeExp::ToString() const
    return GetChild(0)->ToString() + GetChild(1)->ToString();
 }
 
-wstring LogisTreeNodeExp1::ToString() const
+wstring LogisTreeNodePrimeExp::ToString() const
 {
    if (!GetOp().empty())
    {
@@ -49,7 +49,7 @@ wstring LogisTreeNodeExp1::ToString() const
    }
 }
 
-wstring LogisTreeNodeKeyexp::ToString() const
+wstring LogisTreeNodeKeyExp::ToString() const
 {
    return GetKeyword() + L"(" + GetChild(0)->ToString() + L")";
 }

@@ -16,7 +16,7 @@
 
 
 using namespace std;
-using namespace XFU;
+using namespace logis;
 
 
 
@@ -53,19 +53,13 @@ bool LogisParser::Keyword()
    return regex_search(*_tokenit,pattern);
 }
 
-bool LogisParser::Header()
-{
-   wregex pattern(L"^[a-zA-Z0-9-_\u4e00-\u9fa5]+$"); //至少一个数字、字母、减号、下划线、汉字
-   return regex_search(*_tokenit,pattern);
-}
-
 bool LogisParser::Sn()
 {
-   wregex pattern(L"^[a-zA-Z0-9-]+$"); //至少一个数字、字母、减号
+   wregex pattern(L"^[a-zA-Z0-9-#]+$"); //至少一个数字、字母、减号、井号
    return regex_search(*_tokenit,pattern);
 }
 
-//Exp -> keyword (Exp) Exp'
+//Exp -> Keyexp Exp'
 //     | Text Exp'
 bool LogisParser::Exp()
 {
@@ -73,42 +67,25 @@ bool LogisParser::Exp()
    _currentnode->AddChild(node);
    _currentnode = node.get();
 
-   if (Keyword())
+   if (KeyExp())
    {
-      node->SetKeyword(*_tokenit);
-
-      if (NextToken())
-      {
-         if (*_tokenit == L"(")
-         {
-            if (NextToken())
-            {
-               if (Exp())
-               {
-                  if (*_tokenit == L")")
-                  {
-                     _currentnode = node.get();
-                     return Exp1();
-                  }
-               }
-            }
-         }
-      }
+      return PrimeExp();
    }
    else if (Text())
    {
       _currentnode = node.get();
-      return Exp1();
+      return PrimeExp();
    }
 
    return false;
 }
 
-//Exp' -> + Exp''
+//Exp' -> + Keyexp Exp'
+//      | + Text Exp'
 //      | null
-bool LogisParser::Exp1()
+bool LogisParser::PrimeExp()
 {
-   shared_ptr<LogisTreeNodeExp1> node(new LogisTreeNodeExp1);
+   shared_ptr<LogisTreeNodePrimeExp> node(new LogisTreeNodePrimeExp);
    _currentnode->AddChild(node);
    _currentnode = node.get();
 
@@ -118,7 +95,16 @@ bool LogisParser::Exp1()
 
       if (NextToken())
       {
-         return Exp2();
+         if (KeyExp())
+         {
+            _currentnode = node.get();
+            return PrimeExp();
+         }
+         else if (Text())
+         {
+            _currentnode = node.get();
+            return PrimeExp();
+         }
       }
    }
    else
@@ -129,11 +115,10 @@ bool LogisParser::Exp1()
    return false;
 }
 
-//Exp'' -> keyword (Exp)
-//       | Text
-bool LogisParser::Exp2()
+//Keyexp -> keyword (Exp)
+bool LogisParser::KeyExp()
 {
-   shared_ptr<LogisTreeNodeExp2> node(new LogisTreeNodeExp2);
+   shared_ptr<LogisTreeNodeKeyExp> node(new LogisTreeNodeKeyExp);
    _currentnode->AddChild(node);
    _currentnode = node.get();
 
@@ -145,6 +130,7 @@ bool LogisParser::Exp2()
       {
          if (*_tokenit == L"(")
          {
+            _currentnode = node.get();
             if (Exp())
             {
                if (*_tokenit == L")")
@@ -155,60 +141,28 @@ bool LogisParser::Exp2()
          }
       }
    }
-   else if (Text())
-   {
-      return true;
-   }
 
    return false;
 }
 
-//Text -> header Factor
-//      | Factor
+//Text -> (Exp)
+//      | sn
 bool LogisParser::Text()
 {
    shared_ptr<LogisTreeNodeText> node(new LogisTreeNodeText);
    _currentnode->AddChild(node);
    _currentnode = node.get();
 
-   if (Header())
-   {
-      node->SetHeader(*_tokenit);
-
-      return Factor();
-   }
-   else if (Factor())
-   {
-      return true;
-   }
-
-   return false;
-}
-
-//Factor -> ( sn Tail )
-//        | sn
-bool LogisParser::Factor()
-{
-   shared_ptr<LogisTreeNodeFactor> node(new LogisTreeNodeFactor);
-   _currentnode->AddChild(node);
-   _currentnode = node.get();
-
    if (*_tokenit == L"(")
    {
-      node->SetLbracket();
       if (NextToken())
       {
-         if (Sn())
+         if (Exp())
          {
-            node->SetSn(*_tokenit);
-
-            if (Tail())
+            if (*_tokenit == L")")
             {
-               if (*_tokenit == L")")
-               {
-                  NextToken();
-                  return true;
-               }
+               NextToken();
+               return true;
             }
          }
       }
@@ -224,36 +178,8 @@ bool LogisParser::Factor()
    return false;
 }
 
-//Tail -> + sn Tail
-//      | null
-bool LogisParser::Tail()
-{
-   shared_ptr<LogisTreeNodeTail> node(new LogisTreeNodeTail);
-   _currentnode->AddChild(node);
-   _currentnode = node.get();
 
-   if (*_tokenit == L"+")
-   {
-      if (NextToken())
-      {
-         if (Sn())
-         {
-            node->SetSn(*_tokenit);
-
-            return Tail();
-         }
-      }
-   }
-   else
-   {
-      return true;
-   }
-
-   return false;
-}
-
-
-bool XFU::test_logis_parser(const std::vector<std::wstring>& tokens)
+bool logis::test_logis_parser(const std::vector<std::wstring>& tokens)
 {
    std::unique_ptr<LogisParser> parser(new LogisParser(tokens));
    parser->Run();
@@ -261,7 +187,7 @@ bool XFU::test_logis_parser(const std::vector<std::wstring>& tokens)
    return parser->IsSuccess();
 }
 
-std::shared_ptr<LogisTreeNode> XFU::run_logis_parser(const std::vector<std::wstring>& tokens)
+std::shared_ptr<LogisTreeNode> logis::run_logis_parser(const std::vector<std::wstring>& tokens)
 {
    std::unique_ptr<LogisParser> parser(new LogisParser(tokens));
    return parser->Run();

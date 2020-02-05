@@ -15,7 +15,7 @@
 
 
 using namespace std;
-using namespace XFU;
+using namespace logis;
 
 
 
@@ -171,7 +171,7 @@ vector<wstring> LogisTokenizer::Run()
 }
 
 
-vector<wstring> XFU::run_logis_tokenizer(const std::wstring& expr)
+vector<wstring> logis::run_logis_tokenizer(const std::wstring& expr)
 {
    std::unique_ptr<LogisTokenizer> tokenizer(new LogisTokenizer(expr));
    return tokenizer->Run();

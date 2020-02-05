@@ -13,7 +13,8 @@
 #include <string>
 #include <vector>
 
-namespace XFU
+
+namespace logis
 {
    class LogisTokenizer
    {
