@@ -85,6 +85,11 @@ namespace logis
          _children.push_back(child);
       }
 
+      void PopChild()
+      {
+         _children.pop_back();
+      }
+
       bool HasChild() const
       {
          return !_children.empty();

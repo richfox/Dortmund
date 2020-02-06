@@ -54,6 +54,7 @@ namespace logis
       bool PrimeExp();
       bool KeyExp();
       bool Text();
+
       bool Keyword();
       bool Sn();
 

@@ -69,12 +69,19 @@ bool LogisParser::Exp()
 
    if (KeyExp())
    {
-      return PrimeExp();
-   }
-   else if (Text())
-   {
       _currentnode = node.get();
       return PrimeExp();
+   }
+   else
+   {
+      _currentnode = node.get();
+      _currentnode->PopChild();
+
+      if (Text())
+      {
+         _currentnode = node.get();
+         return PrimeExp();
+      }
    }
 
    return false;
@@ -100,10 +107,16 @@ bool LogisParser::PrimeExp()
             _currentnode = node.get();
             return PrimeExp();
          }
-         else if (Text())
+         else
          {
             _currentnode = node.get();
-            return PrimeExp();
+            _currentnode->PopChild();
+
+            if (Text())
+            {
+               _currentnode = node.get();
+               return PrimeExp();
+            }
          }
       }
    }
@@ -130,7 +143,6 @@ bool LogisParser::KeyExp()
       {
          if (*_tokenit == L"(")
          {
-            _currentnode = node.get();
             if (Exp())
             {
                if (*_tokenit == L")")
