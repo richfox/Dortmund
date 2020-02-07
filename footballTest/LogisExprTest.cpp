@@ -43,6 +43,9 @@ void LogisExprTest::test()
    CPPUNIT_ASSERT(tokens[0] == L"yt");
    CPPUNIT_ASSERT(test_logis_parser(tokens)==true);
 
+   tokens = run_logis_tokenizer(L"(yt)");
+   CPPUNIT_ASSERT(test_logis_parser(tokens)==true);
+
    tokens = run_logis_tokenizer(L"zhongtong6666 + YT8888");
    CPPUNIT_ASSERT(tokens.size() == 3);
    CPPUNIT_ASSERT(test_logis_parser(tokens)==true);

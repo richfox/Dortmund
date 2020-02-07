@@ -143,11 +143,14 @@ bool LogisParser::KeyExp()
       {
          if (*_tokenit == L"(")
          {
-            if (Exp())
+            if (NextToken())
             {
-               if (*_tokenit == L")")
+               if (Exp())
                {
-                  return true;
+                  if (*_tokenit == L")")
+                  {
+                     return true;
+                  }
                }
             }
          }
