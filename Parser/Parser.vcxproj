@@ -157,6 +157,7 @@
     <ClInclude Include="LogisParser.h" />
     <ClInclude Include="LogisTokenizer.h" />
     <ClInclude Include="LogisTree.h" />
+    <ClInclude Include="LogisVisitor.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClCompile Include="LogisParser.cpp" />
     <ClCompile Include="LogisTokenizer.cpp" />
     <ClCompile Include="LogisTree.cpp" />
+    <ClCompile Include="LogisVisitor.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
