@@ -149,6 +149,7 @@ bool LogisParser::KeyExp()
                {
                   if (*_tokenit == L")")
                   {
+                     NextToken();
                      return true;
                   }
                }
