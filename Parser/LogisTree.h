@@ -107,10 +107,14 @@ namespace logis
 
       virtual std::wstring ToString() const;
 
+      int height() const;
+
    private:
       LogisNodeType _type;
       std::vector<std::shared_ptr<LogisTreeNode>> _children;
    };
+
+   int __declspec(dllexport) get_tree_height(const std::shared_ptr<LogisTreeNode>& tree);
 
 
    //Exp -> Keyexp Exp'

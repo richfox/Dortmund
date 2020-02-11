@@ -9,6 +9,7 @@
 //%铁路(中通6666 + 圆通YT(8888 + 5641)) + %空运(JD0001-1-1)
 
 #include "stdafx.h"
+#include <algorithm>
 #include "LogisTree.h"
 
 
@@ -30,6 +31,28 @@ wstring LogisTreeNode::ToString() const
    }
 
    return res;
+}
+
+int LogisTreeNode::height() const
+{
+   int h = 0;
+   
+   if (HasChild())
+   {
+      h = 1;
+      auto& it = max_element(GetChildren().begin(),GetChildren().end(),[&](const shared_ptr<LogisTreeNode>& lhs,const auto& rhs)
+      {
+         return lhs->height() < rhs->height();
+      });
+      h += (*it)->height();
+   }
+
+   return h;
+}
+
+int logis::get_tree_height(const std::shared_ptr<LogisTreeNode>& tree)
+{
+   return tree->height();
 }
 
 wstring LogisTreeNodeExp::ToString() const
