@@ -50,4 +50,7 @@ void BGLTest::test()
 
    const auto treeweight = kruskal();
    CPPUNIT_ASSERT(treeweight==24);
+
+   bool res = toposort();
+   CPPUNIT_ASSERT(res==true);
 }

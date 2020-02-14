@@ -12,6 +12,7 @@
 #include "boost/pending/indirect_cmp.hpp"
 #include "boost/graph/dijkstra_shortest_paths.hpp"
 #include "boost/graph/kruskal_min_spanning_tree.hpp"
+#include "boost\graph\topological_sort.hpp"
 
 
 using namespace std;
@@ -301,4 +302,29 @@ int XFU::kruskal()
    }
 
    return sweight;
+}
+
+bool XFU::toposort()
+{
+   bool res = true;
+
+   const DirectedGraph& g = create_directed_graph();
+   typedef std::vector<boost::graph_traits<DirectedGraph>::vertex_descriptor> container;
+   container c;
+   try
+   {
+      topological_sort(g,std::back_inserter(c));
+   }
+   catch (...)
+   {
+      res = false;
+   }
+      
+
+   cout << "A topological ordering: ";
+   for ( container::reverse_iterator ii=c.rbegin(); ii!=c.rend(); ii++)
+      cout << *ii << " ";
+   cout << endl;
+   
+   return res;
 }
