@@ -25,6 +25,7 @@ namespace logis
       virtual ~LogisVisitor()
       {}
 
+      virtual void VisitNode(const LogisTreeNode* node) = 0;
       virtual void VisitExp(const LogisTreeNodeExp* exp) = 0;
       virtual void VisitKeyExp(const LogisTreeNodeKeyExp* kexp) = 0;
       virtual void VisitPrimeExp(const LogisTreeNodePrimeExp* pexp) = 0;
@@ -48,6 +49,7 @@ namespace logis
          return _oss.str();
       }
 
+      virtual void VisitNode(const LogisTreeNode* node) override;
       virtual void VisitExp(const LogisTreeNodeExp* exp) override;
       virtual void VisitKeyExp(const LogisTreeNodeKeyExp* kexp) override;
       virtual void VisitPrimeExp(const LogisTreeNodePrimeExp* pexp) override;

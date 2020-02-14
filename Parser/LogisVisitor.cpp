@@ -13,6 +13,11 @@ using namespace std;
 using namespace logis;
 
 
+void LogisTreeToString::VisitNode(const LogisTreeNode* node)
+{
+   _oss << node->ToString();
+}
+
 void LogisTreeToString::VisitExp(const LogisTreeNodeExp* exp)
 {
    _oss << exp->ToString();
@@ -37,8 +42,7 @@ void LogisTreeToString::VisitText(const LogisTreeNodeText* text)
 wstring logis::run_logis_visitor(const shared_ptr<LogisTreeNode>& tree)
 {
    unique_ptr<LogisTreeToString> builder(new LogisTreeToString);
-   LogisTreeNodeExp* exp = static_cast<LogisTreeNodeExp*>(tree->GetChild(0).get());
-   builder->VisitExp(exp);
+   builder->VisitNode(tree.get());
 
    return builder->GetString();
 }
