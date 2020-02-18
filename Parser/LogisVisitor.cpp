@@ -51,7 +51,7 @@ wstring logis::run_logis_visitor(const shared_ptr<LogisTreeNode>& tree)
 
 void LogisTreeSearch::VisitNode(const LogisTreeNode* node)
 {
-   if (node->HasChild())
+   /*if (node->HasChild())
    {
       int i = 0;
       for (auto it=node->GetChildren().begin(); it!=node->GetChildren().end(); it++,i++)
@@ -61,31 +61,48 @@ void LogisTreeSearch::VisitNode(const LogisTreeNode* node)
 
          VisitNode(node->GetChild(i).get());
       }
-   }
+   }*/
 }
 
 void LogisTreeSearch::VisitExp(const LogisTreeNodeExp* exp)
 {
-   VisitNode(exp->GetChild(0).get());
+   if (exp->GetChild(0)->GetType() == LogisNodeType::Kexp)
+   {
+      VisitKeyExp(static_cast<LogisTreeNodeKeyExp*>(exp->GetChild(0).get()));
+   }
+   else
+   {
+      VisitText(static_cast<LogisTreeNodeText*>(exp->GetChild(0).get()));
+   }
 
    if (!_found)
    {
-      VisitNode(exp->GetChild(1).get());
+      VisitPrimeExp(static_cast<LogisTreeNodePrimeExp*>(exp->GetChild(1).get()));
    }
 }
 
 void LogisTreeSearch::VisitKeyExp(const LogisTreeNodeKeyExp* kexp)
 {
-   VisitNode(kexp->GetChild(0).get());
+   VisitExp(static_cast<LogisTreeNodeExp*>(kexp->GetChild(0).get()));
 }
 
 void LogisTreeSearch::VisitPrimeExp(const LogisTreeNodePrimeExp* pexp)
 {
-   VisitNode(pexp->GetChild(0).get());
-
-   if (!_found)
+   if (!pexp->GetOp().empty())
    {
-      VisitNode(pexp->GetChild(1).get());
+      if (pexp->GetChild(0)->GetType() == LogisNodeType::Kexp)
+      {
+         VisitKeyExp(static_cast<LogisTreeNodeKeyExp*>(pexp->GetChild(0).get()));
+      }
+      else
+      {
+         VisitText(static_cast<LogisTreeNodeText*>(pexp->GetChild(0).get()));
+      }
+
+      if (!_found)
+      {
+         VisitPrimeExp(static_cast<LogisTreeNodePrimeExp*>(pexp->GetChild(1).get()));
+      }
    }
 }
 
@@ -93,11 +110,20 @@ void LogisTreeSearch::VisitText(const LogisTreeNodeText* text)
 {
    if (text->HasChild())
    {
-      VisitNode(text->GetChild(0).get());
+      VisitExp(static_cast<LogisTreeNodeExp*>(text->GetChild(0).get()));
    }
    else
    {
       wstring pattern = wstring(L"^.*") + _sn + L".*$";
       _found = regex_search(text->GetSn(),wregex(pattern));
    }
+}
+
+
+bool logis::search_sn(const shared_ptr<LogisTreeNode>& tree,const std::wstring& sn)
+{
+   unique_ptr<LogisTreeSearch> searcher(new LogisTreeSearch(sn));
+   searcher->VisitExp(static_cast<LogisTreeNodeExp*>(tree->GetChild(0).get()));
+
+   return searcher->IsFound();
 }

@@ -39,6 +39,8 @@
 
 namespace logis
 {
+   class LogisVisitor;
+
    enum class LogisNodeType
    {
       Undef = -1,
@@ -109,6 +111,8 @@ namespace logis
 
       int height() const;
 
+      virtual void Accept(LogisVisitor* visitor) const;
+
    private:
       LogisNodeType _type;
       std::vector<std::shared_ptr<LogisTreeNode>> _children;
@@ -130,6 +134,7 @@ namespace logis
       {}
 
       std::wstring ToString() const;
+      void Accept(LogisVisitor* visitor) const;
    };
 
 
@@ -158,6 +163,7 @@ namespace logis
       }
 
       std::wstring ToString() const;
+      void Accept(LogisVisitor* visitor) const;
 
    private:
       std::wstring _op;
@@ -187,6 +193,7 @@ namespace logis
       }
 
       std::wstring ToString() const;
+      void Accept(LogisVisitor* visitor) const;
 
    private:
       std::wstring _keyword;
@@ -217,6 +224,7 @@ namespace logis
       }
 
       std::wstring ToString() const;
+      void Accept(LogisVisitor* visitor) const;
 
    private:
       std::wstring _sn;

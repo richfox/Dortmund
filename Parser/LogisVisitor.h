@@ -74,6 +74,10 @@ namespace logis
       virtual void VisitPrimeExp(const LogisTreeNodePrimeExp* pexp) override;
       virtual void VisitText(const LogisTreeNodeText* text) override;
 
+      bool IsFound()
+      {
+         return _found;
+      }
 
    private:
       std::wstring _sn;
@@ -81,4 +85,5 @@ namespace logis
    };
 
    std::wstring __declspec(dllexport) run_logis_visitor(const std::shared_ptr<LogisTreeNode>& tree);
+   bool __declspec(dllexport) search_sn(const std::shared_ptr<LogisTreeNode>& tree,const std::wstring& sn);
 }

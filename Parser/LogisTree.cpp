@@ -11,6 +11,7 @@
 #include "stdafx.h"
 #include <algorithm>
 #include "LogisTree.h"
+#include "LogisVisitor.h"
 
 
 using namespace std;
@@ -32,6 +33,9 @@ wstring LogisTreeNode::ToString() const
 
    return res;
 }
+
+void LogisTreeNode::Accept(LogisVisitor* visitor) const
+{}
 
 int LogisTreeNode::height() const
 {
@@ -60,6 +64,13 @@ wstring LogisTreeNodeExp::ToString() const
    return GetChild(0)->ToString() + GetChild(1)->ToString();
 }
 
+void LogisTreeNodeExp::Accept(LogisVisitor* visitor) const
+{
+   GetChild(0)->Accept(visitor);
+   GetChild(1)->Accept(visitor);
+   visitor->VisitExp(this);
+}
+
 wstring LogisTreeNodePrimeExp::ToString() const
 {
    if (!GetOp().empty())
@@ -72,9 +83,29 @@ wstring LogisTreeNodePrimeExp::ToString() const
    }
 }
 
+void LogisTreeNodePrimeExp::Accept(LogisVisitor* visitor) const
+{
+   if (!GetOp().empty())
+   {
+      GetChild(0)->Accept(visitor);
+      GetChild(1)->Accept(visitor);
+      visitor->VisitPrimeExp(this);
+   }
+   else
+   {
+      visitor->VisitPrimeExp(this);
+   }
+}
+
 wstring LogisTreeNodeKeyExp::ToString() const
 {
    return GetKeyword() + L"(" + GetChild(0)->ToString() + L")";
+}
+
+void LogisTreeNodeKeyExp::Accept(LogisVisitor* visitor) const
+{
+   GetChild(0)->Accept(visitor);
+   visitor->VisitKeyExp(this);
 }
 
 wstring LogisTreeNodeText::ToString() const
@@ -86,5 +117,18 @@ wstring LogisTreeNodeText::ToString() const
    else
    {
       return GetSn();
+   }
+}
+
+void LogisTreeNodeText::Accept(LogisVisitor* visitor) const
+{
+   if (HasChild())
+   {
+      GetChild(0)->Accept(visitor);
+      visitor->VisitText(this);
+   }
+   else
+   {
+      visitor->VisitText(this);
    }
 }
