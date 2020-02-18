@@ -59,5 +59,26 @@ namespace logis
       std::wostringstream _oss;
    };
 
+
+   class LogisTreeSearch : public LogisVisitor
+   {
+   public:
+      LogisTreeSearch(const std::wstring& sn)
+         :LogisVisitor(),
+         _sn(sn)
+      {}
+
+      virtual void VisitNode(const LogisTreeNode* node) override;
+      virtual void VisitExp(const LogisTreeNodeExp* exp) override;
+      virtual void VisitKeyExp(const LogisTreeNodeKeyExp* kexp) override;
+      virtual void VisitPrimeExp(const LogisTreeNodePrimeExp* pexp) override;
+      virtual void VisitText(const LogisTreeNodeText* text) override;
+
+
+   private:
+      std::wstring _sn;
+      bool _found;
+   };
+
    std::wstring __declspec(dllexport) run_logis_visitor(const std::shared_ptr<LogisTreeNode>& tree);
 }
