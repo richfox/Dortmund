@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include <regex>
+#include "LogisTree.h"
 #include "LogisVisitor.h"
 
 
@@ -50,19 +51,7 @@ wstring logis::run_logis_visitor(const shared_ptr<LogisTreeNode>& tree)
 
 
 void LogisTreeSearch::VisitNode(const LogisTreeNode* node)
-{
-   /*if (node->HasChild())
-   {
-      int i = 0;
-      for (auto it=node->GetChildren().begin(); it!=node->GetChildren().end(); it++,i++)
-      {
-         if (_found)
-            break;
-
-         VisitNode(node->GetChild(i).get());
-      }
-   }*/
-}
+{}
 
 void LogisTreeSearch::VisitExp(const LogisTreeNodeExp* exp)
 {
@@ -123,7 +112,7 @@ void LogisTreeSearch::VisitText(const LogisTreeNodeText* text)
 bool logis::search_sn(const shared_ptr<LogisTreeNode>& tree,const std::wstring& sn)
 {
    unique_ptr<LogisTreeSearch> searcher(new LogisTreeSearch(sn));
-   static_cast<LogisTreeNodeExp*>(tree->GetChild(0).get())->Accept(searcher.get());
+   tree->Accept(searcher.get());
 
    return searcher->IsFound();
 }

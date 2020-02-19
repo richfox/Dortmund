@@ -35,7 +35,15 @@ wstring LogisTreeNode::ToString() const
 }
 
 void LogisTreeNode::Accept(LogisVisitor* visitor) const
-{}
+{
+   int i = 0;
+   for (auto it=GetChildren().begin(); it!=GetChildren().end(); it++,i++)
+   {
+      GetChild(i).get()->Accept(visitor);
+   }
+
+   visitor->VisitNode(this);
+}
 
 int LogisTreeNode::height() const
 {

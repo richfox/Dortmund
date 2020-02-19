@@ -87,7 +87,7 @@ void LogisExprTest::test()
    CPPUNIT_ASSERT(get_tree_height(tree) == 3);
    CPPUNIT_ASSERT(search_sn(tree,L"YT88") == true);
    CPPUNIT_ASSERT(search_sn(tree,L"YT8888") == true);
-   CPPUNIT_ASSERT(search_sn(tree,L"YT888888") == false);
+   CPPUNIT_ASSERT(search_sn(tree,L"zhongtong6666") == true);
 
    tokens = run_logis_tokenizer(L"%R(zhongtong6666) + %A(YT8888)");
    CPPUNIT_ASSERT(test_logis_parser(tokens)==true);

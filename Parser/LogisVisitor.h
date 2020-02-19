@@ -10,11 +10,16 @@
 #include <memory>
 #include <sstream>
 #include <string>
-#include "LogisTree.h"
 
 
 namespace logis
 {
+   class LogisTreeNode;
+   class LogisTreeNodeExp;
+   class LogisTreeNodeKeyExp;
+   class LogisTreeNodePrimeExp;
+   class LogisTreeNodeText;
+
    class LogisVisitor
    {
    protected:
