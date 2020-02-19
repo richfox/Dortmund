@@ -85,12 +85,18 @@ void LogisExprTest::test()
    tree = run_logis_parser(tokens);
    CPPUNIT_ASSERT(run_logis_visitor(tree) == L"zhongtong6666+YT8888");
    CPPUNIT_ASSERT(get_tree_height(tree) == 3);
+   CPPUNIT_ASSERT(search_sn(tree,L"YT88") == true);
+   CPPUNIT_ASSERT(search_sn(tree,L"YT8888") == true);
+   CPPUNIT_ASSERT(search_sn(tree,L"YT888888") == false);
 
    tokens = run_logis_tokenizer(L"%R(zhongtong6666) + %A(YT8888)");
    CPPUNIT_ASSERT(test_logis_parser(tokens)==true);
    tree = run_logis_parser(tokens);
    CPPUNIT_ASSERT(run_logis_visitor(tree) == L"%R(zhongtong6666)+%A(YT8888)");
    CPPUNIT_ASSERT(get_tree_height(tree) == 5);
+   CPPUNIT_ASSERT(search_sn(tree,L"YT88") == true);
+   CPPUNIT_ASSERT(search_sn(tree,L"YT8888") == true);
+   CPPUNIT_ASSERT(search_sn(tree,L"YT888888") == false);
 
    tokens = run_logis_tokenizer(L"%A(%T(%S(t + B)))");
    CPPUNIT_ASSERT(test_logis_parser(tokens)==true);
@@ -107,6 +113,9 @@ void LogisExprTest::test()
    tree = run_logis_parser(tokens);
    CPPUNIT_ASSERT(run_logis_visitor(tree) == L"%A(%T(%S(t)+B))");
    CPPUNIT_ASSERT(get_tree_height(tree) == 8);
+   CPPUNIT_ASSERT(search_sn(tree,L"t") == true);
+   CPPUNIT_ASSERT(search_sn(tree,L"B") == true);
+   CPPUNIT_ASSERT(search_sn(tree,L"foo") == false);
 
    tokens = run_logis_tokenizer(L"%A(%T(%S(t)))+ B");
    CPPUNIT_ASSERT(test_logis_parser(tokens)==true);

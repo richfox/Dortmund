@@ -123,7 +123,7 @@ void LogisTreeSearch::VisitText(const LogisTreeNodeText* text)
 bool logis::search_sn(const shared_ptr<LogisTreeNode>& tree,const std::wstring& sn)
 {
    unique_ptr<LogisTreeSearch> searcher(new LogisTreeSearch(sn));
-   searcher->VisitExp(static_cast<LogisTreeNodeExp*>(tree->GetChild(0).get()));
+   static_cast<LogisTreeNodeExp*>(tree->GetChild(0).get())->Accept(searcher.get());
 
    return searcher->IsFound();
 }

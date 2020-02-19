@@ -66,8 +66,6 @@ wstring LogisTreeNodeExp::ToString() const
 
 void LogisTreeNodeExp::Accept(LogisVisitor* visitor) const
 {
-   GetChild(0)->Accept(visitor);
-   GetChild(1)->Accept(visitor);
    visitor->VisitExp(this);
 }
 
@@ -85,16 +83,7 @@ wstring LogisTreeNodePrimeExp::ToString() const
 
 void LogisTreeNodePrimeExp::Accept(LogisVisitor* visitor) const
 {
-   if (!GetOp().empty())
-   {
-      GetChild(0)->Accept(visitor);
-      GetChild(1)->Accept(visitor);
-      visitor->VisitPrimeExp(this);
-   }
-   else
-   {
-      visitor->VisitPrimeExp(this);
-   }
+   visitor->VisitPrimeExp(this);
 }
 
 wstring LogisTreeNodeKeyExp::ToString() const
@@ -104,7 +93,6 @@ wstring LogisTreeNodeKeyExp::ToString() const
 
 void LogisTreeNodeKeyExp::Accept(LogisVisitor* visitor) const
 {
-   GetChild(0)->Accept(visitor);
    visitor->VisitKeyExp(this);
 }
 
@@ -122,13 +110,5 @@ wstring LogisTreeNodeText::ToString() const
 
 void LogisTreeNodeText::Accept(LogisVisitor* visitor) const
 {
-   if (HasChild())
-   {
-      GetChild(0)->Accept(visitor);
-      visitor->VisitText(this);
-   }
-   else
-   {
-      visitor->VisitText(this);
-   }
+   visitor->VisitText(this);
 }
