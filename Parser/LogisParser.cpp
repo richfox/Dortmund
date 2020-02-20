@@ -120,7 +120,7 @@ bool LogisParser::PrimeExp()
          }
       }
    }
-   else
+   else if (*_tokenit==L")" || _tokenit == _tokens.end()-1)
    {
       return true;
    }

@@ -136,11 +136,12 @@ void LogisExprTest::test()
    CPPUNIT_ASSERT(test_logis_parser(tokens)==true);
    tree = run_logis_parser(tokens);
    CPPUNIT_ASSERT(run_logis_visitor(tree) == L"%A(%T(%S(t)))+(B)");
-   
+   CPPUNIT_ASSERT(get_tree_height(tree) == 8);
 
    tokens = run_logis_tokenizer(L"%R(zhongtong6666 + YT(8888 + 5641)) + %A(JD0001-1-1)");
    CPPUNIT_ASSERT(tokens.size() == 16);
    auto tokens2 = run_logis_tokenizer(L"  %R ( zhongtong6666 +  YT(  8888  +  5641  )  ) + %A(JD0001-1-1)  ");
    CPPUNIT_ASSERT(tokens.size() == 16);
    CPPUNIT_ASSERT(tokens == tokens2);
+   //CPPUNIT_ASSERT(test_logis_parser(tokens)==false);
 }
