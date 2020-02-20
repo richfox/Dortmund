@@ -18,21 +18,6 @@ using namespace std;
 using namespace logis;
 
 
-wstring LogisTreeNode::ToString() const
-{
-   wstring res = L"";
-
-   if (HasChild())
-   {
-      int i = 0;
-      for (auto it=GetChildren().begin(); it!=GetChildren().end(); it++,i++)
-      {
-         res += GetChild(i)->ToString();
-      }
-   }
-
-   return res;
-}
 
 void LogisTreeNode::Accept(LogisVisitor* visitor) const
 {
@@ -67,26 +52,9 @@ int logis::get_tree_height(const std::shared_ptr<LogisTreeNode>& tree)
    return tree->height();
 }
 
-wstring LogisTreeNodeExp::ToString() const
-{
-   return GetChild(0)->ToString() + GetChild(1)->ToString();
-}
-
 void LogisTreeNodeExp::Accept(LogisVisitor* visitor) const
 {
    visitor->VisitExp(this);
-}
-
-wstring LogisTreeNodePrimeExp::ToString() const
-{
-   if (!GetOp().empty())
-   {
-      return GetOp() + GetChild(0)->ToString() + GetChild(1)->ToString();
-   }
-   else
-   {
-      return L"";
-   }
 }
 
 void LogisTreeNodePrimeExp::Accept(LogisVisitor* visitor) const
@@ -94,26 +62,9 @@ void LogisTreeNodePrimeExp::Accept(LogisVisitor* visitor) const
    visitor->VisitPrimeExp(this);
 }
 
-wstring LogisTreeNodeKeyExp::ToString() const
-{
-   return GetKeyword() + L"(" + GetChild(0)->ToString() + L")";
-}
-
 void LogisTreeNodeKeyExp::Accept(LogisVisitor* visitor) const
 {
    visitor->VisitKeyExp(this);
-}
-
-wstring LogisTreeNodeText::ToString() const
-{
-   if (HasChild())
-   {
-      return wstring(L"(") + GetChild(0)->ToString() + wstring(L")");
-   }
-   else
-   {
-      return GetSn();
-   }
 }
 
 void LogisTreeNodeText::Accept(LogisVisitor* visitor) const

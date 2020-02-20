@@ -107,8 +107,6 @@ namespace logis
          return _children;
       }
 
-      virtual std::wstring ToString() const;
-
       int height() const;
 
       virtual void Accept(LogisVisitor* visitor) const;
@@ -133,7 +131,6 @@ namespace logis
       ~LogisTreeNodeExp()
       {}
 
-      std::wstring ToString() const;
       void Accept(LogisVisitor* visitor) const;
    };
 
@@ -162,7 +159,6 @@ namespace logis
          return _op;
       }
 
-      std::wstring ToString() const;
       void Accept(LogisVisitor* visitor) const;
 
    private:
@@ -192,7 +188,6 @@ namespace logis
          return _keyword;
       }
 
-      std::wstring ToString() const;
       void Accept(LogisVisitor* visitor) const;
 
    private:
@@ -223,7 +218,6 @@ namespace logis
          return _sn;
       }
 
-      std::wstring ToString() const;
       void Accept(LogisVisitor* visitor) const;
 
    private:

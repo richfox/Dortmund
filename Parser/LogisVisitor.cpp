@@ -16,38 +16,62 @@ using namespace logis;
 
 
 void LogisTreeToString::VisitNode(const LogisTreeNode* node)
-{
-   _oss << node->ToString();
-}
+{}
 
 void LogisTreeToString::VisitExp(const LogisTreeNodeExp* exp)
 {
-   _oss << exp->ToString();
+   if (exp->GetChild(0)->GetType() == LogisNodeType::Kexp)
+   {
+      VisitKeyExp(static_cast<LogisTreeNodeKeyExp*>(exp->GetChild(0).get()));
+   }
+   else
+   {
+      VisitText(static_cast<LogisTreeNodeText*>(exp->GetChild(0).get()));
+   }
+
+   VisitPrimeExp(static_cast<LogisTreeNodePrimeExp*>(exp->GetChild(1).get()));
 }
 
 void LogisTreeToString::VisitKeyExp(const LogisTreeNodeKeyExp* kexp)
 {
-   _oss << kexp->ToString();
+   _str += kexp->GetKeyword() + L"(";
+   VisitExp(static_cast<LogisTreeNodeExp*>(kexp->GetChild(0).get()));
+   _str += L")";
 }
 
 void LogisTreeToString::VisitPrimeExp(const LogisTreeNodePrimeExp* pexp)
 {
-   _oss << pexp->ToString();
+   if (!pexp->GetOp().empty())
+   {
+      _str += pexp->GetOp();
+      if (pexp->GetChild(0)->GetType() == LogisNodeType::Kexp)
+      {
+         VisitKeyExp(static_cast<LogisTreeNodeKeyExp*>(pexp->GetChild(0).get()));
+      }
+      else
+      {
+         VisitText(static_cast<LogisTreeNodeText*>(pexp->GetChild(0).get()));
+      }
+
+      VisitPrimeExp(static_cast<LogisTreeNodePrimeExp*>(pexp->GetChild(1).get()));
+   }
 }
 
 void LogisTreeToString::VisitText(const LogisTreeNodeText* text)
 {
-   _oss << text->ToString();
+   if (text->HasChild())
+   {
+      _str += L"(";
+      VisitExp(static_cast<LogisTreeNodeExp*>(text->GetChild(0).get()));
+      _str += L")";
+   }
+   else
+   {
+      _str += text->GetSn();
+   }
 }
 
 
-wstring logis::run_logis_visitor(const shared_ptr<LogisTreeNode>& tree)
-{
-   unique_ptr<LogisTreeToString> builder(new LogisTreeToString);
-   builder->VisitNode(tree.get());
-
-   return builder->GetString();
-}
 
 
 void LogisTreeSearch::VisitNode(const LogisTreeNode* node)
@@ -106,6 +130,15 @@ void LogisTreeSearch::VisitText(const LogisTreeNodeText* text)
       wstring pattern = wstring(L"^.*") + _sn + L".*$";
       _found = regex_search(text->GetSn(),wregex(pattern));
    }
+}
+
+
+wstring logis::run_logis_visitor(const shared_ptr<LogisTreeNode>& tree)
+{
+   unique_ptr<LogisTreeToString> builder(new LogisTreeToString);
+   tree->Accept(builder.get());
+
+   return builder->GetString();
 }
 
 

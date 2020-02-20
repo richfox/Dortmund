@@ -8,7 +8,6 @@
 #pragma once
 
 #include <memory>
-#include <sstream>
 #include <string>
 
 
@@ -43,7 +42,7 @@ namespace logis
    public:
       LogisTreeToString()
          :LogisVisitor(),
-         _oss()
+         _str()
       {}
 
       virtual ~LogisTreeToString()
@@ -51,7 +50,7 @@ namespace logis
 
       std::wstring GetString() const
       {
-         return _oss.str();
+         return _str;
       }
 
       virtual void VisitNode(const LogisTreeNode* node) override;
@@ -61,7 +60,7 @@ namespace logis
       virtual void VisitText(const LogisTreeNodeText* text) override;
 
    private:
-      std::wostringstream _oss;
+      std::wstring _str;
    };
 
 
