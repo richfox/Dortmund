@@ -35,6 +35,7 @@ namespace logis
       LogisParser(const std::vector<std::wstring>& tokens)
          :_tokens(tokens),
          _tokenit(),
+         _state(Undef),
          _success(false),
          _currentnode(nullptr)
       {}
@@ -48,6 +49,13 @@ namespace logis
       {
          return _success;
       }
+
+   protected:
+      enum TokenState
+      {
+         Undef = -1,
+         WrongToken
+      };
 
    private:
       bool Exp();
@@ -63,6 +71,7 @@ namespace logis
    private:
       std::vector<std::wstring> _tokens;
       std::vector<std::wstring>::const_iterator _tokenit;
+      TokenState _state;
       bool _success;
       LogisTreeNode* _currentnode;
    };

@@ -143,5 +143,5 @@ void LogisExprTest::test()
    auto tokens2 = run_logis_tokenizer(L"  %R ( zhongtong6666 +  YT(  8888  +  5641  )  ) + %A(JD0001-1-1)  ");
    CPPUNIT_ASSERT(tokens.size() == 16);
    CPPUNIT_ASSERT(tokens == tokens2);
-   //CPPUNIT_ASSERT(test_logis_parser(tokens)==false);
+   CPPUNIT_ASSERT(test_logis_parser(tokens)==false);
 }

@@ -38,10 +38,13 @@ shared_ptr<LogisTreeNode> LogisParser::Run()
 
 bool LogisParser::NextToken()
 {
-   if (_tokenit != _tokens.end()-1)
+   if (_state != WrongToken)
    {
-      _tokenit++;
-      return true;
+      if (_tokenit != _tokens.end()-1)
+      {
+         _tokenit++;
+         return true;
+      }
    }
    
    return false;
@@ -125,6 +128,7 @@ bool LogisParser::PrimeExp()
       return true;
    }
 
+   _state = WrongToken;
    return false;
 }
 
