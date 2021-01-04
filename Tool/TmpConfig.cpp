@@ -31,8 +31,9 @@ void TmpConfig<T>::save_tmp_setting(const T& setting,const wstring& node)
    pt::wptree tree;
    wstring tpath = XFUPath::GetSystemTempPath();
 
-   if (!XFUPath::Exist(tpath + _fname))
+   if (!XFUPath::Exist(tpath))
    {
+      XFUPath::Create(tpath);
       tree.put(node,setting);
       wofstream ofs(tpath + _fname);
       pt::write_xml(ofs,tree);
