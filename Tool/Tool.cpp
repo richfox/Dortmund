@@ -12,6 +12,7 @@
 #include "Operation.h"
 #include "Invoker.h"
 #include "TmpConfig.h"
+#include "Hash.h"
 #include <conio.h>
 #include <sstream>
 #include <fstream>
@@ -243,6 +244,17 @@ int _tmain(int argc, _TCHAR* argv[])
       do_it_once2();
    }
    CHECK_ERROR(TmpConfig<wstring>::load_tmp_setting(L"config.wstring")==L"xfu",L"config error");
+
+
+   //test hash
+   wstring hname;
+   do
+   {
+      hname = create_hash_string(6);
+      hname += L".xfu";
+   } while(_waccess((XFUPath::GetSystemTempPath()+hname).c_str(),0) == 0);
+   HANDLE hFile = CreateFileW ((XFUPath::GetSystemTempPath()+hname).c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
+   CloseHandle(hFile);
 
    return 0;
 }
