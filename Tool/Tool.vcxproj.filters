@@ -45,9 +45,6 @@
     <ClInclude Include="meta.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Factorial.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="path.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>

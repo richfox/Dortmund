@@ -63,6 +63,9 @@
     <ClInclude Include="FibTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AlgorithmTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FibTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AlgorithmTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

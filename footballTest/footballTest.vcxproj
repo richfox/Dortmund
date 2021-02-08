@@ -160,6 +160,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlgorithmTest.h" />
     <ClInclude Include="BoostGrahpLibraryTest.h" />
     <ClInclude Include="DecoratorTest.h" />
     <ClInclude Include="FibTest.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AlgorithmTest.cpp" />
     <ClCompile Include="BoostGrahpLibraryTest.cpp" />
     <ClCompile Include="DecoratorTest.cpp" />
     <ClCompile Include="FibTest.cpp" />

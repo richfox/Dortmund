@@ -167,7 +167,6 @@
     <ClInclude Include="Cache.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Error.h" />
-    <ClInclude Include="Factorial.h" />
     <ClInclude Include="Guard.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="Invoker.h" />

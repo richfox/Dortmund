@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+
+#pragma once
+
 #include <functional>
 
 
@@ -29,4 +32,13 @@ namespace XFU
    {
       return x<1 ? 1 : x*fac(x-1);
    };
+
+   //递归函数
+   int factorial(int n)
+   {
+      if (n == 0)
+         return 1;
+      else
+         return n * factorial(n-1);
+   }
 }

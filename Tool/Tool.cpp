@@ -6,7 +6,6 @@
 #include "Guard.h"
 #include "Debug.h"
 #include "meta.h"
-#include "Factorial.h"
 #include "path.h"
 #include "RegexUtil.h"
 #include "Operation.h"
@@ -152,8 +151,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
-   //test Factorial
-   CHECK_ERROR(XFU::Factorial<5>::value==XFU::fac(5),L"error");
+   
 
    //test Path
    wstring current = XFU::XFUPath::GetCurrentPath();
