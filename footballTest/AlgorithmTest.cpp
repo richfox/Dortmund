@@ -2,6 +2,7 @@
 #include "AlgorithmTest.h"
 #include "..\Algorithm\factorial.h"
 #include "..\Algorithm\search.h"
+#include "..\Algorithm\sort.h"
 
 using namespace std;
 using namespace XFU;
@@ -30,4 +31,10 @@ void AlgoTest::test()
    CPPUNIT_ASSERT(binary_search(lucas,0,int(lucas.size())-1,123) == 9);
    CPPUNIT_ASSERT(search(lucas,0,int(lucas.size())-1,2) == -1);
    CPPUNIT_ASSERT(binary_search(lucas,0,int(lucas.size())-1,2) == -1);
+
+
+   cout << "\r\ntest sorting...\r\n" << endl;
+
+   static const std::vector<int> testseq = {3,5,7,8,1,9,2,4,6};
+   CPPUNIT_ASSERT(merge_sort(testseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
 }

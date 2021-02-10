@@ -156,6 +156,7 @@
     <ClInclude Include="factorial.h" />
     <ClInclude Include="fib.h" />
     <ClInclude Include="search.h" />
+    <ClInclude Include="sort.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
