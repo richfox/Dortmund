@@ -29,3 +29,21 @@ int dynamic_fibonacci(int n) //动态规划算法,O(n)
 
    return res[n];
 }
+
+int iterative_fibonacci(int n) //迭代算法,O(n)
+{
+   if (n == 0)
+      return 0;
+   else
+   {
+      int x = 0;
+      int y = 1;
+      for (int i=1; i<n; i++)
+      {
+         int z = x + y;
+         x = y;
+         y = z;
+      }
+      return y;
+   }
+}

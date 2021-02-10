@@ -21,6 +21,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(FibTest);
 
 void FibTest::test()
 {
+   cout << "\r\ntest fibonacci sequence...\r\n" << endl;
+
    for (int i=0; i<_countof(fib); i++)
    {
       CPPUNIT_ASSERT(fibonacci(i) == fib[i]);
@@ -35,4 +37,7 @@ void FibTest::test()
    {
       dynamic_fibonacci(100);
    });
+
+   CPPUNIT_ASSERT(iterative_fibonacci(4) == dynamic_fibonacci(4));
+   CPPUNIT_ASSERT(iterative_fibonacci(4) < dynamic_fibonacci(5));
 }
