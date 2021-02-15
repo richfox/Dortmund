@@ -9,9 +9,9 @@ std::vector<int> bubble_sort(std::vector<int>& L)
    if (L.size() == 1)
       return L;
    
-   for (std::size_t i=1; i<=L.size()-1; i++)
+   for (int i=1; i<=L.size()-1; i++)
    {
-      for (std::size_t j=1; j<=L.size()-i; j++)
+      for (int j=1; j<=L.size()-i; j++)
       {
          if (L[j-1] > L[j])
          {
@@ -25,6 +25,27 @@ std::vector<int> bubble_sort(std::vector<int>& L)
 }
 
 //插入排序，O(n^2)
+std::vector<int> insertion_sort(std::vector<int>& L)
+{
+   if (L.size() == 1)
+      return L;
+
+   for (int j=2; j<=L.size(); j++)
+   {
+      int i = 1;
+      while (L[j-1] > L[i-1])
+      {
+         i += 1;
+      }
+      int m = L[j-1];
+      for (int k=0; k<=j-i-1; k++)
+      {
+         L[j-k-1] = L[j-k-2];
+      }
+      L[i-1] = m;
+   }
+   return L;
+}
 
 //快速排序，O(nlogn)
 
