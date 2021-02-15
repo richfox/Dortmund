@@ -37,4 +37,6 @@ void AlgoTest::test()
 
    static const std::vector<int> testseq = {3,5,7,8,1,9,2,4,6};
    CPPUNIT_ASSERT(merge_sort(testseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
+   auto copyseq = testseq;
+   CPPUNIT_ASSERT(bubble_sort(copyseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
 }
