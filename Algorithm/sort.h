@@ -48,6 +48,40 @@ std::vector<int> insertion_sort(std::vector<int>& L)
 }
 
 //快速排序，O(nlogn)
+std::vector<int> quick_sort(std::vector<int>& L)
+{
+   if (L.size() == 1)
+      return L;
+
+   std::vector<int> L1;
+   std::vector<int> L2;
+   int tmp = L[0];
+   for (int i=2; i<=L.size(); i++)
+   {
+      if (L[i-1] < L[0])
+         L1.push_back(L[i-1]);
+      else
+         L2.push_back(L[i-1]);
+   }
+
+   if (!L1.empty())
+      quick_sort(L1);
+   if (!L2.empty())
+      quick_sort(L2);
+   
+   for (int i=1; i<=L1.size(); i++)
+   {
+      L[i-1] = L1[i-1];
+   }
+   L[L1.size()] = tmp;
+   for (int i=1; i<=L2.size(); i++)
+   {
+      L[L1.size()+i] = L2[i-1];
+   }
+
+   return L;
+}
+
 
 //归并排序，O(nlogn)
 std::vector<int> merge(std::vector<int>& L1,std::vector<int>& L2)

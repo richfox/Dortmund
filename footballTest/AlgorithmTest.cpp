@@ -41,4 +41,6 @@ void AlgoTest::test()
    CPPUNIT_ASSERT(bubble_sort(copyseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
    copyseq = testseq;
    CPPUNIT_ASSERT(insertion_sort(copyseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
+   copyseq = testseq;
+   CPPUNIT_ASSERT(quick_sort(copyseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
 }
