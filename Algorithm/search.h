@@ -15,7 +15,7 @@ int value_of_seq(const std::vector<int>& seq,int i)
       return INT_MAX;
 }
 
-//线性搜索，O(n)
+//递归线性搜索算法，O(n)
 //如果有x，返回数列中x的位置，否则为-1
 int search(const std::vector<int>& seq,int start,int end,int x)
 {
@@ -27,17 +27,17 @@ int search(const std::vector<int>& seq,int start,int end,int x)
       return search(seq,start+1,end,x);
 }
 
-//二分搜索，O(logn)
-//如果有x，返回数列中x的位置，否则为-1
-int binary_search(const std::vector<int>& seq,int i,int j,int x)
+//递归二分搜索算法，O(logn)
+//如果有x，返回数列中x的位置，否则为-1，输入数列必须升序排列
+int binary_search(const std::vector<int>& seq,int start,int end,int x)
 {
-   int m = (int)floor((i + j) / 2);
+   int m = (int)floor((start + end) / 2);
    if (value_of_seq(seq,m) == x)
       return m;
-   else if (x<value_of_seq(seq,m) && i<m)
-      return binary_search(seq,i,m-1,x);
-   else if (x>value_of_seq(seq,m) && j>m)
-      return binary_search(seq,m+1,j,x);
+   else if (x<value_of_seq(seq,m) && start<m)
+      return binary_search(seq,start,m-1,x);
+   else if (x>value_of_seq(seq,m) && end>m)
+      return binary_search(seq,m+1,end,x);
    else
       return -1;
 }

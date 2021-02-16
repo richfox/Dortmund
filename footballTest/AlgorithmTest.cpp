@@ -35,12 +35,14 @@ void AlgoTest::test()
 
    cout << "\r\ntest sorting...\r\n" << endl;
 
-   static const std::vector<int> testseq = {3,5,7,8,1,9,2,4,6};
-   CPPUNIT_ASSERT(merge_sort(testseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
+   static const std::vector<int> testseq = {1,3,5,7,8,1,9,2,4,6};
+   CPPUNIT_ASSERT(merge_sort(testseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
    auto copyseq = testseq;
-   CPPUNIT_ASSERT(bubble_sort(copyseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
+   CPPUNIT_ASSERT(bubble_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
    copyseq = testseq;
-   CPPUNIT_ASSERT(insertion_sort(copyseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
+   CPPUNIT_ASSERT(insertion_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
    copyseq = testseq;
-   CPPUNIT_ASSERT(quick_sort(copyseq) == std::vector<int>({1,2,3,4,5,6,7,8,9}));
+   CPPUNIT_ASSERT(quick_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
+   copyseq = testseq;
+   CPPUNIT_ASSERT(shaker_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
 }

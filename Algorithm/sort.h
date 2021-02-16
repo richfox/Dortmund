@@ -47,6 +47,53 @@ std::vector<int> insertion_sort(std::vector<int>& L)
    return L;
 }
 
+
+//剃须刀排序，O(n^2)
+std::vector<int> shaker_sort(std::vector<int>& L)
+{
+   int front = 1;
+   int back = int(L.size());
+   bool stillrun = true;
+   while (front<back && stillrun)
+   {
+      if ((int(L.size())+back+front) % 2)
+      {
+         /*is odd then process from front to back*/
+         stillrun = false;
+         for (int j=front; j<=back-1; j++)
+         {
+            if (L[j-1] > L[j])
+            {
+               stillrun = true;
+               int tmp = L[j-1];
+               L[j-1] = L[j];
+               L[j] = tmp;
+            }
+         }
+         back -= 1;
+      }
+      else
+      {
+         /*process from back to front*/
+         stillrun = false;
+         for (int j=back; j>=front+1; j--)
+         {
+            if (L[j-2] > L[j-1])
+            {
+               stillrun = true;
+               int tmp = L[j-2];
+               L[j-2] = L[j-1];
+               L[j-1] = tmp;
+            }
+         }
+         front += 1;
+      }
+   }
+
+   return L;
+}
+
+
 //快速排序，O(nlogn)
 std::vector<int> quick_sort(std::vector<int>& L)
 {
