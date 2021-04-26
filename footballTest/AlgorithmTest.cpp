@@ -3,6 +3,8 @@
 #include "..\Algorithm\factorial.h"
 #include "..\Algorithm\search.h"
 #include "..\Algorithm\sort.h"
+#include "..\Algorithm\divide-and-conquer.h"
+
 
 using namespace std;
 using namespace XFU;
@@ -45,4 +47,15 @@ void AlgoTest::test()
    CPPUNIT_ASSERT(quick_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
    copyseq = testseq;
    CPPUNIT_ASSERT(shaker_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
+
+
+   std::vector<int> testseq2 = {-2,4,-1,3,5,-6,1,2};
+   CPPUNIT_ASSERT(find_largest_sum(testseq2) == 11);
+   CPPUNIT_ASSERT(brute_force_find_largest_sum(testseq2) == 11);
+   testseq2 = {4,1,-3,7,-1,-5,3,-2};
+   CPPUNIT_ASSERT(find_largest_sum(testseq2) == 9);
+   CPPUNIT_ASSERT(brute_force_find_largest_sum(testseq2) == 9);
+   testseq2 = {-1,6,3,-4,-5,8,-1,7};
+   CPPUNIT_ASSERT(find_largest_sum(testseq2) == 14);
+   CPPUNIT_ASSERT(brute_force_find_largest_sum(testseq2) == 14);
 }
