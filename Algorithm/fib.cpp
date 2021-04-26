@@ -24,7 +24,7 @@ int dynamic_fibonacci(int n) //动态规划算法,O(n)
       if (i < 2)
          res[i] = i;
       else
-         res[i] = res[i-1] + res[i-2]; //状态转移方程
+         res[i] = res[i-1] + res[i-2]; //递推关系
    }
 
    return res[n];
