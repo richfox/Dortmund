@@ -1550,7 +1550,7 @@ void _tmain(int argc, _TCHAR* argv[])
     ofs.close();
 
     LOG_MESSAGE(target,L"====== Logging2 started ======");
-    LOG_MESSAGE(target,L"====== Logging2 stopped ======");
+    LOG_MESSAGE_EX(__FILE__,__LINE__,target,L"====== Logging2 stopped ======");
 	_getch();
 }
 
