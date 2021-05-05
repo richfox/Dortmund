@@ -7,7 +7,7 @@
 
 namespace XFU
 {
-   void log_message(const std::wstring& file,const std::wstring& message)
+   static void log_message(const std::wstring& file,const std::wstring& message)
    {
       std::wofstream ofs(file.c_str(),std::ios::app); //append to end of file
       if (ofs.is_open())
