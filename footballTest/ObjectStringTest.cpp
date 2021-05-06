@@ -182,4 +182,9 @@ void ObjectStringTest::test()
    CPPUNIT_ASSERT(close == 12);
 
    CPPUNIT_ASSERT(Managed::test_string_converter() == true);
+
+   AOString string10 = ftoA(2.718281828459);
+   CPPUNIT_ASSERT(string10 == "2.718281828459");
+   WOString string11 = ftoW(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899);
+   CPPUNIT_ASSERT(string11 == L"3.141592653589793");
 }

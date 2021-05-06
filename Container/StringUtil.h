@@ -13,6 +13,10 @@
 
 namespace XFU
 {
+   WOString __declspec(dllexport) i64toW(__int64 val);
+   AOString __declspec(dllexport) ftoA(double val);
+   WOString __declspec(dllexport) ftoW(double val);
+   
 
    template<typename T>
    bool is_symmetrical(const ObjectString<T>& string)
