@@ -190,7 +190,24 @@ void ObjectStringTest::test()
 
    WOString string12 = L"tesT";
    WOString string13 = L"TESt";
+   WOString string14 = L"TESt2";
    CPPUNIT_ASSERT(string12.Compare(string13) > 0);
    CPPUNIT_ASSERT(string13.Compare(string12) < 0);
    CPPUNIT_ASSERT(string12 != string13);
+   CPPUNIT_ASSERT(string13.Compare(string14) < 0);
+
+   AOString string15 = "tesT";
+   CPPUNIT_ASSERT(string15.Upper() == "TEST");
+   WOString string16 = L"tesT";
+   CPPUNIT_ASSERT(string16.Upper() == L"TEST");
+   AOString string17 = "TESt";
+   CPPUNIT_ASSERT(string17.Lower() == "test");
+   WOString string18 = L"TESt";
+   CPPUNIT_ASSERT(string18.Lower() == L"test");
+
+   AOString str19 = "tesT";
+   AOString str20 = "teSt";
+   CPPUNIT_ASSERT(str19.ICompare(str20) == 0);
+   CPPUNIT_ASSERT(str19 == "tesT");
+   CPPUNIT_ASSERT(str20 == "teSt");
 }

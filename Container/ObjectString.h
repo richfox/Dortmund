@@ -222,6 +222,37 @@ public:
 		return _length - string._length;
 	}
 
+	intptr_t ICompare(const ObjectString<T>& string) const
+	{
+		ObjectString<T> tmp(*this,0,_length);
+		ObjectString<T> tmp2(string,0,string.Length());
+		return tmp.Lower().Compare(tmp2.Lower());
+	}
+
+	ObjectString<T>& Upper()
+    {
+	   T* buf = _buffer;
+	   size_t length = _length;
+       while (length--)
+	   {
+		  *buf = toupper(*buf);
+		  buf++;
+	   }
+       return *this;
+    }
+
+	ObjectString<T>& Lower()
+    {
+	   T* buf = _buffer;
+	   size_t length = _length;
+       while (length--)
+	   {
+		  *buf = tolower(*buf);
+		  buf++;
+	   }
+       return *this;
+    }
+
 	ObjectString<T>& operator=(const ObjectString<T>& string)
 	{
 		return Assign(string);
