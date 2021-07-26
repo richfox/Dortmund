@@ -187,4 +187,10 @@ void ObjectStringTest::test()
    CPPUNIT_ASSERT(string10 == "2.718281828459");
    WOString string11 = ftoW(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899);
    CPPUNIT_ASSERT(string11 == L"3.141592653589793");
+
+   WOString string12 = L"tesT";
+   WOString string13 = L"TESt";
+   CPPUNIT_ASSERT(string12.Compare(string13) > 0);
+   CPPUNIT_ASSERT(string13.Compare(string12) < 0);
+   CPPUNIT_ASSERT(string12 != string13);
 }

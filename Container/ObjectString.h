@@ -206,14 +206,14 @@ public:
 		return *this = *this + string;
 	}
 
-	size_t Compare(const ObjectString<T>& string) const
+	intptr_t Compare(const ObjectString<T>& string) const
 	{
 		const T* bufl = _buffer;
 		const T* bufr = string._buffer;
 		size_t length = _length<string._length ? _length : string._length;
 		while (length--)
 		{
-			size_t diff = *bufl++ - *bufr++;
+			intptr_t diff = *bufl++ - *bufr++;
 			if (diff != 0)
 			{
 				return diff;
