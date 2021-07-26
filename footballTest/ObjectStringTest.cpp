@@ -210,4 +210,10 @@ void ObjectStringTest::test()
    CPPUNIT_ASSERT(str19.ICompare(str20) == 0);
    CPPUNIT_ASSERT(str19 == "tesT");
    CPPUNIT_ASSERT(str20 == "teSt");
+
+   WOString str21 = L"tesT";
+   WOString str22 = L"teSt";
+   CPPUNIT_ASSERT(str21.ICompare(str22) == 0);
+   CPPUNIT_ASSERT(str21 == L"tesT");
+   CPPUNIT_ASSERT(str22 == L"teSt");
 }
