@@ -242,6 +242,7 @@ string XFU::bfs()
 std::vector<size_t> XFU::dijkstra()
 {
   //https://www.youtube.com/watch?v=8Ls1RqHCOPw
+  //The time complexity is O(n^2).
 
   typedef graph_traits<DirectedEdgeWeightGraph>::vertex_descriptor vertex_descriptor;
   typedef std::pair<int, int> Edge;
