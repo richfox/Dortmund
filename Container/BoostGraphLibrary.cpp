@@ -13,6 +13,8 @@
 #include "boost/graph/dijkstra_shortest_paths.hpp"
 #include "boost/graph/kruskal_min_spanning_tree.hpp"
 #include "boost\graph\topological_sort.hpp"
+#include <boost/graph/planar_canonical_ordering.hpp>
+#include <boost/graph/boyer_myrvold_planar_test.hpp>
 
 
 using namespace std;
@@ -328,4 +330,61 @@ bool XFU::toposort()
    cout << endl;
    
    return res;
+}
+
+
+bool XFU::canonical()
+{
+   //https://www.boost.org/doc/libs/1_37_0/libs/graph/doc/planar_canonical_ordering.html
+
+   bool isplanar = false;
+
+   typedef adjacency_list<vecS,vecS,undirectedS,property<vertex_index_t, int>,property<edge_index_t, int>> graph;
+
+  // Create a maximal planar graph on 6 vertices
+  graph g(6);
+
+  add_edge(0,1,g);
+  add_edge(1,2,g);
+  add_edge(2,3,g);
+  add_edge(3,4,g);
+  add_edge(4,5,g);
+  add_edge(5,0,g);
+
+  add_edge(0,2,g);
+  add_edge(0,3,g);
+  add_edge(0,4,g);
+
+  add_edge(1,3,g);
+  add_edge(1,4,g);
+  add_edge(1,5,g);
+
+  // Initialize the interior edge index
+  property_map<graph, edge_index_t>::type e_index = get(edge_index, g);
+  graph_traits<graph>::edges_size_type edge_count = 0;
+  graph_traits<graph>::edge_iterator ei, ei_end;
+  for(tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
+    put(e_index, *ei, edge_count++);
+  
+
+  // Test for planarity - we know it is planar, we just want to 
+  // compute the planar embedding as a side-effect
+  typedef std::vector< graph_traits<graph>::edge_descriptor > vec_t;
+  std::vector<vec_t> embedding(num_vertices(g));
+  if (boyer_myrvold_planarity_test(boyer_myrvold_params::graph = g, boyer_myrvold_params::embedding = &embedding[0]))
+    isplanar = true;
+
+  typedef std::vector<graph_traits<graph>::vertex_descriptor> ordering_storage_t;
+  
+  ordering_storage_t ordering;
+  planar_canonical_ordering(g, &embedding[0], std::back_inserter(ordering));
+
+  ordering_storage_t::iterator oi, oi_end;
+  oi_end = ordering.end();
+  std::cout << "The planar canonical ordering is: ";
+  for(oi = ordering.begin(); oi != oi_end; ++oi)
+    std::cout << *oi << " ";
+  std::cout << std::endl;
+
+  return isplanar;
 }

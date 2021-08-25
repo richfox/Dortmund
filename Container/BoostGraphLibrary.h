@@ -102,4 +102,5 @@ namespace XFU
    std::vector<size_t> __declspec(dllexport) dijkstra();
    int __declspec(dllexport) kruskal();
    bool __declspec(dllexport) toposort();
+   bool __declspec(dllexport) canonical();
 }

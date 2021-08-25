@@ -53,4 +53,7 @@ void BGLTest::test()
 
    bool res = toposort();
    CPPUNIT_ASSERT(res==true);
+
+   res = canonical();
+   CPPUNIT_ASSERT(res==true);
 }
