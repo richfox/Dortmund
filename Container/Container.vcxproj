@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoostGraphLibrary.h" />
+    <ClInclude Include="BSTree.h" />
     <ClInclude Include="ObjectString.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StringUtil.h" />
