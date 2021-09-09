@@ -162,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="AlgorithmTest.h" />
     <ClInclude Include="BoostGrahpLibraryTest.h" />
+    <ClInclude Include="BSTreeTest.h" />
     <ClInclude Include="DecoratorTest.h" />
     <ClInclude Include="FibTest.h" />
     <ClInclude Include="footballTest.h" />
@@ -180,6 +181,7 @@
   <ItemGroup>
     <ClCompile Include="AlgorithmTest.cpp" />
     <ClCompile Include="BoostGrahpLibraryTest.cpp" />
+    <ClCompile Include="BSTreeTest.cpp" />
     <ClCompile Include="DecoratorTest.cpp" />
     <ClCompile Include="FibTest.cpp" />
     <ClCompile Include="footballTest.cpp" />

@@ -4,7 +4,7 @@
 #include "..\Algorithm\search.h"
 #include "..\Algorithm\sort.h"
 #include "..\Algorithm\divide-and-conquer.h"
-
+#include "..\Container\BSTree.h"
 
 using namespace std;
 using namespace XFU;
@@ -33,6 +33,14 @@ void AlgoTest::test()
    CPPUNIT_ASSERT(binary_search(lucas,0,int(lucas.size())-1,123) == 9);
    CPPUNIT_ASSERT(search(lucas,0,int(lucas.size())-1,2) == -1);
    CPPUNIT_ASSERT(binary_search(lucas,0,int(lucas.size())-1,2) == -1);
+
+   BSTree<int> tree(lucas.front());
+   for (std::vector<int>::const_iterator it=lucas.begin()+1; it!=lucas.end(); it++)
+   {
+      tree.Insert(*it);
+   }
+   CPPUNIT_ASSERT(binary_tree_search(tree,16) == false);
+   CPPUNIT_ASSERT(binary_tree_search(tree,18) == true);
 
 
    cout << "\r\ntest sorting...\r\n" << endl;

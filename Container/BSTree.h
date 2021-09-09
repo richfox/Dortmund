@@ -1,77 +1,156 @@
 #pragma once
 
+#include <vector>
+
 
 template<typename T>
 struct BSTree
 {
    BSTree(T element)
       :_element(element),
-      lson(nullptr),
-      rson(nullptr)
+      _lson(nullptr),
+      _rson(nullptr)
    {}
+
+   BSTree(const BSTree<T>& tree)
+   {
+      Destroy();
+      _element = tree._element;
+      _lson = tree._lson;
+      _rson = tree._rson;
+   }
 
    ~BSTree()
    {
-      delete lson;
-      delete rson;
+      Destroy();
    }
 
-   void InOrder()
+   void Destroy()
    {
-      if (lson)
-         lson->InOrder();
-
-      std::cout << _element << " ";
-
-      if (rson)
-         rson->InOrder();
+      if (_lson)
+         delete _lson;
+      if (_rson)
+         delete _rson;
    }
 
-   T _element;
-   BSTree<T>* lson;
-   BSTree<T>* rson;
-};
-
-template<typename T>
-bool search(BSTree<T>* bst, T k)
-{
-   if (bst == nullptr)
+   int CountOfVetex() const
    {
-      return false;
+      int count = 1;
+      if (_lson)
+         count += _lson->CountOfVetex();
+      if (_rson)
+         count += _rson->CountOfVetex();
+      return count;
    }
-   else
+
+   std::vector<T> InOrder() const
    {
-      if (bst->_element < k)
+      std::vector<T> res;
+      res.reserve(CountOfVetex());
+
+      if (_lson)
       {
-         return search(bst->rson,k);
+         std::vector<T> lres = _lson->InOrder();
+         res.insert(res.end(),lres.begin(),lres.end());
       }
-      else if (bst->_element > k)
+      res.push_back(_element);
+      if (_rson)
       {
-         return search(bst->lson,k);
+         std::vector<T> rres = _rson->InOrder();
+         res.insert(res.end(),rres.begin(),rres.end());
+      }
+
+      return res;
+   }
+
+   std::vector<T> PreOrder() const
+   {
+      std::vector<T> res;
+      res.reserve(CountOfVetex());
+
+      res.push_back(_element);
+      if (_lson)
+      {
+         std::vector<T> lres = _lson->PreOrder();
+         res.insert(res.end(),lres.begin(),lres.end());
+      }
+      if (_rson)
+      {
+         std::vector<T> rres = _rson->PreOrder();
+         res.insert(res.end(),rres.begin(),rres.end());
+      }
+
+      return res;
+   }
+
+   std::vector<T> PostOrder() const
+   {
+      std::vector<T> res;
+      res.reserve(CountOfVetex());
+
+      if (_lson)
+      {
+         std::vector<T> lres = _lson->PostOrder();
+         res.insert(res.end(),lres.begin(),lres.end());
+      }
+      if (_rson)
+      {
+         std::vector<T> rres = _rson->PostOrder();
+         res.insert(res.end(),rres.begin(),rres.end());
+      }
+      res.push_back(_element);
+
+      return res;
+   }
+
+   bool Search(T k) const 
+   {
+      if (_element < k)
+      {
+         if (_rson)
+            return _rson->Search(k);
+         else
+            return false;
+      }
+      else if (_element > k)
+      {
+         if (_lson)
+            return _lson->Search(k);
+         else
+            return false;
       }
 
       return true;
    }
-}
 
-template<typename T>
-BSTree<T>* insert(BSTree<T>* bst,int k)
-{
-   if (bst == nullptr)
+   BSTree<T>* Insert(int k)
    {
-      bst = new BSTree<T>(k);
-   }
-   else
-   {
-      if (bst->_element < k)
+      if (_element < k)
       {
-         bst->rson = insert(bst->rson,k);
+         if (_rson)
+            return _rson->Insert(k);
+         else
+         {
+            _rson = new BSTree(k);
+            return _rson;
+         }
       }
-      else if (bst->_element > k)
+      else if (_element > k)
       {
-         bst->lson = insert(bst->lson,k);
+         if (_lson)
+            return _lson->Insert(k);
+         else
+         {
+            _lson = new BSTree(k);
+            return _lson;
+         }
       }
+
+      return this;
    }
 
-   return bst;
-}
+   T _element;
+   BSTree<T>* _lson;
+   BSTree<T>* _rson;
+};
+

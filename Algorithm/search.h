@@ -3,7 +3,7 @@
 #include <limits.h>
 #include <vector>
 #include <cmath>
-
+#include "..\Container\BSTree.h"
 
 
 
@@ -40,4 +40,11 @@ int binary_search(const std::vector<int>& seq,int start,int end,int x)
       return binary_search(seq,m+1,end,x);
    else
       return -1;
+}
+
+
+//二叉树搜索算法，Ω(log(n+1))
+bool binary_tree_search(const BSTree<int>& tree,int x)
+{
+   return tree.Search(x);
 }
