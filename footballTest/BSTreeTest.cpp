@@ -30,6 +30,10 @@ void BSTreeTest::test()
    CPPUNIT_ASSERT(ptree->_element == 4);
    CPPUNIT_ASSERT(!ptree->_lson);
    CPPUNIT_ASSERT(!ptree->_rson);
+   ptree = tree.Insert(2);
+   CPPUNIT_ASSERT(ptree->_element == 2);
+   CPPUNIT_ASSERT(!ptree->_lson);
+   CPPUNIT_ASSERT(ptree->_rson->_element == 3);
    res = tree.InOrder();
    CPPUNIT_ASSERT(res == vector<int>({0,1,2,3,4,5,6}));
    CPPUNIT_ASSERT(tree.CountOfVetex() == 7);
