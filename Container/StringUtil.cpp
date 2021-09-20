@@ -75,3 +75,96 @@ bool XFU::search_close_bracket(const std::wstring& str,const std::wstring::size_
 
    return res;
 }
+
+
+std::wstring XFU::double_to_string(const double input,int precision/*=-1*/,bool ignorezero/*=true*/)
+{
+   wstring res;
+   wchar_t szOut[256];
+   double tol = 1e-8;
+
+   if (input > 99999999)
+   {
+      int iMod = 1;
+      while (int(input) / iMod > 0)
+      {
+         iMod *= 10;
+      }
+      iMod /= 10;
+
+      if (precision >= 0)
+      {
+         if (precision > 0 && ignorezero)
+         {
+            if (abs(input/iMod - int(input/iMod)) < tol || abs(input/iMod - int(input/iMod)) > 1-tol)
+               precision = 0;
+         }
+
+         swprintf_s(szOut,L"%.*e",precision,input);
+      }
+      else
+      {
+         if (precision > 0 && ignorezero)
+         {
+            if (abs(input/iMod - int(input/iMod)) < tol || abs(input/iMod - int(input/iMod)) > 1-tol)
+               precision = 0;
+         }
+         else
+            precision = 8;
+
+         swprintf_s(szOut,L"%.*e",precision,input);
+      }
+
+      //irrelevant Nachkommstelle wird ignoriert
+      res.assign(szOut);
+      if (precision > 0 && ignorezero)
+      {
+         wstring header = res.substr(0,res.find('e'));
+         wstring tail = res.substr(res.find('e'));
+         while (header[header.size()-1]=='0' || header[header.size()-1]=='.')
+            header.resize(header.size()-1);
+         res = header + tail;
+      }
+   }
+   else
+   {
+      if (precision >= 0)
+      {
+         if (precision > 0 && ignorezero)
+         {
+            if (abs(input - int(input)) < tol || abs(input - int(input)) > 1-tol)
+               precision = 0;
+         }
+
+         swprintf_s(szOut,L"%.*f",precision,input);
+      }
+      else
+      {
+         if (precision > 0 && ignorezero)
+         {
+            if (abs(input - int(input)) < tol || abs(input - int(input)) > 1-tol)
+               precision = 0;
+         }
+         else
+            precision = 8;
+
+         swprintf_s(szOut,L"%.*f",precision,input);
+      }
+
+      res.assign(szOut);
+      if (precision > 0 && ignorezero)
+      {
+         while (res[res.size()-1]=='0' || res[res.size()-1]=='.')
+            res.resize(res.size()-1);
+      }
+   }
+
+   return res;
+}
+
+double XFU::string_to_double(const std::wstring input)
+{
+   wchar_t* endptr = 0;
+   double dvalue = wcstod(input.c_str(),&endptr);
+   return dvalue;
+}

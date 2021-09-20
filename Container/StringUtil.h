@@ -76,4 +76,6 @@ namespace XFU
    }
 
    bool __declspec(dllexport) search_close_bracket(const std::wstring& str,const std::wstring::size_type& posOpen,std::wstring::size_type& posClose);
+   std::wstring __declspec(dllexport) double_to_string(const double input,int precision=-1,bool ignorezero=true);
+   double __declspec(dllexport) string_to_double(const std::wstring input);
 }
