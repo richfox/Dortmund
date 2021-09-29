@@ -43,7 +43,7 @@ int binary_search(const std::vector<int>& seq,int start,int end,int x)
 }
 
 
-//二叉树搜索算法，Ω(⌈log(n+1)⌉)，如果是平衡二叉树，则O(⌈log(n+1)⌉)
+//二叉树搜索算法，Ω(h=⌈log(n+1)⌉)，如果是平衡二叉树，则O(h=⌈log(n+1)⌉)
 bool binary_tree_search(const BSTree<int>& tree,int x)
 {
    return tree.Search(x);
