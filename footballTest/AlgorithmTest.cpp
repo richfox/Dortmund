@@ -9,6 +9,7 @@
 
 using namespace std;
 using namespace XFU;
+using namespace xfu;
 
 
 CPPUNIT_TEST_SUITE_REGISTRATION(AlgoTest);
@@ -70,7 +71,6 @@ void AlgoTest::test()
 
 
    cout << "\r\ntest backtracking...\r\n" << endl;
-   Queen queen;
-   queen.place(0,4);
-   CPPUNIT_ASSERT(queen.cont == 2);
+   place_queen(0,4);
+   CPPUNIT_ASSERT(xfu::count == 2);
 }
