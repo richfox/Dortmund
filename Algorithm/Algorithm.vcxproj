@@ -161,6 +161,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="backtracking.h" />
     <ClInclude Include="divide-and-conquer.h" />
     <ClInclude Include="factorial.h" />
     <ClInclude Include="fib.h" />

@@ -4,6 +4,7 @@
 #include "..\Algorithm\search.h"
 #include "..\Algorithm\sort.h"
 #include "..\Algorithm\divide-and-conquer.h"
+#include "..\Algorithm\backtracking.h"
 #include "..\Container\BSTree.h"
 
 using namespace std;
@@ -66,4 +67,10 @@ void AlgoTest::test()
    testseq2 = {-1,6,3,-4,-5,8,-1,7};
    CPPUNIT_ASSERT(find_largest_sum(testseq2) == 14);
    CPPUNIT_ASSERT(brute_force_find_largest_sum(testseq2) == 14);
+
+
+   cout << "\r\ntest backtracking...\r\n" << endl;
+   Queen queen;
+   queen.place(0,4);
+   CPPUNIT_ASSERT(queen.cont == 2);
 }

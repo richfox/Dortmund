@@ -39,6 +39,9 @@
     <ClInclude Include="divide-and-conquer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="backtracking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
