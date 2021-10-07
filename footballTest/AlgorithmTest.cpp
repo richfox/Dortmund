@@ -73,4 +73,7 @@ void AlgoTest::test()
    cout << "\r\ntest backtracking...\r\n" << endl;
    place_queen(0,4);
    CPPUNIT_ASSERT(xfu::count == 2);
+
+   bqueen(0,0,0,4);
+   CPPUNIT_ASSERT(xfu::sum == 2);
 }
