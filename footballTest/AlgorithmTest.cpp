@@ -59,6 +59,7 @@ void AlgoTest::test()
    CPPUNIT_ASSERT(shaker_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
 
 
+   cout << "\r\ntest divide and conquer...\r\n" << endl;
    std::vector<int> testseq2 = {-2,4,-1,3,5,-6,1,2};
    CPPUNIT_ASSERT(find_largest_sum(testseq2) == 11);
    CPPUNIT_ASSERT(brute_force_find_largest_sum(testseq2) == 11);
