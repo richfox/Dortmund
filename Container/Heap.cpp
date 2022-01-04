@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Heap.h"
-
+#include <iostream>
 
 using namespace std;
 
@@ -49,4 +49,29 @@ void Heap::Heapify(int index)
          Heapify(selIndex);
       }
    }
+}
+
+int Heap::remove()
+{
+   int root = _heapAsArray[1];
+   _heapAsArray[1] = _heapAsArray[_countNodes--];
+   Heapify(1);
+   
+   return root;
+}
+
+void Heap::print()
+{
+   int n = 1;
+   for (int i=1; i<=_countNodes; i++)
+   {
+      cout << _heapAsArray[i] << "#";
+      int x = pow(2,n) - 1; //index of the last node of a level
+      if (i%x == 0)
+      {
+         cout << endl;
+         n++; //a new level start
+      }
+   }
+   cout << "\n____________________________" << endl;
 }

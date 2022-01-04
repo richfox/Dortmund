@@ -33,19 +33,21 @@ public:
    }
 
    void Insert(int elem);
+   int remove();
+   void print();
 
 private:
-   int Parent(int index)
+   __forceinline int Parent(int index)
    {
       return index / 2;
    }
 
-   int Left(int index)
+   __forceinline int Left(int index)
    {
       return index * 2;
    }
 
-   int Right(int index)
+   __forceinline int Right(int index)
    {
       return index * 2 + 1;
    }
