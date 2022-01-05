@@ -42,7 +42,7 @@ void Heap::Heapify(int index)
    else if (rightIndex <= _countNodes)
    {
       //exist already children at the left and right side
-      int selIndex = (_heapAsArray[leftIndex] < _heapAsArray[rightIndex]) ? _heapAsArray[leftIndex] : _heapAsArray[rightIndex];
+      int selIndex = (_heapAsArray[leftIndex] < _heapAsArray[rightIndex]) ? leftIndex : rightIndex;
       if (_heapAsArray[selIndex] < _heapAsArray[index])
       {
          Swap(&_heapAsArray[index],&_heapAsArray[selIndex]);
@@ -51,7 +51,7 @@ void Heap::Heapify(int index)
    }
 }
 
-int Heap::remove()
+int Heap::Remove()
 {
    int root = _heapAsArray[1];
    _heapAsArray[1] = _heapAsArray[_countNodes--];
@@ -60,13 +60,13 @@ int Heap::remove()
    return root;
 }
 
-void Heap::print()
+void Heap::Print()
 {
    int n = 1;
    for (int i=1; i<=_countNodes; i++)
    {
       cout << _heapAsArray[i] << "#";
-      int x = pow(2,n) - 1; //index of the last node of a level
+      int x = int(pow(2,n)) - 1; //index of the last node of a level
       if (i%x == 0)
       {
          cout << endl;

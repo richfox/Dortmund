@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include <vector>
+#include "..\Container\Heap.h"
+
 
 
 //冒泡排序，O(n^2)
@@ -172,4 +174,27 @@ std::vector<int> merge_sort(const std::vector<int>& L)
    std::vector<int> L1(L.begin(),L.begin()+m);
    std::vector<int> L2(L.begin()+m,L.end());
    return merge(merge_sort(L1),merge_sort(L2));
+}
+
+
+//堆排序
+std::vector<int> heap_sort(std::vector<int>& L)
+{
+   Heap heap;
+   heap.Init();
+
+   //建堆
+   for (int i=0; i<L.size(); i++)
+   {
+      heap.Insert(L[i]);
+   }
+
+   //排序
+   int i = 0;
+   while (!heap.IsEmpty())
+   {
+      L[i++] = heap.Remove();
+   }
+
+   return L;
 }

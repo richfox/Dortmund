@@ -57,6 +57,8 @@ void AlgoTest::test()
    CPPUNIT_ASSERT(quick_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
    copyseq = testseq;
    CPPUNIT_ASSERT(shaker_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
+   copyseq = testseq;
+   CPPUNIT_ASSERT(heap_sort(copyseq) == std::vector<int>({1,1,2,3,4,5,6,7,8,9}));
 
 
    cout << "\r\ntest divide and conquer...\r\n" << endl;

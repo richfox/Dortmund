@@ -9,7 +9,7 @@ const int maxNodes = 70;
 const int undef = INT_MIN;
 
 
-class Heap
+class __declspec(dllexport) Heap
 {
 public:
    void Init()
@@ -33,8 +33,8 @@ public:
    }
 
    void Insert(int elem);
-   int remove();
-   void print();
+   int Remove();
+   void Print();
 
 private:
    __forceinline int Parent(int index)
