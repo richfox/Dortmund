@@ -177,19 +177,19 @@ std::vector<int> merge_sort(const std::vector<int>& L)
 }
 
 
-//堆排序
+//堆排序，O(nlogn)
 std::vector<int> heap_sort(std::vector<int>& L)
 {
    Heap heap;
    heap.Init();
 
-   //建堆
+   //建堆，O(n)
    for (int i=0; i<L.size(); i++)
    {
       heap.Insert(L[i]);
    }
 
-   //排序
+   //排序，O((n-1)logn)
    int i = 0;
    while (!heap.IsEmpty())
    {
