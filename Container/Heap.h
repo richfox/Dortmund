@@ -36,6 +36,7 @@ public:
    //int Remove();
    int Remove(int index);
    void Print();
+   void Decrease(int index,int elem);
 
 private:
    __forceinline int Parent(int index)

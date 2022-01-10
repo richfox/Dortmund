@@ -77,6 +77,15 @@ int Heap::Remove(int index)
    return elem;
 }
 
+void Heap::Decrease(int index,int elem)
+{
+   if (elem < _heapAsArray[index])
+   {
+      _heapAsArray[index] = elem;
+      Sort(index);
+   }
+}
+
 void Heap::Print()
 {
    int n = 1;
