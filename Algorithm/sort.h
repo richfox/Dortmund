@@ -193,7 +193,7 @@ std::vector<int> heap_sort(std::vector<int>& L)
    int i = 0;
    while (!heap.IsEmpty())
    {
-      L[i++] = heap.Remove();
+      L[i++] = heap.Remove(1);
    }
 
    return L;

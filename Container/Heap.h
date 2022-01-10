@@ -33,7 +33,8 @@ public:
    }
 
    void Insert(int elem);
-   int Remove();
+   //int Remove();
+   int Remove(int index);
    void Print();
 
 private:

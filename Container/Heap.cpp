@@ -51,13 +51,30 @@ void Heap::Heapify(int index)
    }
 }
 
-int Heap::Remove()
+//int Heap::Remove()
+//{
+//   int root = _heapAsArray[1];
+//   _heapAsArray[1] = _heapAsArray[_countNodes--];
+//   Heapify(1);
+//   
+//   return root;
+//}
+
+int Heap::Remove(int index)
 {
-   int root = _heapAsArray[1];
-   _heapAsArray[1] = _heapAsArray[_countNodes--];
-   Heapify(1);
-   
-   return root;
+   int elem = _heapAsArray[index];
+   _heapAsArray[index] = _heapAsArray[_countNodes--];
+   int parentIndex = Parent(index);
+   if (index==1 || _heapAsArray[index]>=_heapAsArray[parentIndex])
+   {
+      Heapify(index);
+   }
+   else
+   {
+      Sort(index);
+   }
+
+   return elem;
 }
 
 void Heap::Print()
