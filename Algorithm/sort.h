@@ -131,6 +131,37 @@ std::vector<int> quick_sort(std::vector<int>& L)
    return L;
 }
 
+int partition(std::vector<int>& L,int l,int r)
+{
+   int pivot = L[r-1];
+   int i = l-1;
+   for (int j=l; j<r; j++)
+   {
+      if (L[j-1] <= pivot)
+      {
+         i++;
+         int tmp = L[j-1];
+         L[j-1] = L[i-1];
+         L[i-1] = tmp;
+         
+      }
+   }
+   L[r-1] = L[i];
+   L[i] = pivot;
+   return i+1;
+}
+
+std::vector<int> quick_sort2(std::vector<int>& L,int l,int r)
+{
+   if (l < r)
+   {
+      int mid = partition(L,l,r);
+      quick_sort2(L,l,mid-1);
+      quick_sort2(L,mid+1,r);
+   }
+   return L;
+}
+
 
 //归并排序，O(nlogn)
 std::vector<int> merge(std::vector<int>& L1,std::vector<int>& L2)
