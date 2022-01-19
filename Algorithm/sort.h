@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <vector>
+#include <algorithm>
 #include "..\Container\Heap.h"
 
 
@@ -228,4 +229,41 @@ std::vector<int> heap_sort(std::vector<int>& L)
    }
 
    return L;
+}
+
+
+//计数排序（假设A中的每一个元素都是介于0到max之间的整数）, O(n)
+std::vector<int> counting_sort(const std::vector<int>& A)
+{
+   std::vector<int> B(A.size(),-1);
+
+   //找出最大值
+   int k = *(std::max_element(A.begin(),A.end()));
+
+   //用于计数的临时存储区C
+   std::vector<int> C;
+   for (int i=0; i<=k; i++)
+   {
+      C.push_back(0);
+   }
+
+   //C[i]包含等于i的元素个数
+   for (int j=0; j<A.size(); j++)
+   {
+      C[A[j]] += 1;
+   }
+
+   //C[i]包含小于或等于i的元素个数
+   for (int i=1; i<=k; i++)
+   {
+      C[i] += C[i-1]; 
+   }
+
+   for (int j=int(size(A))-1; j>=0; j--)
+   {
+      B[C[A[j]]-1] = A[j];
+      C[A[j]] -= 1;
+   }
+
+   return B;
 }
