@@ -105,24 +105,24 @@ struct BSTree
       return res;
    }
 
-   bool Search(T k) const 
+   const BSTree<T>* Search(T k) const 
    {
       if (_element < k)
       {
          if (_rson)
             return _rson->Search(k);
          else
-            return false;
+            return nullptr;
       }
       else if (_element > k)
       {
          if (_lson)
             return _lson->Search(k);
          else
-            return false;
+            return nullptr;
       }
 
-      return true;
+      return this;
    }
 
    BSTree<T>* Insert(T k)
@@ -153,27 +153,47 @@ struct BSTree
       return this;
    }
 
-   T Minimum()
+   const BSTree<T>* Minimum() const
    {
       while (_lson)
       {
          return _lson->Minimum();
       }
 
-      return _element;
+      return this;
    }
 
-   T Maximum()
+   const BSTree<T>* Maximum() const
    {
       while (_rson)
       {
          return _rson->Maximum();
       }
 
-      return _element;
+      return this;
    }
 
+   const BSTree<T>* Successor(T k) const
+   {
+      BSTree<T>* node = const_cast<BSTree<T>*>(Search(k));
+      if (node)
+      {
+         if (node->_rson)
+         {
+            return node->_rson->Minimum();
+         }
+         
+         BSTree<T>* p = node->_parent;
+         while (p && node == p->_rson)
+         {
+            node = p;
+            p = p->_parent;
+         }
+         return p;
+      }
 
+      return nullptr;
+   }
 
    T _element;
    BSTree<T>* _lson;

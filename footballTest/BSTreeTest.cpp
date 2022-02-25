@@ -20,8 +20,8 @@ void BSTreeTest::test()
    }
    CPPUNIT_ASSERT(tree.CountOfVetex() == 6);
 
-   CPPUNIT_ASSERT(tree.Minimum() == 0);
-   CPPUNIT_ASSERT(tree.Maximum() == 6);
+   CPPUNIT_ASSERT(tree.Minimum()->_element == 0);
+   CPPUNIT_ASSERT(tree.Maximum()->_element == 6);
 
    auto res = tree.PreOrder();
    CPPUNIT_ASSERT(res == vector<int>({0,1,2,3,5,6}));
@@ -41,6 +41,7 @@ void BSTreeTest::test()
    res = tree.InOrder();
    CPPUNIT_ASSERT(res == vector<int>({0,1,2,3,4,5,6}));
    CPPUNIT_ASSERT(tree.CountOfVetex() == 7);
+   CPPUNIT_ASSERT(tree.Successor(1)->_element == 2);
 
    for (const int i : {-1,-2,-3,-4,-5})
    {
@@ -51,6 +52,7 @@ void BSTreeTest::test()
    CPPUNIT_ASSERT(tree._lson->_parent->_element == 0);
    CPPUNIT_ASSERT(tree._rson->_element == 1);
    CPPUNIT_ASSERT(tree._rson->_parent->_element == 0);
-   CPPUNIT_ASSERT(tree.Minimum() == -5);
-   CPPUNIT_ASSERT(tree.Maximum() == 6);
+   CPPUNIT_ASSERT(tree.Minimum()->_element == -5);
+   CPPUNIT_ASSERT(tree.Maximum()->_element == 6);
+   CPPUNIT_ASSERT(tree.Successor(-1)->_element == 0);
 }
