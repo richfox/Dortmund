@@ -9,7 +9,8 @@ struct BSTree
    BSTree(T element)
       :_element(element),
       _lson(nullptr),
-      _rson(nullptr)
+      _rson(nullptr),
+      _parent(nullptr)
    {}
 
    BSTree(const BSTree<T>& tree)
@@ -18,6 +19,7 @@ struct BSTree
       _element = tree._element;
       _lson = tree._lson;
       _rson = tree._rson;
+      _parent = tree._parent;
    }
 
    ~BSTree()
@@ -123,7 +125,7 @@ struct BSTree
       return true;
    }
 
-   BSTree<T>* Insert(int k)
+   BSTree<T>* Insert(T k)
    {
       if (_element < k)
       {
@@ -132,6 +134,7 @@ struct BSTree
          else
          {
             _rson = new BSTree(k);
+            _rson->_parent = this;
             return _rson;
          }
       }
@@ -142,6 +145,7 @@ struct BSTree
          else
          {
             _lson = new BSTree(k);
+            _lson->_parent = this;
             return _lson;
          }
       }
@@ -149,8 +153,31 @@ struct BSTree
       return this;
    }
 
+   T Minimum()
+   {
+      while (_lson)
+      {
+         return _lson->Minimum();
+      }
+
+      return _element;
+   }
+
+   T Maximum()
+   {
+      while (_rson)
+      {
+         return _rson->Maximum();
+      }
+
+      return _element;
+   }
+
+
+
    T _element;
    BSTree<T>* _lson;
    BSTree<T>* _rson;
+   BSTree<T>* _parent;
 };
 
