@@ -35,6 +35,21 @@ struct BSTree
          delete _rson;
    }
 
+   BSTree<T>& Assign(const BSTree<T>& tree)
+   {
+      _element = tree._element;
+      _lson = tree._lson;
+      _rson = tree._rson;
+      _parent = tree._parent;
+
+      return *this;
+   }
+
+   bool operator==(const BSTree<T>& tree)
+   {
+      return _element == tree._element;
+   }
+
    int CountOfVetex() const
    {
       int count = 1;
@@ -153,7 +168,7 @@ struct BSTree
       return this;
    }
 
-   const BSTree<T>* Minimum() const
+   BSTree<T>* Minimum()
    {
       while (_lson)
       {
@@ -163,7 +178,7 @@ struct BSTree
       return this;
    }
 
-   const BSTree<T>* Maximum() const
+   BSTree<T>* Maximum()
    {
       while (_rson)
       {
@@ -173,26 +188,20 @@ struct BSTree
       return this;
    }
 
-   const BSTree<T>* Successor(T k) const
+   BSTree<T>* Successor()
    {
-      BSTree<T>* node = const_cast<BSTree<T>*>(Search(k));
-      if (node)
+      if (_rson)
       {
-         if (node->_rson)
-         {
-            return node->_rson->Minimum();
-         }
-         
-         BSTree<T>* p = node->_parent;
-         while (p && node == p->_rson)
-         {
-            node = p;
-            p = p->_parent;
-         }
-         return p;
+         return _rson->Minimum();
       }
-
-      return nullptr;
+         
+      BSTree<T>* p = _parent;
+      while (p && this==p->_rson)
+      {
+         Assign(*p);
+         p = p->_parent;
+      }
+      return p;
    }
 
    T _element;
