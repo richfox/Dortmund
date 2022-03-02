@@ -43,6 +43,7 @@ void BSTreeTest::test()
    CPPUNIT_ASSERT(tree.CountOfVetex() == 7);
    auto node = tree.Search(1);
    CPPUNIT_ASSERT(const_cast<BSTree<int>*>(node)->Successor()->_element == 2);
+   CPPUNIT_ASSERT(const_cast<BSTree<int>*>(node)->Predecessor()->_element == 0);
 
    for (const int i : {-1,-2,-3,-4,-5})
    {
@@ -57,4 +58,5 @@ void BSTreeTest::test()
    CPPUNIT_ASSERT(tree.Maximum()->_element == 6);
    node = tree.Search(-1);
    CPPUNIT_ASSERT(const_cast<BSTree<int>*>(node)->Successor()->_element == 0);
+   CPPUNIT_ASSERT(const_cast<BSTree<int>*>(node)->Predecessor()->_element == -2);
 }

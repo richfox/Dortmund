@@ -204,6 +204,22 @@ struct BSTree
       return p;
    }
 
+   BSTree<T>* Predecessor()
+   {
+      if (_lson)
+      {
+         return _lson->Maximum();
+      }
+         
+      BSTree<T>* p = _parent;
+      while (p && this==p->_lson)
+      {
+         Assign(*p);
+         p = p->_parent;
+      }
+      return p;
+   }
+
    T _element;
    BSTree<T>* _lson;
    BSTree<T>* _rson;
