@@ -59,4 +59,27 @@ void BSTreeTest::test()
    node = tree.Search(-1);
    CPPUNIT_ASSERT(const_cast<BSTree<int>*>(node)->Successor()->_element == 0);
    CPPUNIT_ASSERT(const_cast<BSTree<int>*>(node)->Predecessor()->_element == -2);
+
+   tree.Delete(1);
+   CPPUNIT_ASSERT(tree.CountOfVetex() == 11);
+   CPPUNIT_ASSERT(tree._lson->_element == -1);
+   CPPUNIT_ASSERT(tree._lson->_parent->_element == 0);
+   CPPUNIT_ASSERT(tree._rson->_element == 2);
+   CPPUNIT_ASSERT(tree._rson->_parent->_element == 0);
+   tree.Delete(-5);
+   CPPUNIT_ASSERT(tree.CountOfVetex() == 10);
+   CPPUNIT_ASSERT(tree._lson->_element == -1);
+   CPPUNIT_ASSERT(tree._lson->_parent->_element == 0);
+   CPPUNIT_ASSERT(tree._rson->_element == 2);
+   CPPUNIT_ASSERT(tree._rson->_parent->_element == 0);
+   node = tree.Search(-4);
+   CPPUNIT_ASSERT(!node->_lson);
+   CPPUNIT_ASSERT(!node->_rson);
+   CPPUNIT_ASSERT(node->_parent->_element == -3);
+   tree.Delete(0);
+   CPPUNIT_ASSERT(tree.CountOfVetex() == 9);
+   CPPUNIT_ASSERT(tree._lson->_element == -1);
+   CPPUNIT_ASSERT(tree._lson->_parent->_element == 2);
+   CPPUNIT_ASSERT(tree._rson->_element == 3);
+   CPPUNIT_ASSERT(tree._rson->_parent->_element == 2);
 }

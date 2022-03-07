@@ -168,6 +168,89 @@ struct BSTree
       return this;
    }
 
+   BSTree<T>* Delete(T k)
+   {
+      if (_element < k)
+      {
+         _rson = _rson->Delete(k);
+      }
+      else if (_element > k)
+      {
+         _lson = _lson->Delete(k);
+      }
+      else
+      {
+         //case 1: this tree is a leaf
+         if (!_lson && !_rson)
+         {
+            if (_parent)
+            {
+               if (this == _parent->_lson)
+               {
+                  _parent->_lson = nullptr;
+               }
+               else
+               {
+                  _parent->_rson = nullptr;
+               }
+            }
+            return nullptr;
+         }
+         //case 2: this tree has only one child
+         if (_lson && !_rson)
+         {
+            if (_parent)
+            {
+               if (this == _parent->_lson)
+               {
+                  _parent->_lson = _lson;
+                  _lson->_parent = _parent;
+               }
+               else
+               {
+                  _parent->_rson = _lson;
+                  _lson->_parent = _parent;
+               }
+            }
+            else
+            {
+               _lson->_parent = nullptr;
+            }
+            return _lson;
+         }
+         if (!_lson && _rson)
+         {
+            if (_parent)
+            {
+               if (this == _parent->_lson)
+               {
+                  _parent->_lson = _rson;
+                  _rson->_parent = _parent;
+               }
+               else
+               {
+                  _parent->_rson = _rson;
+                  _rson->_parent = _parent;
+               }
+            }
+            else
+            {
+               _rson->_parent = nullptr;
+            }
+            return _rson;
+         }
+         //case 3: this tree has two children
+         if (_lson && _rson)
+         {
+            BSTree<T>* s = Successor();
+            Delete(s->_element);
+            _element = s->_element;
+         }
+      }
+
+      return this;
+   }
+
    BSTree<T>* Minimum()
    {
       while (_lson)
