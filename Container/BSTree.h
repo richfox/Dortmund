@@ -306,30 +306,21 @@ struct BSTree
    void Print(const std::string& prefix,bool left) const
    {
       std::cout << prefix;
-      std::cout << (left ? "|---" : "\\---");
+      std::cout << (left ? "|---" : (_parent ? "\\---" : "ROOT"));
       std::cout << _element << std::endl;
 
       if (_lson)
       {
-         _lson->Print(prefix+"|   ",true);
+         if (_parent)
+            _lson->Print(prefix+"|   ",true);
+         else
+            _lson->Print(prefix+"    ",true);
       }
-      /*else
-      {
-         std::cout << prefix+"l   ";
-         std::cout << "l---" ;
-         std::cout << "x" << std::endl;
-      }*/
 
       if (_rson)
       {
          _rson->Print(prefix+"    ",false);
       }
-      /*else
-      {
-         std::cout << prefix+"    ";
-         std::cout << "r---" ;
-         std::cout << "x" << std::endl;
-      }*/
    }
 
    T _element;

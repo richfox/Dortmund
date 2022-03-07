@@ -83,5 +83,11 @@ void BSTreeTest::test()
    CPPUNIT_ASSERT(tree._lson->_parent->_element == 2);
    CPPUNIT_ASSERT(tree._rson->_element == 3);
    CPPUNIT_ASSERT(tree._rson->_parent->_element == 2);
+   tree.Delete(5);
+   CPPUNIT_ASSERT(tree.CountOfVetex() == 8);
+   node = tree.Search(6);
+   CPPUNIT_ASSERT(node->_lson->_element == 4);
+   CPPUNIT_ASSERT(!node->_rson);
+   CPPUNIT_ASSERT(node->_parent->_element == 3);
    tree.Print("",false);
 }
