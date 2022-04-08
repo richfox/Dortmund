@@ -14,6 +14,19 @@ using namespace std;
 using namespace XFU;
 
 
+WOString XFU::i16toW(__int16 val)
+{
+   wchar_t buffer[256];
+   _itow_s(static_cast<int>(val),buffer,_countof(buffer),10);
+   return buffer;
+}
+
+WOString XFU::i32toW(__int32 val)
+{
+   wchar_t buffer[256];
+   _itow_s(val,buffer,_countof(buffer),10);
+   return buffer;
+}
 
 WOString XFU::i64toW(__int64 val)
 {

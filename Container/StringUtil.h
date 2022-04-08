@@ -13,6 +13,8 @@
 
 namespace XFU
 {
+   WOString __declspec(dllexport) i16toW(__int16 val);
+   WOString __declspec(dllexport) i32toW(__int32 val);
    WOString __declspec(dllexport) i64toW(__int64 val);
    AOString __declspec(dllexport) ftoA(double val);
    WOString __declspec(dllexport) ftoW(double val);
