@@ -83,4 +83,6 @@ namespace XFU
 
    //longest Common Subsequence, O(mn)
    int __declspec(dllexport) lcs(const std::wstring x,const std::wstring y);
+   //print longest Common Subsequence, O(m+n)
+   void __declspec(dllexport) lcs_print(int** dp,const std::wstring x,const std::wstring y,int i,int j);
 }

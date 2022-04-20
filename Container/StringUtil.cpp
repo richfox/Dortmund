@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "StringUtil.h"
 #include <stack>
+#include <iostream>
 
 
 using namespace std;
@@ -206,10 +207,29 @@ int XFU::lcs(const std::wstring x,const std::wstring y)
                dp[i][j] = dp[i][j-1];
 
    int res = dp[m-1][n-1];
+   lcs_print(dp,x,y,m-1,n-1);
 
    for (int i=0; i<m; i++)
       delete[] dp[i];
    delete[] dp;
 
    return res;
+}
+
+void XFU::lcs_print(int** dp,const std::wstring x,const std::wstring y,int i,int j)
+{
+   if (i==0 || j==0)
+      return;
+   if (x.at(i-1) == y.at(j-1))
+   {
+      lcs_print(dp,x,y,i-1,j-1);
+      std::wcout << x.at(i-1);
+   }
+   else
+   {
+      if (dp[i-1][j] >= dp[i][j-1])
+         lcs_print(dp,x,y,i-1,j);
+      else
+         lcs_print(dp,x,y,i,j-1);
+   }
 }
