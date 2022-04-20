@@ -43,8 +43,8 @@ namespace XFU
    {
       //https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm
 
-      int row = lhs.Length() + 1;
-      int col = rhs.Length() + 1;
+      int row = int(lhs.Length()) + 1;
+      int col = int(rhs.Length()) + 1;
 
       std::vector<std::vector<int>> dist(row,std::vector<int>(col));
       for (int i=0; i<row; i++)
@@ -80,4 +80,7 @@ namespace XFU
    bool __declspec(dllexport) search_close_bracket(const std::wstring& str,const std::wstring::size_type& posOpen,std::wstring::size_type& posClose);
    std::wstring __declspec(dllexport) double_to_string(const double input,int precision=-1,bool ignorezero=true);
    double __declspec(dllexport) string_to_double(const std::wstring input);
+
+   //longest Common Subsequence, O(mn)
+   int __declspec(dllexport) lcs(const std::wstring x,const std::wstring y);
 }

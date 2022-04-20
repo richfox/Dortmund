@@ -239,4 +239,8 @@ void ObjectStringTest::test()
 
    CPPUNIT_ASSERT(fabs(string_to_double(L"1.8e2")-180) < tol);
    CPPUNIT_ASSERT(fabs(string_to_double(L"1.81234567e2")-181.234567) < tol);
+
+   wstring x = L"ABCBDAB";
+   wstring y = L"BDCABA";
+   CPPUNIT_ASSERT(lcs(x,y) == 4);
 }
