@@ -201,10 +201,7 @@ int XFU::lcs(const std::wstring x,const std::wstring y)
          if (x.at(i-1) == y.at(j-1))
             dp[i][j] = dp[i-1][j-1] + 1;
          else
-            if (dp[i-1][j] >= dp[i][j-1])
-               dp[i][j] = dp[i-1][j];
-            else
-               dp[i][j] = dp[i][j-1];
+            dp[i][j] = (std::max)(dp[i-1][j],dp[i][j-1]);
 
    int res = dp[m-1][n-1];
    lcs_print(dp,x,y,m-1,n-1);

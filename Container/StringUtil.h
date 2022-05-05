@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <algorithm>
 #include "ObjectString.h"
 
 
@@ -69,7 +70,7 @@ namespace XFU
                int deletion = dist[j-1][i] + dcost;
                int insertion = dist[j][i-1] + icost;
                int substitution = dist[j-1][i-1] + scost;
-               dist[j][i] = min(min(deletion,insertion),substitution);
+               dist[j][i] = (std::min)((std::min)(deletion,insertion),substitution);
             }
          }
       }
