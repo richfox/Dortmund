@@ -1,4 +1,4 @@
-//########################################################
+﻿//########################################################
 //##                                                    ##
 //##        Author:    xfu                              ##
 //##        E-Mail:    tech@zhongwenshu.de              ##
@@ -9,6 +9,7 @@
 #include "StringUtil.h"
 #include <stack>
 #include <iostream>
+#include <algorithm>
 
 
 using namespace std;
@@ -181,6 +182,49 @@ double XFU::string_to_double(const std::wstring input)
    wchar_t* endptr = 0;
    double dvalue = wcstod(input.c_str(),&endptr);
    return dvalue;
+}
+
+//https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm
+//编辑距离： 把一个字符串转换成另一个字符串的代价最低的操作序列的代价
+//dcost： 删除代价
+//icost： 插入代价
+//scost： 替换代价
+int XFU::edit_distance(const std::wstring& lhs,const std::wstring& rhs,const int dcost,const int icost,const int scost)
+{
+   //https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm
+
+   int row = int(lhs.length()) + 1;
+   int col = int(rhs.length()) + 1;
+
+   std::vector<std::vector<int>> dist(row,std::vector<int>(col));
+   for (int i=0; i<row; i++)
+   {
+      dist[i][0] = i * dcost;
+   }
+   for (int i=0; i<col; i++)
+   {
+      dist[0][i] = i * icost;
+   }
+
+   for (int i=1; i<col; i++)
+   {
+      for (int j=1; j<row; j++)
+      {
+         if (lhs[j-1] == rhs[i-1])
+         {
+            dist[j][i] = dist[j-1][i-1];
+         }
+         else
+         {
+            int deletion = dist[j-1][i] + dcost;
+            int insertion = dist[j][i-1] + icost;
+            int substitution = dist[j-1][i-1] + scost;
+            dist[j][i] = (std::min)((std::min)(deletion,insertion),substitution);
+         }
+      }
+   }
+
+   return dist[row-1][col-1];
 }
 
 int XFU::lcs(const std::wstring x,const std::wstring y)
