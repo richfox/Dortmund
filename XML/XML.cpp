@@ -73,9 +73,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::cout << "Success!" << std::endl;
 
 		//test file to string
-		std::wifstream temp("fetchConf.xml");
+		std::wifstream temp(L"fetchConf.xml");
 		std::wstringstream buffer;
 		buffer << temp.rdbuf();
+		temp.close();
 		std::wcout << buffer.str() << std::endl;
 	}
 	catch (const pt::ptree_error& e)
