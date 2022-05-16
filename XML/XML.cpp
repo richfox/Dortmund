@@ -78,6 +78,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		buffer << temp.rdbuf();
 		temp.close();
 		std::wcout << buffer.str() << std::endl;
+
+		//test string to file
+		std::wofstream temp2(L"fetchConf_out.xml");
+		temp2 << buffer.str();
+		temp2.close();
 	}
 	catch (const pt::ptree_error& e)
 	{
