@@ -189,6 +189,11 @@ int _tmain(int argc, _TCHAR* argv[])
    CHECK_ERROR(regex_search(testexpress,wre)==true,L"error");
    CHECK_ERROR(testexpress.length()-regex_replace(testexpress,wre,L"").length()==wstring(L"$(UserRootDir)\\Microsoft").length()*2,L"error");
 
+   CHECK_ERROR(extract_unsigned_integer(L"<test>6</test>")==6,L"error");
+   CHECK_ERROR(extract_unsigned_integer(L"<test></test>")==-1,L"error");
+   CHECK_ERROR(extract_unsigned_float(L"<test>6.6</test>")-6.6<=0.000001,L"error");
+   CHECK_ERROR(extract_unsigned_float(L"<test></test>")==-1,L"error");
+
    //test for with index
    int idx = 0;
    std::vector<int> testv(2,6);

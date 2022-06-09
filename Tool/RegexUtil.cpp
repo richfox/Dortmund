@@ -76,3 +76,39 @@ bool XFU::is_positive_and_null_float(const std::wstring& in)
 
    return res;
 }
+
+int XFU::extract_unsigned_integer(const std::wstring& in)
+{
+   int res = -1;
+
+   wregex rx(L".*([0-9]+).*");
+   std::wsmatch m;
+   if (regex_match(in,m,rx))
+   {
+      if (m.size() == 2)
+      {
+         wstring val = m[1].str();
+         res = std::stoi(val);
+      }
+   }
+
+   return res;
+}
+
+float XFU::extract_unsigned_float(const std::wstring& in)
+{
+   float res = -1;
+
+   wregex rx(L".*([0-9]+[.]{1}[0-9]+).*");
+   std::wsmatch m;
+   if (regex_match(in,m,rx))
+   {
+      if (m.size() == 2)
+      {
+         wstring val = m[1].str();
+         res = std::stof(val);
+      }
+   }
+
+   return res;
+}
