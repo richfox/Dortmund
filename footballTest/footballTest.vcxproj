@@ -164,6 +164,7 @@
     <ClInclude Include="BoostGrahpLibraryTest.h" />
     <ClInclude Include="BSTreeTest.h" />
     <ClInclude Include="DecoratorTest.h" />
+    <ClInclude Include="DisjointSetTest.h" />
     <ClInclude Include="FibTest.h" />
     <ClInclude Include="footballTest.h" />
     <ClInclude Include="GuardTest.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="BoostGrahpLibraryTest.cpp" />
     <ClCompile Include="BSTreeTest.cpp" />
     <ClCompile Include="DecoratorTest.cpp" />
+    <ClCompile Include="DisjointSetTest.cpp" />
     <ClCompile Include="FibTest.cpp" />
     <ClCompile Include="footballTest.cpp" />
     <ClCompile Include="GuardTest.cpp" />

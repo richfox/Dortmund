@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="BoostGraphLibrary.h" />
     <ClInclude Include="BSTree.h" />
+    <ClInclude Include="DisjointSet.h" />
     <ClInclude Include="Heap.h" />
     <ClInclude Include="ObjectString.h" />
     <ClInclude Include="stdafx.h" />
