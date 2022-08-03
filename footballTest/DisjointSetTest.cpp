@@ -12,14 +12,15 @@ void DisjointSetTest::test()
 {
    cout << "\r\n test disjoint-set data structure...\r\n" << endl;
 
-   // universe of items
-	vector<int> universe = { 1, 2, 3, 4, 5 };
-
 	// initialize `DisjointSet` class
 	DisjointSet ds;
 
 	// create a singleton set for each element of the universe
-	ds.MakeSet(universe);
+	vector<int> universe = { 1, 2, 3, 4, 5 };
+	for (int i: universe)
+	{
+	   ds.MakeSet(i);
+	}
 	printSets(universe, ds);
 
 	ds.Union(4, 3);		// 4 and 3 are in the same set

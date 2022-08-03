@@ -15,14 +15,10 @@ private:
 
 public:
 	// perform MakeSet operation
-	void MakeSet(const std::vector<int>& universe)
+	void MakeSet(const int i)
 	{
-		// create `n` disjoint sets (one for each item)
-		for (int i: universe)
-		{
-			parent[i] = i;
-			rank[i] = 0;
-		}
+		parent[i] = i;
+		rank[i] = 0;
 	}
 
 	// find the root of the set in which element `k` belongs
