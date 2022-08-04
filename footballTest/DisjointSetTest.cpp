@@ -14,7 +14,8 @@ static void print_disjoint_set(const std::vector<int> &universe, DisjointSet &ds
 {
 	for (int i: universe)
 	{
-		std::cout << ds.FindSet(i) << "(" << ds.GetRank(i) << ds.GetParent(i) << ") ";
+		std::cout << ds.FindSet(i) << "(";
+		std::cout << ds.GetRank(i) << ds.GetParent(i) << ") ";
 	}
 	std::cout << std::endl;
 }
