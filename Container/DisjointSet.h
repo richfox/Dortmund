@@ -1,18 +1,10 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
 #include <unordered_map>
 
 
 class DisjointSet
 {
-private:
-	std::unordered_map<int, int> parent;
-
-	// stores the depth of trees
-	std::unordered_map<int, int> rank;
-
 public:
 	// perform MakeSet operation
 	void MakeSet(const int i)
@@ -52,23 +44,30 @@ public:
 		{
 			parent[y] = x;
 		}
-		else if (rank[x] < rank[y])
-		{
-			parent[x] = y;
-		}
 		else
 		{
 			parent[x] = y;
-			rank[y]++;
+			if (rank[x] == rank[y])
+			{
+			   rank[y] += 1;
+			}
 		}
 	}
+
+	int GetRank(int key)
+	{
+	   return rank[key];
+	}
+
+	int GetParent(int key)
+	{
+	   return parent[key];
+	}
+
+private:
+	std::unordered_map<int, int> parent;
+
+	// stores the depth of trees
+	std::unordered_map<int, int> rank;
 };
 
-void printSets(const std::vector<int> &universe, DisjointSet &ds)
-{
-	for (int i: universe)
-	{
-		std::cout << ds.FindSet(i) << ' ';
-	}
-	std::cout << std::endl;
-}

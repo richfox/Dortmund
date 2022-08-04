@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include <iostream>
+#include <vector>
 #include "DisjointSetTest.h"
 #include "..\Container\DisjointSet.h"
 
@@ -6,6 +8,16 @@ using namespace std;
 
 
 CPPUNIT_TEST_SUITE_REGISTRATION(DisjointSetTest);
+
+
+static void print_disjoint_set(const std::vector<int> &universe, DisjointSet &ds)
+{
+	for (int i: universe)
+	{
+		std::cout << ds.FindSet(i) << "(" << ds.GetRank(i) << ds.GetParent(i) << ") ";
+	}
+	std::cout << std::endl;
+}
 
 
 void DisjointSetTest::test()
@@ -21,14 +33,14 @@ void DisjointSetTest::test()
 	{
 	   ds.MakeSet(i);
 	}
-	printSets(universe, ds);
+	print_disjoint_set(universe, ds);
 
 	ds.Union(4, 3);		// 4 and 3 are in the same set
-	printSets(universe, ds);
+	print_disjoint_set(universe, ds);
 
 	ds.Union(2, 1);		// 1 and 2 are in the same set
-	printSets(universe, ds);
+	print_disjoint_set(universe, ds);
 
-	ds.Union(1, 3);		// 1, 2, 3, 4 are in the same set
-	printSets(universe, ds);
+	ds.Union(3, 1);		// 1, 2, 3, 4 are in the same set
+	print_disjoint_set(universe, ds);
 }
