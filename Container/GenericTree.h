@@ -18,3 +18,6 @@ struct TreeNode
       _children(children)
    {}
 };
+
+
+void __declspec(dllexport) level_order_traversal(TreeNode* root);

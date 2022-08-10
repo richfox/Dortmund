@@ -39,4 +39,7 @@ void GenericTreeTest::test()
    root->_children[3]->_children.push_back(leaf4.get());
    shared_ptr<TreeNode> leaf5(new TreeNode(9));
    root->_children[3]->_children.push_back(leaf5.get());
+
+   cout << "Level order traversal\n";
+   level_order_traversal(root.get());
 }
