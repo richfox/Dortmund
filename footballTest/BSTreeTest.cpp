@@ -33,7 +33,21 @@ void BSTreeTest::test()
    CPPUNIT_ASSERT(ptree->_element == 4);
    CPPUNIT_ASSERT(!ptree->_lson);
    CPPUNIT_ASSERT(!ptree->_rson);
+
    ptree = tree.Insert(2);
+   /*   now the tree like below
+    *              0
+    *               \
+    *                1
+    *                 \
+    *                  2
+    *                   \
+    *                    3
+    *                     \
+    *                      5
+    *                     / \
+    *                    4   6
+    */
    CPPUNIT_ASSERT(ptree->_element == 2);
    CPPUNIT_ASSERT(!ptree->_lson);
    CPPUNIT_ASSERT(ptree->_rson->_element == 3);
@@ -49,6 +63,19 @@ void BSTreeTest::test()
    {
       tree.Insert(i);
    }
+    /*   now the tree like below
+    *              0
+    *             / \
+    *           -1   1
+    *           /     \
+    *         -2       2
+    *         /         \
+    *       -3           3
+    *       /             \
+    *     -4               5
+    *     /               / \
+    *   -5               4   6
+    */
    CPPUNIT_ASSERT(tree.CountOfVetex() == 12);
    CPPUNIT_ASSERT(tree._lson->_element == -1);
    CPPUNIT_ASSERT(tree._lson->_parent->_element == 0);
