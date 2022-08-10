@@ -6,6 +6,12 @@
 template<typename T>
 struct BSTree
 {
+   T _element;
+   BSTree<T>* _lson;
+   BSTree<T>* _rson;
+   BSTree<T>* _parent;
+
+
    BSTree(T element)
       :_element(element),
       _lson(nullptr),
@@ -322,10 +328,5 @@ struct BSTree
          _rson->Print(prefix+"    ",false);
       }
    }
-
-   T _element;
-   BSTree<T>* _lson;
-   BSTree<T>* _rson;
-   BSTree<T>* _parent;
 };
 
