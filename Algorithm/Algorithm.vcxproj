@@ -165,6 +165,7 @@
     <ClInclude Include="divide-and-conquer.h" />
     <ClInclude Include="factorial.h" />
     <ClInclude Include="fib.h" />
+    <ClInclude Include="LCA.h" />
     <ClInclude Include="search.h" />
     <ClInclude Include="sort.h" />
     <ClInclude Include="stdafx.h" />
@@ -188,6 +189,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="fib.cpp" />
+    <ClCompile Include="LCA.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "GenericTree.h"
-#include "DisjointSet.h"
 #include <iostream>
 #include <memory>
 #include <queue>
@@ -42,39 +41,3 @@ void level_order_traversal(TreeNode* root)
     }
 }
 
-
-
-void LCA(const TreeNode* node,const vector<Query>& qs,DisjointSetEx& ds)
-{
-   int u = node->_key;
-   ds.MakeSet(u);
-   ds.ancestor[ds.FindSet(u)] = u;
-   for (const TreeNode* child : node->_children)
-   {
-      LCA(child,qs,ds);
-      int v = child->_key;
-      ds.Union(u,v);
-      ds.ancestor[ds.FindSet(u)] = u;
-   }
-   ds.color[u] = 1; //Black
-
-   for (const Query q : qs)
-   {
-      if (q.L == u)
-      {
-         int v = q.R;
-         if (ds.color[v] == 1)
-         {
-            cout << "the LCA of " << u << " and " << v << " is " << ds.ancestor[ds.FindSet(v)] << endl;
-         }
-      }
-      else if (q.R == u)
-      {
-         int v = q.L;
-         if (ds.color[v] == 1)
-         {
-            cout << "the LCA of " << u << " and " << v << " is " << ds.ancestor[ds.FindSet(v)] << endl;
-         }
-      }
-   }
-}
