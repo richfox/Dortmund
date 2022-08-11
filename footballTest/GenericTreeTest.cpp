@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GenericTreeTest.h"
 #include "..\Container\GenericTree.h"
+#include "..\Container\DisjointSet.h"
 
 using namespace std;
 
@@ -42,4 +43,9 @@ void GenericTreeTest::test()
 
    cout << "Level order traversal\n";
    level_order_traversal(root.get());
+
+   cout << "lowest common ancestors algorithm\n";
+   vector<Query> qs = {{1,2},{77,88},{9,2},{56,77},{2,1}};
+   DisjointSetEx ds;
+   LCA(root.get(),qs,ds);
 }

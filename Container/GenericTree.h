@@ -20,4 +20,15 @@ struct TreeNode
 };
 
 
+
 void __declspec(dllexport) level_order_traversal(TreeNode* root);
+
+struct Query
+{
+    int L, R;
+};
+
+class DisjointSetEx;
+
+//Tarjan’s off-line lowest common ancestors algorithm
+void __declspec(dllexport) LCA(const TreeNode* node,const std::vector<Query>& qs,DisjointSetEx& ds);

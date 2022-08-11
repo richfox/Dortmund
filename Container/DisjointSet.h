@@ -64,10 +64,26 @@ public:
 	   return parent[key];
 	}
 
-private:
+protected:
 	std::unordered_map<int, int> parent;
 
 	// stores the depth of trees
 	std::unordered_map<int, int> rank;
+};
+
+
+class DisjointSetEx : public DisjointSet
+{
+public:
+   void MakeSet(const int i)
+   {
+	  parent[i] = i;
+	  rank[i] = 0;
+	  color[i] = 0; //white
+	  ancestor[i] = 0;
+   }
+
+   std::unordered_map<int, int> ancestor;
+   std::unordered_map<int, int> color;
 };
 
