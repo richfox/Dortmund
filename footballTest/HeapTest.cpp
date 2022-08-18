@@ -20,10 +20,13 @@ void HeapTest::test()
       heap.Insert(seq[i]);
    }
    heap.Print();
+   CPPUNIT_ASSERT(heap.Head() == 2);
 
    int minelem = heap.Remove(1);
    heap.Print();
+   CPPUNIT_ASSERT(heap.Head() == 3);
 
    heap.Decrease(2,1);
    heap.Print();
+   CPPUNIT_ASSERT(heap.Head() == 1);
 }
