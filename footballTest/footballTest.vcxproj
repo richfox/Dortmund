@@ -169,6 +169,7 @@
     <ClInclude Include="footballTest.h" />
     <ClInclude Include="GenericTreeTest.h" />
     <ClInclude Include="GuardTest.h" />
+    <ClInclude Include="HeapTest.h" />
     <ClInclude Include="LogisExprTest.h" />
     <ClInclude Include="MathTest.h" />
     <ClInclude Include="Miscellaneous.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="footballTest.cpp" />
     <ClCompile Include="GenericTreeTest.cpp" />
     <ClCompile Include="GuardTest.cpp" />
+    <ClCompile Include="HeapTest.cpp" />
     <ClCompile Include="LogisExprTest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathTest.cpp" />

@@ -51,15 +51,6 @@ void Heap::Heapify(int index)
    }
 }
 
-//int Heap::Remove()
-//{
-//   int root = _heapAsArray[1];
-//   _heapAsArray[1] = _heapAsArray[_countNodes--];
-//   Heapify(1);
-//   
-//   return root;
-//}
-
 int Heap::Remove(int index)
 {
    int elem = _heapAsArray[index];
