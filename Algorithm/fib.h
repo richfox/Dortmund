@@ -8,3 +8,7 @@ int __declspec(dllexport) fibonacci(int n);
 int __declspec(dllexport) dynamic_fibonacci(int n);
 
 int __declspec(dllexport) iterative_fibonacci(int n);
+
+int __declspec(dllexport) matrix_fibonacci(int n);
+
+int __declspec(dllexport) formula_fibonacci(int n);

@@ -40,4 +40,10 @@ void FibTest::test()
 
    CPPUNIT_ASSERT(iterative_fibonacci(4) == dynamic_fibonacci(4));
    CPPUNIT_ASSERT(iterative_fibonacci(4) < dynamic_fibonacci(5));
+
+   CPPUNIT_ASSERT(matrix_fibonacci(1) == fibonacci(1));
+   CPPUNIT_ASSERT(matrix_fibonacci(10) == dynamic_fibonacci(10));
+
+   CPPUNIT_ASSERT(formula_fibonacci(1) == fibonacci(1));
+   CPPUNIT_ASSERT(formula_fibonacci(6) == dynamic_fibonacci(6));
 }
