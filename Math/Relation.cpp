@@ -11,38 +11,43 @@ using namespace mat;
 
 static const double tol = 1.E-10;
 
-bool mat::is_point_on_line(const Point2& q,const Point2& from,const Point2& to)
+double mat::direction(const Point2& from,const Point2& to,const Point2& query)
 {
-   double det = determinant(to-from,q-from);
-   if (det > 0)
-      return det - 0 < tol;
-   else
-      return -det < tol;
+   return determinant(query-from,to-from);
 }
 
-PointLineRelation mat::get_point_line_relation(const Point2& query,const Point2& from,const Point2& to)
+bool mat::is_point_on_line(const Point2& from,const Point2& to,const Point2& query)
 {
-   if (is_point_on_line(query,from,to))
+   double d = direction(from,to,query);
+   if (d > 0)
+      return d < tol;
+   else
+      return -d < tol;
+}
+
+PointLineRelation mat::get_point_line_relation(const Point2& from,const Point2& to,const Point2& query)
+{
+   if (is_point_on_line(from,to,query))
    {
       return PointLineRelation::PointOnLine;
    }
    else
    {
-      double det = determinant(to-from,query-from);
+      double det = determinant(query-from,to-from);
       if (det > 0)
       {
-         return PointLineRelation::LeftSide;
+         return PointLineRelation::RightSide;
       }
       else
       {
-         return PointLineRelation::RightSide;
+         return PointLineRelation::LeftSide;
       }
    }
 }
 
-bool mat::is_point_inside_line(const Point2& query,const Point2& from,const Point2& to)
+bool mat::is_point_inside_line(const Point2& from,const Point2& to,const Point2& query)
 {
-   if (is_point_on_line(query,from,to))
+   if (is_point_on_line(from,to,query))
    {
       if ((to-query) * (from-query) <= 0)
       {
@@ -53,19 +58,19 @@ bool mat::is_point_inside_line(const Point2& query,const Point2& from,const Poin
    return false;
 }
 
-PointTriangleRelation mat::is_point_inside_triangle(const Point2& q,const Point2& A,const Point2& B,const Point2& C)
+PointTriangleRelation mat::is_point_inside_triangle(const Point2& A,const Point2& B,const Point2& C,const Point2& query)
 {
-   if (is_point_inside_line(q,A,B) ||
-      is_point_inside_line(q,B,C) ||
-      is_point_inside_line(q,C,A))
+   if (is_point_inside_line(A,B,query) ||
+      is_point_inside_line(B,C,query) ||
+      is_point_inside_line(C,A,query))
    {
       return PointTriangleRelation::PointOnTri;
    }
    else
    {
-      if ((get_point_line_relation(q,A,B)==PointLineRelation::LeftSide) &&
-         (get_point_line_relation(q,B,C)==PointLineRelation::LeftSide) &&
-         (get_point_line_relation(q,C,A)==PointLineRelation::LeftSide))
+      if ((get_point_line_relation(A,B,query)==PointLineRelation::LeftSide) &&
+         (get_point_line_relation(B,C,query)==PointLineRelation::LeftSide) &&
+         (get_point_line_relation(C,A,query)==PointLineRelation::LeftSide))
       {
          return PointTriangleRelation::PointInsideTri;
       }
@@ -75,3 +80,4 @@ PointTriangleRelation mat::is_point_inside_triangle(const Point2& q,const Point2
       }
    }
 }
+

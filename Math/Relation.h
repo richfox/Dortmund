@@ -9,7 +9,12 @@ namespace mat
    class Point2;
    class Vector2;
 
-   //判断点在线的哪一边
+   //辅助函数
+   double direction(const Point2& from,const Point2& to,const Point2& query);
+   bool is_point_on_line(const Point2& from,const Point2& to,const Point2& query);
+   bool is_point_inside_line(const Point2& from,const Point2& to,const Point2& query);
+   
+   //判断点在线段的哪一边
    enum PointLineRelation
    {
       PointLineRelation_Unknown = -1,
@@ -17,10 +22,7 @@ namespace mat
       LeftSide,        //点在线段左侧
       RightSide        //点在线段右侧
    };
-
-   bool is_point_on_line(const Point2& q,const Point2& from,const Point2& to);
-   bool is_point_inside_line(const Point2& query,const Point2& from,const Point2& to);
-   PointLineRelation get_point_line_relation(const Point2& query,const Point2& from,const Point2& to);
+   PointLineRelation get_point_line_relation(const Point2& from,const Point2& to,const Point2& query);
 
    //判断点在三角形内
    //*******C/\
@@ -33,5 +35,13 @@ namespace mat
       PointInsideTri, //点在三角形内
       PointOutsideTri //点在三角形外
    };
-   PointTriangleRelation is_point_inside_triangle(const Point2& q,const Point2& A,const Point2& B,const Point2& C);
+   PointTriangleRelation is_point_inside_triangle(const Point2& A,const Point2& B,const Point2& C,const Point2& query);
+
+   //判断两个线段是否相交
+   //*****P1\  /P4
+   //********\/
+   //********/\ 
+   //*****P3/  \P2
+
+
 }
