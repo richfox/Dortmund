@@ -1,8 +1,6 @@
 LIBRARY "Math"
 
 EXPORTS
-   is_point_on_line
-   is_point_inside_line
-   get_point_line_relation
+   get_point_segment_relation
    is_point_inside_triangle
    segments_intersect

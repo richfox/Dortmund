@@ -11,20 +11,18 @@ namespace mat
 
    //辅助函数
    double direction(const Point2& from,const Point2& to,const Point2& query);
-   bool is_point_on_line(const Point2& from,const Point2& to,const Point2& query);
-   bool is_point_inside_line(const Point2& from,const Point2& to,const Point2& query);
+   bool on_segment(const Point2& from,const Point2& to,const Point2& query);
    
    //判断点在线段的哪一边
-   enum PointLineRelation
+   enum PointSegRelation
    {
-      PointLineRelation_Unknown = -1,
-      PointOnLine,     //点在线段上(延长线或线段内不知)
-      PointOnSeq,      //点在线段内
-      PointOnSeqExt,   //点在线段的延长线上
+      Relation_Unknown = -1,
+      PointOnSeg,      //点在线段内
+      PointOnSegExt,   //点在线段的延长线上
       LeftSide,        //点在线段左侧
       RightSide        //点在线段右侧
    };
-   PointLineRelation get_point_line_relation(const Point2& from,const Point2& to,const Point2& query);
+   PointSegRelation get_point_segment_relation(const Point2& from,const Point2& to,const Point2& query);
 
    //判断点在三角形内
    //*******C/\

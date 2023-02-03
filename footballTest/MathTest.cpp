@@ -27,39 +27,35 @@ void MathTest::test()
    Point2 from(0,0);
    Point2 to(0,1);
    Point2 query(0,0);
-   CPPUNIT_ASSERT(is_point_inside_line(from,to,query) == true);
-   auto relation = get_point_line_relation(from,to,query);
-   CPPUNIT_ASSERT(relation == mat::PointOnSeq);
+   auto relation = get_point_segment_relation(from,to,query);
+   CPPUNIT_ASSERT(relation == mat::PointOnSeg);
 
    query = Point2(0,0.5);
-   CPPUNIT_ASSERT(is_point_inside_line(from,to,query) == true);
-   relation = get_point_line_relation(from,to,query);
-   CPPUNIT_ASSERT(relation == mat::PointOnSeq);
+   relation = get_point_segment_relation(from,to,query);
+   CPPUNIT_ASSERT(relation == mat::PointOnSeg);
 
    query = Point2(0,1.5);
-   CPPUNIT_ASSERT(is_point_inside_line(from,to,query) == false);
-   relation = get_point_line_relation(from,to,query);
-   CPPUNIT_ASSERT(relation == mat::PointOnSeqExt);
+   relation = get_point_segment_relation(from,to,query);
+   CPPUNIT_ASSERT(relation == mat::PointOnSegExt);
 
    query = Point2(0,-0.5);
-   CPPUNIT_ASSERT(is_point_inside_line(from,to,query) == false);
-   relation = get_point_line_relation(from,to,query);
-   CPPUNIT_ASSERT(relation == mat::PointOnSeqExt);
+   relation = get_point_segment_relation(from,to,query);
+   CPPUNIT_ASSERT(relation == mat::PointOnSegExt);
 
    query = Point2(-0.5,0.5);
-   relation = get_point_line_relation(from,to,query);
+   relation = get_point_segment_relation(from,to,query);
    CPPUNIT_ASSERT(relation == mat::LeftSide);
 
    query = Point2(-0.5,-0.5);
-   relation = get_point_line_relation(from,to,query);
+   relation = get_point_segment_relation(from,to,query);
    CPPUNIT_ASSERT(relation == mat::LeftSide);
 
    query = Point2(0.5,0.5);
-   relation = get_point_line_relation(from,to,query);
+   relation = get_point_segment_relation(from,to,query);
    CPPUNIT_ASSERT(relation == mat::RightSide);
 
    query = Point2(0.5,-0.5);
-   relation = get_point_line_relation(from,to,query);
+   relation = get_point_segment_relation(from,to,query);
    CPPUNIT_ASSERT(relation == mat::RightSide);
 
    //测试点和三角形关系

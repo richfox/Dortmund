@@ -16,7 +16,7 @@ double mat::direction(const Point2& from,const Point2& to,const Point2& query)
    return determinant(query-from,to-from);
 }
 
-bool mat::is_point_on_line(const Point2& from,const Point2& to,const Point2& query)
+bool mat::on_segment(const Point2& from,const Point2& to,const Point2& query)
 {
    double d = direction(from,to,query);
    if (d > 0)
@@ -25,19 +25,19 @@ bool mat::is_point_on_line(const Point2& from,const Point2& to,const Point2& que
       return -d < tol;
 }
 
-PointLineRelation mat::get_point_line_relation(const Point2& from,const Point2& to,const Point2& query)
+PointSegRelation mat::get_point_segment_relation(const Point2& from,const Point2& to,const Point2& query)
 {
-   if (is_point_on_line(from,to,query))
+   if (on_segment(from,to,query))
    {
       //if ((query[0]>=min(from[0],to[0]) && query[0]<=max(from[0],to[0])) &&
       //    (query[1]>=min(from[1],to[1]) && query[1]<=max(from[1],to[1])))
       if ((to-query) * (from-query) <= 0)
       {
-         return PointLineRelation::PointOnSeq;
+         return PointSegRelation::PointOnSeg;
       }
       else
       {
-         return PointLineRelation::PointOnSeqExt;
+         return PointSegRelation::PointOnSegExt;
       }
    }
    else
@@ -45,41 +45,29 @@ PointLineRelation mat::get_point_line_relation(const Point2& from,const Point2& 
       double det = determinant(query-from,to-from);
       if (det > 0)
       {
-         return PointLineRelation::RightSide;
+         return PointSegRelation::RightSide;
       }
       else
       {
-         return PointLineRelation::LeftSide;
+         return PointSegRelation::LeftSide;
       }
    }
 }
 
-bool mat::is_point_inside_line(const Point2& from,const Point2& to,const Point2& query)
-{
-   if (is_point_on_line(from,to,query))
-   {
-      if ((to-query) * (from-query) <= 0)
-      {
-         return true;
-      }
-   }
-
-   return false;
-}
 
 PointTriangleRelation mat::is_point_inside_triangle(const Point2& A,const Point2& B,const Point2& C,const Point2& query)
 {
-   if (is_point_inside_line(A,B,query) ||
-      is_point_inside_line(B,C,query) ||
-      is_point_inside_line(C,A,query))
+   PointSegRelation r1 = get_point_segment_relation(A,B,query);
+   PointSegRelation r2 = get_point_segment_relation(B,C,query);
+   PointSegRelation r3 = get_point_segment_relation(C,A,query);
+   
+   if (r1==PointSegRelation::PointOnSeg || r2==PointSegRelation::PointOnSeg || r3==PointSegRelation::PointOnSeg)
    {
       return PointTriangleRelation::PointOnTri;
    }
    else
    {
-      if ((get_point_line_relation(A,B,query)==PointLineRelation::LeftSide) &&
-         (get_point_line_relation(B,C,query)==PointLineRelation::LeftSide) &&
-         (get_point_line_relation(C,A,query)==PointLineRelation::LeftSide))
+      if (r1==PointSegRelation::LeftSide && r2==PointSegRelation::LeftSide && r3==PointSegRelation::LeftSide)
       {
          return PointTriangleRelation::PointInsideTri;
       }
@@ -92,26 +80,21 @@ PointTriangleRelation mat::is_point_inside_triangle(const Point2& A,const Point2
 
 bool mat::segments_intersect(const Point2& A,const Point2& B,const Point2& C,const Point2& D)
 {
-   double d1 = direction(C,D,A);
-   double d2 = direction(C,D,B);
-   double d3 = direction(A,B,C);
-   double d4 = direction(A,B,D);
+   PointSegRelation r1 = get_point_segment_relation(C,D,A);
+   PointSegRelation r2 = get_point_segment_relation(C,D,B);
+   PointSegRelation r3 = get_point_segment_relation(A,B,C);
+   PointSegRelation r4 = get_point_segment_relation(A,B,D);
 
-   PointLineRelation r1 = get_point_line_relation(C,D,A);
-   PointLineRelation r2 = get_point_line_relation(C,D,B);
-   PointLineRelation r3 = get_point_line_relation(A,B,C);
-   PointLineRelation r4 = get_point_line_relation(A,B,D);
-
-   if (((r1==PointLineRelation::RightSide && r2==PointLineRelation::LeftSide) || (r1==PointLineRelation::LeftSide && r2==PointLineRelation::RightSide)) && 
-       ((r3==PointLineRelation::RightSide && r4==PointLineRelation::LeftSide) || (r3==PointLineRelation::LeftSide && r4==PointLineRelation::RightSide)))
+   if (((r1==PointSegRelation::RightSide && r2==PointSegRelation::LeftSide) || (r1==PointSegRelation::LeftSide && r2==PointSegRelation::RightSide)) && 
+       ((r3==PointSegRelation::RightSide && r4==PointSegRelation::LeftSide) || (r3==PointSegRelation::LeftSide && r4==PointSegRelation::RightSide)))
       return true;
-   else if (r1 == PointLineRelation::PointOnSeq)
+   else if (r1 == PointSegRelation::PointOnSeg)
       return true;
-   else if (r2 == PointLineRelation::PointOnSeq)
+   else if (r2 == PointSegRelation::PointOnSeg)
       return true;
-   else if (r3 == PointLineRelation::PointOnSeq)
+   else if (r3 == PointSegRelation::PointOnSeg)
       return true;
-   else if (r4 == PointLineRelation::PointOnSeq)
+   else if (r4 == PointSegRelation::PointOnSeg)
       return true;
    else
       return false;
