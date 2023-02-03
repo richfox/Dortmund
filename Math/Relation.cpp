@@ -29,8 +29,9 @@ PointLineRelation mat::get_point_line_relation(const Point2& from,const Point2& 
 {
    if (is_point_on_line(from,to,query))
    {
-      if ((query[0]>=min(from[0],to[0]) && query[0]<=max(from[0],to[0])) &&
-          (query[1]>=min(from[1],to[1]) && query[1]<=max(from[1],to[1])))
+      //if ((query[0]>=min(from[0],to[0]) && query[0]<=max(from[0],to[0])) &&
+      //    (query[1]>=min(from[1],to[1]) && query[1]<=max(from[1],to[1])))
+      if ((to-query) * (from-query) <= 0)
       {
          return PointLineRelation::PointOnSeq;
       }

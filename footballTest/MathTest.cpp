@@ -29,22 +29,22 @@ void MathTest::test()
    Point2 query(0,0);
    CPPUNIT_ASSERT(is_point_inside_line(from,to,query) == true);
    auto relation = get_point_line_relation(from,to,query);
-   CPPUNIT_ASSERT(relation == mat::PointOnLine);
+   CPPUNIT_ASSERT(relation == mat::PointOnSeq);
 
    query = Point2(0,0.5);
    CPPUNIT_ASSERT(is_point_inside_line(from,to,query) == true);
    relation = get_point_line_relation(from,to,query);
-   CPPUNIT_ASSERT(relation == mat::PointOnLine);
+   CPPUNIT_ASSERT(relation == mat::PointOnSeq);
 
    query = Point2(0,1.5);
    CPPUNIT_ASSERT(is_point_inside_line(from,to,query) == false);
    relation = get_point_line_relation(from,to,query);
-   CPPUNIT_ASSERT(relation == mat::PointOnLine);
+   CPPUNIT_ASSERT(relation == mat::PointOnSeqExt);
 
    query = Point2(0,-0.5);
    CPPUNIT_ASSERT(is_point_inside_line(from,to,query) == false);
    relation = get_point_line_relation(from,to,query);
-   CPPUNIT_ASSERT(relation == mat::PointOnLine);
+   CPPUNIT_ASSERT(relation == mat::PointOnSeqExt);
 
    query = Point2(-0.5,0.5);
    relation = get_point_line_relation(from,to,query);
@@ -85,4 +85,29 @@ void MathTest::test()
    query = Point2(-0.5,-0.5);
    relation2 = is_point_inside_triangle(A,B,C,query);
    CPPUNIT_ASSERT(relation2 == mat::PointOutsideTri);
+
+   //测试两个线段是否相交
+   Point2 P1(0,1);
+   Point2 P2(1,0);
+   Point2 P3(0,0);
+   Point2 P4(1,1);
+   CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==true);
+
+   P1 = Point2(0,1);
+   P2 = Point2(0.5,1);
+   P3 = Point2(0,0);
+   P4 = Point2(1,1);
+   CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==false);
+
+   P1 = Point2(0,1);
+   P2 = Point2(1,1);
+   P3 = Point2(0.5,1);
+   P4 = Point2(1,2);
+   CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==true);
+
+   P1 = Point2(0,1);
+   P2 = Point2(1,1);
+   P3 = Point2(2,1);
+   P4 = Point2(2,2);
+   CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==false);
 }
