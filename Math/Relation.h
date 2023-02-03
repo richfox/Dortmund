@@ -19,6 +19,8 @@ namespace mat
    {
       PointLineRelation_Unknown = -1,
       PointOnLine,     //点在线段上(延长线或线段内不知)
+      PointOnSeq,      //点在线段内
+      PointOnSeqExt,   //点在线段的延长线上
       LeftSide,        //点在线段左侧
       RightSide        //点在线段右侧
    };
@@ -38,10 +40,9 @@ namespace mat
    PointTriangleRelation is_point_inside_triangle(const Point2& A,const Point2& B,const Point2& C,const Point2& query);
 
    //判断两个线段是否相交
-   //*****P1\  /P4
+   //******A\  /D
    //********\/
    //********/\ 
-   //*****P3/  \P2
-
-
+   //******C/  \B
+   bool segments_intersect(const Point2& A,const Point2& B,const Point2& C,const Point2& D);
 }
