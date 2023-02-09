@@ -100,3 +100,58 @@ bool mat::segments_intersect(const Point2& A,const Point2& B,const Point2& C,con
       return false;
 }
 
+
+
+bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const Point2>>& segments)
+{
+   std::vector<EventPoint> eps;
+   eps.reserve(segments.size() * 2);
+   int idx = 0;
+   for (const auto& seg : segments)
+   {
+      if (seg.first[0] < seg.second[0])
+      {
+         EventPoint lp(seg.first[0],0,seg.first[1],idx);
+         eps.push_back(lp);
+         EventPoint rp(seg.second[0],1,seg.second[1],idx);
+         eps.push_back(rp);
+      }
+      else
+      {
+         EventPoint rp(seg.first[0],1,seg.first[1],idx);
+         eps.push_back(rp);
+         EventPoint lp(seg.second[0],0,seg.second[1],idx);
+         eps.push_back(lp);
+      }
+      idx++;
+   }
+
+   std::sort(eps.begin(),eps.end());
+
+   std::set<int> segTree;
+   for (const auto& ep : eps)
+   {
+      if (ep.e_ == 0)
+      {
+         auto current = segTree.insert(ep.i_).first;
+         auto above = segTree.lower_bound(*current);
+         auto below = --current;
+         if ((above!=segTree.end() && segments_intersect(segments[*current].first,segments[*current].second,segments[*above].first,segments[*above].second)) ||
+            (below!=segTree.end() && segments_intersect(segments[*current].first,segments[*current].second,segments[*below].first,segments[*below].second)))
+            return true;
+      }
+      else
+      {
+         auto current = segTree.find(ep.i_);
+         auto above = ++current;
+         auto below = --current;
+         if ((above!=segTree.end() && below!=segTree.end()) &&
+            (segments_intersect(segments[*above].first,segments[*above].second,segments[*below].first,segments[*below].second)))
+            return true;
+         segTree.erase(ep.i_);
+      }
+   }
+
+   return false;
+}
+

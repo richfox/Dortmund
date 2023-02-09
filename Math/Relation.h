@@ -1,7 +1,9 @@
 ﻿#pragma once
 
-
-
+#include <vector>
+#include <utility>
+#include <algorithm>
+#include <set>
 
 
 namespace mat
@@ -43,4 +45,45 @@ namespace mat
    //********/\ 
    //******C/  \B
    bool segments_intersect(const Point2& A,const Point2& B,const Point2& C,const Point2& D);
+
+   //线段端点辅助结构
+   struct EventPoint
+   {
+      EventPoint(double x,short e,double y,int i)
+         :x_(x),
+         e_(e),
+         y_(y),
+         i_(i)
+      {}
+
+      EventPoint()
+         :x_(0),
+         e_(0),
+         y_(0),
+         i_(0)
+      {}
+
+      //(x,e,y)字典排序
+      bool operator < (const EventPoint& p) const
+      {
+         if (x_ < p.x_)
+            return true;
+         else
+            if (e_ < p.e_)
+               return true;
+            else
+               if (y_ < p.y_)
+                  return true;
+
+         return false;
+      }
+
+      double x_;
+      short e_; //e=0表示左端点，e=1表示右端点
+      double y_;
+      int i_; //所属线段序号
+   };
+
+   //判断任意一对线段是否相交
+   bool any_segments_intersect(const std::vector<std::pair<const Point2,const Point2>>& segments);
 }
