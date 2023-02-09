@@ -106,4 +106,7 @@ void MathTest::test()
    P3 = Point2(2,1);
    P4 = Point2(2,2);
    CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==false);
+
+   //测试任意一对线段是否相交
+
 }

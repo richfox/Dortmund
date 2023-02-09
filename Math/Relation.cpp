@@ -101,6 +101,34 @@ bool mat::segments_intersect(const Point2& A,const Point2& B,const Point2& C,con
 }
 
 
+//??????????
+struct SegPos
+{
+   SegPos(const Point2& from,const Point2& to,int i)
+      :from_(from),
+      to_(to),
+      i_(i)
+   {}
+
+   SegPos()
+      :from_(),
+      to_(),
+      i_(0)
+   {}
+
+   bool operator < (const SegPos& sp) const
+   {
+      PointSegRelation r = mat::get_point_segment_relation(from_,to_,sp.from_);
+      if (r == PointSegRelation::RightSide)
+         return true;
+
+      return false;
+   }
+
+   Point2 from_; //???
+   Point2 to_; //???
+   int i_; //??????
+};
 
 bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const Point2>>& segments)
 {
@@ -128,27 +156,27 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
 
    std::sort(eps.begin(),eps.end());
 
-   std::set<int> segTree;
+   std::set<SegPos> sTree;
    for (const auto& ep : eps)
    {
       if (ep.e_ == 0)
       {
-         auto current = segTree.insert(ep.i_).first;
-         auto above = segTree.lower_bound(*current);
-         auto below = --current;
-         if ((above!=segTree.end() && segments_intersect(segments[*current].first,segments[*current].second,segments[*above].first,segments[*above].second)) ||
-            (below!=segTree.end() && segments_intersect(segments[*current].first,segments[*current].second,segments[*below].first,segments[*below].second)))
+         auto current = sTree.insert({segments[ep.i_].first,segments[ep.i_].second,ep.i_}).first;
+         auto above = sTree.lower_bound(*current);
+         auto below = (current==sTree.begin()) ? sTree.end() : --current;
+         if ((above!=sTree.end() && segments_intersect(segments[current->i_].first,segments[current->i_].second,segments[above->i_].first,segments[above->i_].second)) ||
+            (below!=sTree.end() && segments_intersect(segments[current->i_].first,segments[current->i_].second,segments[below->i_].first,segments[below->i_].second)))
             return true;
       }
       else
       {
-         auto current = segTree.find(ep.i_);
+         auto current = sTree.find({segments[ep.i_].first,segments[ep.i_].second,ep.i_});
          auto above = ++current;
-         auto below = --current;
-         if ((above!=segTree.end() && below!=segTree.end()) &&
-            (segments_intersect(segments[*above].first,segments[*above].second,segments[*below].first,segments[*below].second)))
+         auto below = (current==sTree.begin()) ? sTree.end() : --current;
+         if ((above!=sTree.end() && below!=sTree.end()) &&
+            (segments_intersect(segments[above->i_].first,segments[above->i_].second,segments[below->i_].first,segments[below->i_].second)))
             return true;
-         segTree.erase(ep.i_);
+         sTree.erase({segments[ep.i_].first,segments[ep.i_].second,ep.i_});
       }
    }
 
