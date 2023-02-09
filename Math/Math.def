@@ -4,3 +4,4 @@ EXPORTS
    get_point_segment_relation
    is_point_inside_triangle
    segments_intersect
+   any_segments_intersect

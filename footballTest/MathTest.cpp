@@ -108,5 +108,13 @@ void MathTest::test()
    CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==false);
 
    //测试任意一对线段是否相交
-
+   //类似算法导论图 33-5
+   vector<pair<const Point2,const Point2>> segments;
+   segments.push_back({{0,6},{3,5}});
+   segments.push_back({{1,1},{11,6}});
+   segments.push_back({{2,3},{5,4}});
+   segments.push_back({{3,6},{13,2}});
+   segments.push_back({{6,7},{10,5}});
+   segments.push_back({{7,3},{10,0}});
+   CPPUNIT_ASSERT(any_segments_intersect(segments)==true);
 }

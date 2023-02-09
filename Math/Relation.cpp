@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 
 #include "Relation.h"
 #include "Point2.h"
@@ -101,33 +101,32 @@ bool mat::segments_intersect(const Point2& A,const Point2& B,const Point2& C,con
 }
 
 
-//??????????
+//线段相对次序辅助结构
 struct SegPos
 {
-   SegPos(const Point2& from,const Point2& to,int i)
-      :from_(from),
-      to_(to),
-      i_(i)
+   SegPos(int i,const Point2& from,const Point2& to)
+      :i_(i),
+      from_(from),
+      to_(to)
    {}
 
    SegPos()
-      :from_(),
-      to_(),
-      i_(0)
+      :i_(0),
+      from_(),
+      to_()
    {}
 
    bool operator < (const SegPos& sp) const
    {
-      PointSegRelation r = mat::get_point_segment_relation(from_,to_,sp.from_);
+      PointSegRelation r = mat::get_point_segment_relation(sp.from_,sp.to_,from_);
       if (r == PointSegRelation::RightSide)
          return true;
-
       return false;
    }
 
-   Point2 from_; //???
-   Point2 to_; //???
-   int i_; //??????
+   int i_; //所属线段序号
+   Point2 from_; //左端点
+   Point2 to_; //右端点
 };
 
 bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const Point2>>& segments)
@@ -159,24 +158,24 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
    std::set<SegPos> sTree;
    for (const auto& ep : eps)
    {
-      if (ep.e_ == 0)
+      if (ep.e_ == 0) //左端点
       {
-         auto current = sTree.insert({segments[ep.i_].first,segments[ep.i_].second,ep.i_}).first;
-         auto above = sTree.lower_bound(*current);
-         auto below = (current==sTree.begin()) ? sTree.end() : --current;
+         auto current = sTree.insert({ep.i_,segments[ep.i_].first,segments[ep.i_].second}).first;
+         auto above = sTree.upper_bound(*current);
+         auto below = (current==sTree.begin()) ? sTree.end() : prev(current,1);
          if ((above!=sTree.end() && segments_intersect(segments[current->i_].first,segments[current->i_].second,segments[above->i_].first,segments[above->i_].second)) ||
             (below!=sTree.end() && segments_intersect(segments[current->i_].first,segments[current->i_].second,segments[below->i_].first,segments[below->i_].second)))
             return true;
       }
-      else
+      else if (ep.e_ == 1) //右端点
       {
-         auto current = sTree.find({segments[ep.i_].first,segments[ep.i_].second,ep.i_});
-         auto above = ++current;
-         auto below = (current==sTree.begin()) ? sTree.end() : --current;
+         auto current = sTree.find({ep.i_,segments[ep.i_].first,segments[ep.i_].second});
+         auto above = next(current,1);
+         auto below = (current==sTree.begin()) ? sTree.end() : prev(current,1);
          if ((above!=sTree.end() && below!=sTree.end()) &&
             (segments_intersect(segments[above->i_].first,segments[above->i_].second,segments[below->i_].first,segments[below->i_].second)))
             return true;
-         sTree.erase({segments[ep.i_].first,segments[ep.i_].second,ep.i_});
+         sTree.erase({ep.i_,segments[ep.i_].first,segments[ep.i_].second});
       }
    }
 

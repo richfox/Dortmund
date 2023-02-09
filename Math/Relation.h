@@ -4,6 +4,7 @@
 #include <utility>
 #include <algorithm>
 #include <set>
+#include <iterator>
 
 
 namespace mat
@@ -68,13 +69,12 @@ namespace mat
       {
          if (x_ < p.x_)
             return true;
-         else
+         else if (x_ == p.x_)
             if (e_ < p.e_)
                return true;
-            else
+            else if (e_ == p.e_)
                if (y_ < p.y_)
                   return true;
-
          return false;
       }
 
