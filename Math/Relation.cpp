@@ -174,17 +174,45 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
    {
       if (seg.first[0] < seg.second[0])
       {
-         EventPoint lp(seg.first[0],0,seg.first[1],idx);
-         eps.push_back(lp);
-         EventPoint rp(seg.second[0],1,seg.second[1],idx);
-         eps.push_back(rp);
+         if ((seg.second[0]-seg.first[0]) < tol) //垂直线段
+         {
+            if (seg.first[1] < seg.second[1])
+            {
+               eps.push_back({seg.first[0],0,seg.first[1],idx});
+               eps.push_back({seg.second[0],1,seg.second[1],idx});
+            }
+            else
+            {
+               eps.push_back({seg.first[0],1,seg.first[1],idx});
+               eps.push_back({seg.second[0],0,seg.second[1],idx});
+            }
+         }
+         else //非垂直线段
+         {
+            eps.push_back({seg.first[0],0,seg.first[1],idx});
+            eps.push_back({seg.second[0],1,seg.second[1],idx});
+         }
       }
       else
       {
-         EventPoint rp(seg.first[0],1,seg.first[1],idx);
-         eps.push_back(rp);
-         EventPoint lp(seg.second[0],0,seg.second[1],idx);
-         eps.push_back(lp);
+         if ((seg.first[0]-seg.second[0]) < tol) //垂直线段
+         {
+            if (seg.first[1] < seg.second[1])
+            {
+               eps.push_back({seg.first[0],0,seg.first[1],idx});
+               eps.push_back({seg.second[0],1,seg.second[1],idx});
+            }
+            else
+            {
+               eps.push_back({seg.first[0],1,seg.first[1],idx});
+               eps.push_back({seg.second[0],0,seg.second[1],idx});
+            }
+         }
+         else //非垂直线段
+         {
+            eps.push_back({seg.first[0],1,seg.first[1],idx});
+            eps.push_back({seg.second[0],0,seg.second[1],idx});
+         }
       }
       idx++;
    }

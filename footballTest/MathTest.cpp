@@ -117,4 +117,26 @@ void MathTest::test()
    segments.push_back({{6,7},{10,5}});
    segments.push_back({{7,3},{10,0}});
    CPPUNIT_ASSERT(any_segments_intersect(segments)==true);
+
+   //边界情况
+   segments.clear();
+   segments.push_back({{0,0},{2,0}});
+   segments.push_back({{1,0},{2,2}});
+   CPPUNIT_ASSERT(any_segments_intersect(segments)==true);
+
+   segments.clear();
+   segments.push_back({{0,0},{2,0}});
+   segments.push_back({{0,2},{1,0}});
+   CPPUNIT_ASSERT(any_segments_intersect(segments)==true);
+
+   segments.clear();
+   segments.push_back({{0,0},{2,2}});
+   segments.push_back({{0,1},{2,1}});
+   segments.push_back({{0,2},{2,0}});
+   CPPUNIT_ASSERT(any_segments_intersect(segments)==true);
+
+   segments.clear();
+   segments.push_back({{0,1},{2,1}});
+   segments.push_back({{1,0},{1,2}});
+   CPPUNIT_ASSERT(any_segments_intersect(segments)==true);
 }
