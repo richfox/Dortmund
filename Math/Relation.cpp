@@ -100,8 +100,44 @@ bool mat::segments_intersect(const Point2& A,const Point2& B,const Point2& C,con
       return false;
 }
 
+//事件点
+struct EventPoint
+{
+   EventPoint(double x,short e,double y,int i)
+      :x_(x),
+      e_(e),
+      y_(y),
+      i_(i)
+   {}
 
-//线段相对次序辅助结构
+   EventPoint()
+      :x_(0),
+      e_(0),
+      y_(0),
+      i_(0)
+   {}
+
+   //(x,e,y)字典排序
+   bool operator < (const EventPoint& rhs) const
+   {
+      if (x_ < rhs.x_)
+         return true;
+      else if (x_ == rhs.x_)
+         if (e_ < rhs.e_)
+            return true;
+         else if (e_ == rhs.e_)
+            if (y_ < rhs.y_)
+               return true;
+      return false;
+   }
+
+   double x_;
+   short e_; //e=0表示左端点，e=1表示右端点
+   double y_;
+   int i_; //所属线段序号
+};
+
+//线段在事件点的相对次序
 struct SegPos
 {
    SegPos(int i,const Point2& from,const Point2& to)
