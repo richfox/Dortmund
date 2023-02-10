@@ -116,10 +116,10 @@ struct SegPos
       to_()
    {}
 
-   bool operator < (const SegPos& sp) const
+   bool operator < (const SegPos& rhs) const
    {
-      PointSegRelation r = mat::get_point_segment_relation(sp.from_,sp.to_,from_);
-      if (r == PointSegRelation::RightSide)
+      PointSegRelation r = mat::get_point_segment_relation(from_,to_,rhs.from_);
+      if (r == PointSegRelation::LeftSide)
          return true;
       return false;
    }

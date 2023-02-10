@@ -65,15 +65,15 @@ namespace mat
       {}
 
       //(x,e,y)字典排序
-      bool operator < (const EventPoint& p) const
+      bool operator < (const EventPoint& rhs) const
       {
-         if (x_ < p.x_)
+         if (x_ < rhs.x_)
             return true;
-         else if (x_ == p.x_)
-            if (e_ < p.e_)
+         else if (x_ == rhs.x_)
+            if (e_ < rhs.e_)
                return true;
-            else if (e_ == p.e_)
-               if (y_ < p.y_)
+            else if (e_ == rhs.e_)
+               if (y_ < rhs.y_)
                   return true;
          return false;
       }
