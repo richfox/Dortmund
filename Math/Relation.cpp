@@ -100,10 +100,17 @@ bool mat::segments_intersect(const Point2& A,const Point2& B,const Point2& C,con
       return false;
 }
 
+
+enum SegPointType : unsigned char
+{
+   Left = 0, //0表示左端点
+   Right = 1 //1表示右端点
+};
+
 //事件点
 struct EventPoint
 {
-   EventPoint(double x,short e,double y,int i)
+   EventPoint(double x,SegPointType e,double y,int i)
       :x_(x),
       e_(e),
       y_(y),
@@ -112,7 +119,7 @@ struct EventPoint
 
    EventPoint()
       :x_(0),
-      e_(0),
+      e_(Left),
       y_(0),
       i_(0)
    {}
@@ -132,7 +139,7 @@ struct EventPoint
    }
 
    double x_;
-   short e_; //e=0表示左端点，e=1表示右端点
+   SegPointType e_;
    double y_;
    int i_; //所属线段序号
 };
@@ -178,19 +185,19 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
          {
             if (seg.first[1] < seg.second[1])
             {
-               eps.push_back({seg.first[0],0,seg.first[1],idx});
-               eps.push_back({seg.second[0],1,seg.second[1],idx});
+               eps.push_back({seg.first[0],Left,seg.first[1],idx});
+               eps.push_back({seg.second[0],Right,seg.second[1],idx});
             }
             else
             {
-               eps.push_back({seg.first[0],1,seg.first[1],idx});
-               eps.push_back({seg.second[0],0,seg.second[1],idx});
+               eps.push_back({seg.first[0],Right,seg.first[1],idx});
+               eps.push_back({seg.second[0],Left,seg.second[1],idx});
             }
          }
          else //非垂直线段
          {
-            eps.push_back({seg.first[0],0,seg.first[1],idx});
-            eps.push_back({seg.second[0],1,seg.second[1],idx});
+            eps.push_back({seg.first[0],Left,seg.first[1],idx});
+            eps.push_back({seg.second[0],Right,seg.second[1],idx});
          }
       }
       else
@@ -199,19 +206,19 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
          {
             if (seg.first[1] < seg.second[1])
             {
-               eps.push_back({seg.first[0],0,seg.first[1],idx});
-               eps.push_back({seg.second[0],1,seg.second[1],idx});
+               eps.push_back({seg.first[0],Left,seg.first[1],idx});
+               eps.push_back({seg.second[0],Right,seg.second[1],idx});
             }
             else
             {
-               eps.push_back({seg.first[0],1,seg.first[1],idx});
-               eps.push_back({seg.second[0],0,seg.second[1],idx});
+               eps.push_back({seg.first[0],Right,seg.first[1],idx});
+               eps.push_back({seg.second[0],Left,seg.second[1],idx});
             }
          }
          else //非垂直线段
          {
-            eps.push_back({seg.first[0],1,seg.first[1],idx});
-            eps.push_back({seg.second[0],0,seg.second[1],idx});
+            eps.push_back({seg.first[0],Right,seg.first[1],idx});
+            eps.push_back({seg.second[0],Left,seg.second[1],idx});
          }
       }
       idx++;
@@ -222,7 +229,7 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
    std::set<SegPos> sTree;
    for (const auto& ep : eps)
    {
-      if (ep.e_ == 0) //左端点
+      if (ep.e_ == Left)
       {
          auto current = sTree.insert({ep.i_,segments[ep.i_].first,segments[ep.i_].second}).first;
          auto above = sTree.upper_bound(*current);
@@ -231,7 +238,7 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
             (below!=sTree.end() && segments_intersect(segments[current->i_].first,segments[current->i_].second,segments[below->i_].first,segments[below->i_].second)))
             return true;
       }
-      else if (ep.e_ == 1) //右端点
+      else if (ep.e_ == Right)
       {
          auto current = sTree.find({ep.i_,segments[ep.i_].first,segments[ep.i_].second});
          auto above = next(current,1);
