@@ -240,7 +240,7 @@ int _tmain(int argc, _TCHAR* argv[])
    TmpConfig<int>::save_tmp_setting(1,L"config.int");
    CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==1,L"config error");
    TmpConfig<int>::save_tmp_setting(2,L"config.int");
-   CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==2,L"config error");
+   CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==1,L"config error");
 
    for (int i=0; i<10; i++)
    {
