@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "TmpConfig.h"
-#include "path.h"
+#include "..\Tool\path.h"
 
 
 #include <boost\property_tree\ptree.hpp>
@@ -50,7 +50,7 @@ void TmpConfig::save_tmp_setting(const T& setting,const wstring& node)
 }
 
 //Explizite Instantiierungen
-template void TmpConfig::save_tmp_setting<int>(const int& setting,const std::wstring& node);
-template const int TmpConfig::load_tmp_setting<int>(const std::wstring& node);
-template void TmpConfig::save_tmp_setting<wstring>(const wstring& setting,const std::wstring& node);
-template const wstring TmpConfig::load_tmp_setting<wstring>(const std::wstring& node);
+template void UTIL_FUNC TmpConfig::save_tmp_setting<int>(const int& setting,const std::wstring& node);
+template const int UTIL_FUNC TmpConfig::load_tmp_setting<int>(const std::wstring& node);
+template void UTIL_FUNC TmpConfig::save_tmp_setting<wstring>(const wstring& setting,const std::wstring& node);
+template const wstring UTIL_FUNC TmpConfig::load_tmp_setting<wstring>(const std::wstring& node);

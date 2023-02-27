@@ -39,6 +39,9 @@
     <ClInclude Include="macro.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="TmpConfig.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +54,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="RegWriter.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TmpConfig.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

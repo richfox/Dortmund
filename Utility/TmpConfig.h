@@ -1,13 +1,13 @@
 #pragma once
 
-#include "basedef.h"
 #include <string>
-
+#include "macro.h"
+#include "..\Tool\basedef.h"
 
 
 namespace XFU
 {
-   class TmpConfig sealed : public Object, private NonCopyable
+   class UTIL_CLASS TmpConfig sealed : public Object, private NonCopyable
    {
    public:
       template<typename T>
@@ -20,4 +20,3 @@ namespace XFU
       static std::wstring _fname;
    };
 }
-
