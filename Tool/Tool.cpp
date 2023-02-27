@@ -83,7 +83,7 @@ class Foo2
 {
 public:
    Foo2(const T& value,const wstring& key)
-      :_fInvoker(TmpConfig<T>::save_tmp_setting)
+      :_fInvoker(TmpConfig::save_tmp_setting)
    {
       _fInvoker(value,key);
    }
@@ -237,16 +237,16 @@ int _tmain(int argc, _TCHAR* argv[])
    }
 
    //test temp config
-   TmpConfig<int>::save_tmp_setting(1,L"config.int");
-   CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==1,L"config error");
-   TmpConfig<int>::save_tmp_setting(2,L"config.int");
-   CHECK_ERROR(TmpConfig<int>::load_tmp_setting(L"config.int")==1,L"config error");
-
+   TmpConfig::save_tmp_setting<int>(1,L"config.int");
+   CHECK_ERROR(TmpConfig::load_tmp_setting<int>(L"config.int")==1,L"config error");
+   TmpConfig::save_tmp_setting<int>(2,L"config.int");
+   CHECK_ERROR(TmpConfig::load_tmp_setting<int>(L"config.int")==1,L"config error");
+   
    for (int i=0; i<10; i++)
    {
       do_it_once2();
    }
-   CHECK_ERROR(TmpConfig<wstring>::load_tmp_setting(L"config.wstring")==L"xfu",L"config error");
+   CHECK_ERROR(TmpConfig::load_tmp_setting<wstring>(L"config.wstring")==L"xfu",L"config error");
 
 
    //test hash

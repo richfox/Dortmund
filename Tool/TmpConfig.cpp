@@ -11,11 +11,11 @@ using namespace std;
 using namespace XFU;
 namespace pt = boost::property_tree;
 
-template<typename T>
-wstring TmpConfig<T>::_fname = L"xfu_setting.xml";
+
+wstring TmpConfig::_fname = L"xfu_setting.xml";
 
 template<typename T>
-const T TmpConfig<T>::load_tmp_setting(const wstring& node)
+const T TmpConfig::load_tmp_setting(const wstring& node)
 {
    pt::wptree tree;
    wstring tpath = XFUPath::GetSystemTempPath();
@@ -26,7 +26,7 @@ const T TmpConfig<T>::load_tmp_setting(const wstring& node)
 }
 
 template<typename T>
-void TmpConfig<T>::save_tmp_setting(const T& setting,const wstring& node)
+void TmpConfig::save_tmp_setting(const T& setting,const wstring& node)
 {
    pt::wptree tree;
    wstring tpath = XFUPath::GetSystemTempPath();
@@ -50,6 +50,7 @@ void TmpConfig<T>::save_tmp_setting(const T& setting,const wstring& node)
 }
 
 //Explizite Instantiierungen
-template class TmpConfig<int>;
-template class TmpConfig<bool>;
-template class TmpConfig<wstring>;
+template void TmpConfig::save_tmp_setting<int>(const int& setting,const std::wstring& node);
+template const int TmpConfig::load_tmp_setting<int>(const std::wstring& node);
+template void TmpConfig::save_tmp_setting<wstring>(const wstring& setting,const std::wstring& node);
+template const wstring TmpConfig::load_tmp_setting<wstring>(const std::wstring& node);
