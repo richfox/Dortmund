@@ -43,4 +43,6 @@ void TmpConfigTest::test()
       do_it_once2();
    }
    CPPUNIT_ASSERT(TmpConfig::load_tmp_setting<wstring>(L"config.wstring")==L"xfu",L"config error");
+
+   TmpConfig::delete_tmp_setting();
 }

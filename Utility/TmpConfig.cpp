@@ -49,6 +49,12 @@ void TmpConfig::save_tmp_setting(const T& setting,const wstring& node)
    }
 }
 
+void TmpConfig::delete_tmp_setting()
+{
+   wstring tpath = XFUPath::GetSystemTempPath();
+   DeleteFileW((tpath + _fname).c_str());
+}
+
 //Explizite Instantiierungen
 template void UTIL_FUNC TmpConfig::save_tmp_setting<int>(const int& setting,const std::wstring& node);
 template const int UTIL_FUNC TmpConfig::load_tmp_setting<int>(const std::wstring& node);
