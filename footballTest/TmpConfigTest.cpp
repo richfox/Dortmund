@@ -37,6 +37,8 @@ void TmpConfigTest::test()
    CPPUNIT_ASSERT(TmpConfig::load_tmp_setting<int>(L"config.int")==1,L"config error");
    TmpConfig::save_tmp_setting<int>(2,L"config.int");
    CPPUNIT_ASSERT(TmpConfig::load_tmp_setting<int>(L"config.int")==1,L"config error");
+   TmpConfig::edit_tmp_setting<int>(3,L"config.int");
+   CPPUNIT_ASSERT(TmpConfig::load_tmp_setting<int>(L"config.int")==3,L"config error");
    
    for (int i=0; i<10; i++)
    {

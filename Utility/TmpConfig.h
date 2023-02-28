@@ -16,6 +16,9 @@ namespace XFU
       template<typename T>
       static void save_tmp_setting(const T& setting,const std::wstring& node);
 
+      template<typename T>
+      static void edit_tmp_setting(const T& setting,const std::wstring& node);
+
       static void delete_tmp_setting();
 
    private:
