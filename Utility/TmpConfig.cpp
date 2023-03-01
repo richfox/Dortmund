@@ -13,13 +13,14 @@ namespace pt = boost::property_tree;
 
 
 wstring TmpConfig::_fname = L"xfu_setting.xml";
+wstring TmpConfig::_path = XFUPath::GetSystemTempPath();
+
 
 template<typename T>
 const T TmpConfig::load_tmp_setting(const wstring& node)
 {
    pt::wptree tree;
-   wstring tpath = XFUPath::GetSystemTempPath();
-   wifstream ifs(tpath + _fname);
+   wifstream ifs(_path + _fname);
    pt::read_xml(ifs,tree);
 
    return tree.get<T>(node);
@@ -29,21 +30,20 @@ template<typename T>
 void TmpConfig::save_tmp_setting(const T& setting,const wstring& node)
 {
    pt::wptree tree;
-   wstring tpath = XFUPath::GetSystemTempPath();
 
-   if (!XFUPath::Exist(tpath + _fname))
+   if (!XFUPath::Exist(_path + _fname))
    {
-      XFUPath::Create(tpath);
+      XFUPath::Create(_path);
       tree.add(node,setting);
-      wofstream ofs(tpath + _fname);
+      wofstream ofs(_path + _fname);
       pt::write_xml(ofs,tree);
    }
    else
    {
-      wifstream ifs(tpath + _fname);
+      wifstream ifs(_path + _fname);
       pt::read_xml(ifs,tree);
 
-      wofstream ofs(tpath + _fname);
+      wofstream ofs(_path + _fname);
       tree.add(node,setting);
       pt::write_xml(ofs,tree);
    }
@@ -53,21 +53,20 @@ template<typename T>
 void TmpConfig::edit_tmp_setting(const T& setting,const wstring& node)
 {
    pt::wptree tree;
-   wstring tpath = XFUPath::GetSystemTempPath();
 
-   if (!XFUPath::Exist(tpath + _fname))
+   if (!XFUPath::Exist(_path + _fname))
    {
-      XFUPath::Create(tpath);
+      XFUPath::Create(_path);
       tree.put(node,setting);
-      wofstream ofs(tpath + _fname);
+      wofstream ofs(_path + _fname);
       pt::write_xml(ofs,tree);
    }
    else
    {
-      wifstream ifs(tpath + _fname);
+      wifstream ifs(_path + _fname);
       pt::read_xml(ifs,tree);
 
-      wofstream ofs(tpath + _fname);
+      wofstream ofs(_path + _fname);
       tree.put(node,setting);
       pt::write_xml(ofs,tree);
    }
@@ -77,8 +76,7 @@ void TmpConfig::edit_tmp_setting(const T& setting,const wstring& node)
 bool TmpConfig::has_tmp_setting(const std::wstring& node)
 {
    pt::wptree tree;
-   wstring tpath = XFUPath::GetSystemTempPath();
-   wifstream ifs(tpath + _fname);
+   wifstream ifs(_path + _fname);
    pt::read_xml(ifs,tree);
 
    if (tree.get_child_optional(node))
@@ -89,8 +87,7 @@ bool TmpConfig::has_tmp_setting(const std::wstring& node)
 
 void TmpConfig::delete_tmp_setting()
 {
-   wstring tpath = XFUPath::GetSystemTempPath();
-   DeleteFileW((tpath + _fname).c_str());
+   DeleteFileW((_path + _fname).c_str());
 }
 
 //Explizite Instantiierungen

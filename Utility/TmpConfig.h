@@ -25,5 +25,6 @@ namespace XFU
 
    private:
       static std::wstring _fname;
+      static std::wstring _path;
    };
 }
