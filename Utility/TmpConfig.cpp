@@ -74,6 +74,19 @@ void TmpConfig::edit_tmp_setting(const T& setting,const wstring& node)
 }
 
 
+bool TmpConfig::has_tmp_setting(const std::wstring& node)
+{
+   pt::wptree tree;
+   wstring tpath = XFUPath::GetSystemTempPath();
+   wifstream ifs(tpath + _fname);
+   pt::read_xml(ifs,tree);
+
+   if (tree.get_child_optional(node))
+      return true;
+
+   return false;
+}
+
 void TmpConfig::delete_tmp_setting()
 {
    wstring tpath = XFUPath::GetSystemTempPath();
