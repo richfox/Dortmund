@@ -75,6 +75,9 @@ void TmpConfig::edit_tmp_setting(const T& setting,const wstring& node)
 
 bool TmpConfig::has_tmp_setting(const std::wstring& node)
 {
+   if (!XFUPath::Exist(_path + _fname))
+      return false;
+
    pt::wptree tree;
    wifstream ifs(_path + _fname);
    pt::read_xml(ifs,tree);
