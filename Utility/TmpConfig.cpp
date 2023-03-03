@@ -35,6 +35,7 @@ void TmpConfig::save_tmp_setting(const T& setting,const wstring& node)
    {
       XFUPath::Create(_path);
       tree.add(node,setting);
+
       wofstream ofs(_path + _fname);
       pt::write_xml(ofs,tree);
    }
@@ -43,8 +44,9 @@ void TmpConfig::save_tmp_setting(const T& setting,const wstring& node)
       wifstream ifs(_path + _fname);
       pt::read_xml(ifs,tree);
 
-      wofstream ofs(_path + _fname);
       tree.add(node,setting);
+
+      wofstream ofs(_path + _fname);
       pt::write_xml(ofs,tree);
    }
 }
@@ -58,6 +60,7 @@ void TmpConfig::edit_tmp_setting(const T& setting,const wstring& node)
    {
       XFUPath::Create(_path);
       tree.put(node,setting);
+
       wofstream ofs(_path + _fname);
       pt::write_xml(ofs,tree);
    }
@@ -66,8 +69,9 @@ void TmpConfig::edit_tmp_setting(const T& setting,const wstring& node)
       wifstream ifs(_path + _fname);
       pt::read_xml(ifs,tree);
 
-      wofstream ofs(_path + _fname);
       tree.put(node,setting);
+
+      wofstream ofs(_path + _fname);
       pt::write_xml(ofs,tree);
    }
 }
@@ -87,6 +91,40 @@ bool TmpConfig::has_tmp_setting(const std::wstring& node)
 
    return false;
 }
+
+void TmpConfig::erase_tmp_setting(const std::wstring& node)
+{
+   pt::wptree tree;
+   wifstream ifs(_path + _fname);
+   pt::read_xml(ifs,tree);
+
+   if (tree.get_child_optional(node))
+   {
+      wstring path = node.substr(0, node.rfind(L'.'));
+      wstring key = node.substr(node.rfind(L'.') + 1);
+      tree.get_child(path).erase(key);
+
+      wofstream ofs(_path + _fname);
+      pt::write_xml(ofs,tree);
+   }
+}
+
+size_t TmpConfig::count_tmp_setting(const std::wstring& node)
+{
+   pt::wptree tree;
+   wifstream ifs(_path + _fname);
+   pt::read_xml(ifs,tree);
+
+   if (tree.get_child_optional(node))
+   {
+      wstring path = node.substr(0, node.rfind(L'.'));
+      wstring key = node.substr(node.rfind(L'.') + 1);
+      return tree.get_child(path).count(key);
+   }
+
+   return 0;
+}
+
 
 void TmpConfig::delete_tmp_setting()
 {

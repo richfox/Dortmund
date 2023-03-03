@@ -21,6 +21,10 @@ namespace XFU
 
       static bool has_tmp_setting(const std::wstring& node);
 
+      static void erase_tmp_setting(const std::wstring& node);
+
+      static size_t count_tmp_setting(const std::wstring& node);
+
       static void delete_tmp_setting();
 
    private:

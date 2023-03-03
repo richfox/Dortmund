@@ -24,7 +24,7 @@ private:
    FreeInvoker<void,const T&,const wstring&> _fInvoker;
 };
 
-void do_it_once2()
+void do_it_once()
 {
    static Foo2<wstring> foo2(L"xfu",L"config.wstring");
 }
@@ -44,11 +44,16 @@ void TmpConfigTest::test()
 
    CPPUNIT_ASSERT(TmpConfig::has_tmp_setting(L"config.int")==true,L"config error");
    CPPUNIT_ASSERT(TmpConfig::has_tmp_setting(L"config.double")==false,L"config error");
+
+   CPPUNIT_ASSERT(TmpConfig::count_tmp_setting(L"config.int")==2,L"config error");
+   TmpConfig::erase_tmp_setting(L"config.int");
+   CPPUNIT_ASSERT(TmpConfig::count_tmp_setting(L"config.int")==0,L"config error");
    
    for (int i=0; i<10; i++)
    {
-      do_it_once2();
+      do_it_once();
    }
+   CPPUNIT_ASSERT(TmpConfig::count_tmp_setting(L"config.wstring")==1,L"config error");
    CPPUNIT_ASSERT(TmpConfig::load_tmp_setting<wstring>(L"config.wstring")==L"xfu",L"config error");
 
    TmpConfig::delete_tmp_setting();
