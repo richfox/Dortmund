@@ -34,21 +34,17 @@ void TmpConfig::save_tmp_setting(const T& setting,const wstring& node)
    if (!XFUPath::Exist(_path + _fname))
    {
       XFUPath::Create(_path);
-      tree.add(node,setting);
-
-      wofstream ofs(_path + _fname);
-      pt::write_xml(ofs,tree);
    }
    else
    {
       wifstream ifs(_path + _fname);
       pt::read_xml(ifs,tree);
-
-      tree.add(node,setting);
-
-      wofstream ofs(_path + _fname);
-      pt::write_xml(ofs,tree);
    }
+
+   tree.add(node,setting);
+
+   wofstream ofs(_path + _fname);
+   pt::write_xml(ofs,tree);
 }
 
 template<typename T>
@@ -59,21 +55,17 @@ void TmpConfig::edit_tmp_setting(const T& setting,const wstring& node)
    if (!XFUPath::Exist(_path + _fname))
    {
       XFUPath::Create(_path);
-      tree.put(node,setting);
-
-      wofstream ofs(_path + _fname);
-      pt::write_xml(ofs,tree);
    }
    else
    {
       wifstream ifs(_path + _fname);
       pt::read_xml(ifs,tree);
-
-      tree.put(node,setting);
-
-      wofstream ofs(_path + _fname);
-      pt::write_xml(ofs,tree);
    }
+
+   tree.put(node,setting);
+
+   wofstream ofs(_path + _fname);
+   pt::write_xml(ofs,tree);
 }
 
 
