@@ -106,4 +106,9 @@ void AlgoTest::test()
    sss.clear();
    set = { 13, 14, 5, 2 };
    CPPUNIT_ASSERT(isSubsetSum(set, n, sum) == false);
+
+   int set2[] = { 3, 4, 5, 2 };
+   int sum2 = 9;
+   int n2 = _countof(set2);
+   CPPUNIT_ASSERT(isSubsetSum(set2, n2, sum2) == true);
 }
