@@ -3,8 +3,10 @@
 #include <iostream>
 #include <vector>
 
-static std::vector<int> sss;
+static std::vector<int> sss; //hold the found subset
 
+//This recursive solution may try all subsets of given set in worst case. Therefore time complexity is exponential.
+//The problem is in-fact NP-Complete (nondeterministic polynomial time solution for this problem).
 bool isSubsetSum(const std::vector<int>& set, int n, int sum)
 {
    // Base Cases
@@ -13,16 +15,13 @@ bool isSubsetSum(const std::vector<int>& set, int n, int sum)
    if (n == 0)
       return false;
  
-   // If last element is greater than sum,
-   // then ignore it
+   // If last element is greater than sum, then ignore it
    if (set[n - 1] > sum)
       return isSubsetSum(set, n - 1, sum);
  
-   /* else, check if sum can be obtained by any
-   of the following:
-   (a) including the last element
-   (b) excluding the last element   */
-   //return isSubsetSum(set, n - 1, sum) || isSubsetSum(set, n - 1, sum - set[n - 1]);
+   /* else, check if sum can be obtained by any of the following:
+   (a) including the last element isSubsetSum(set, n - 1, sum - set[n - 1])
+   (b) excluding the last element isSubsetSum(set, n - 1, sum)  */
 
    bool res = false;
 
