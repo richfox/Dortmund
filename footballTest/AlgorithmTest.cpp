@@ -5,6 +5,7 @@
 #include "..\Algorithm\sort.h"
 #include "..\Algorithm\divide-and-conquer.h"
 #include "..\Algorithm\backtracking.h"
+#include "..\Algorithm\SubsetSum.h"
 #include "..\Container\BSTree.h"
 
 using namespace std;
@@ -83,4 +84,26 @@ void AlgoTest::test()
 
    bqueen(0,0,0,4);
    CPPUNIT_ASSERT(xfu::sum == 2);
+
+
+   cout << "\r\ntest subset sum problem...\r\n" << endl;
+   std::vector<int> set = { 3, 4, 5, 2 };
+   int sum = 9;
+   int n = int(set.size());
+   CPPUNIT_ASSERT(isSubsetSum(set, n, sum) == true);
+   CPPUNIT_ASSERT(sss == std::vector<int>({ 3, 4, 2 }));
+
+   sss.clear();
+   set = { 13, 4, 5, 2 };
+   CPPUNIT_ASSERT(isSubsetSum(set, n, sum) == true);
+   CPPUNIT_ASSERT(sss == std::vector<int>({ 4, 5 }));
+
+   sss.clear();
+   set = { 13, 4, 5, 2 };
+   CPPUNIT_ASSERT(isSubsetSum(set, n, sum) == true);
+   CPPUNIT_ASSERT(sss == std::vector<int>({ 4, 5 }));
+
+   sss.clear();
+   set = { 13, 14, 5, 2 };
+   CPPUNIT_ASSERT(isSubsetSum(set, n, sum) == false);
 }
