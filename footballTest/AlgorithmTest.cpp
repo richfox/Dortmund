@@ -99,11 +99,6 @@ void AlgoTest::test()
    CPPUNIT_ASSERT(sss == std::vector<int>({ 4, 5 }));
 
    sss.clear();
-   set = { 13, 4, 5, 2 };
-   CPPUNIT_ASSERT(isSubsetSum(set, n, sum) == true);
-   CPPUNIT_ASSERT(sss == std::vector<int>({ 4, 5 }));
-
-   sss.clear();
    set = { 13, 14, 5, 2 };
    CPPUNIT_ASSERT(isSubsetSum(set, n, sum) == false);
 
@@ -116,4 +111,10 @@ void AlgoTest::test()
    int sum3 = 9;
    int n3 = _countof(set3);
    CPPUNIT_ASSERT(isSubsetSum(set3, n3, sum3) == false);
+
+   set = { 3, 4, 5, 2 };
+   CPPUNIT_ASSERT(exact_subset_sum(set, 9) == 9);
+
+   set = { 13, 14, 5, 2 };
+   CPPUNIT_ASSERT(exact_subset_sum(set, 9) != 9);
 }

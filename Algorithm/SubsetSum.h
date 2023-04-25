@@ -3,6 +3,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <xfunctional>
+
+#include "sort.h"
+
 
 static std::vector<int> sss; //hold the found subset
 
@@ -177,3 +181,26 @@ bool isSubsetSum(int set[], int n, int sum)
    return res;
 }
 
+
+//brute force O(2^n * n), since there are 2^n subsets and, to check each subset we need to sum at most n elements
+int exact_subset_sum(const std::vector<int>& set, int sum)
+{
+   int n = int(set.size());
+   std::vector<int> L = { 0 };
+
+   for (int i = 0; i < n; i++)
+   {
+      std::vector<int>L2 = L;
+      std::transform(L.begin(), L.end(), L2.begin(), [&](const int& elem)
+      {
+         return elem + set[i];
+      });
+
+      L = merge(merge_sort(L), merge_sort(L2));
+
+      std::vector<int>::iterator it = std::remove_if(L.begin(), L.end(), std::bind2nd(std::greater<int>(), sum));
+      L.erase(it, L.end());
+   }
+
+   return L.back();
+}
