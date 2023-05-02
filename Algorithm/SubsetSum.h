@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include <vector>
@@ -68,7 +68,7 @@ void print_subset(int set[], std::string** rs,int row,int col)
 
 //solve the problem in Pseudo-polynomial time O(sum*n) use the Dynamic programming.
 //So we will create a 2D array of size (arr.size() + 1) * (target + 1) of type boolean. 
-//The state DP[i][j] will be true if there exists a subset of elements from A[0�i] with sum value = j
+//The state DP[i][j] will be true if there exists a subset of elements from A[0…i] with sum value = j
 bool isSubsetSum(int set[], int n, int sum)
 {
    // 2D array
@@ -203,4 +203,12 @@ int exact_subset_sum(const std::vector<int>& set, int sum)
    }
 
    return L.back();
+}
+
+
+//Fully-polynomial time approximation O(n/ϵ * n), L contains no more than n/ϵ  elements, therefore the run-time is polynomial in n/ϵ
+//here approximation parameter 0<ϵ<1, this agorithmus return within 1+ϵ multiple of the optimal solution
+int approx_subset_sum(const std::vector<int>& set, int sum, double epsilon)
+{
+   return 0;
 }
