@@ -206,9 +206,45 @@ int exact_subset_sum(const std::vector<int>& set, int sum)
 }
 
 
+std::vector<int> trim(const std::vector<int>& sortedSet, double delta)
+{
+   int m = int(sortedSet.size());
+   std::vector<int> sortedSet2 = { sortedSet[0] };
+   int last = sortedSet[0];
+
+   for (int i = 1; i < m; i++)
+   {
+      if (sortedSet[i] > last * (1 + delta))
+      {
+         sortedSet2.push_back(sortedSet[i]);
+         last = sortedSet[i];
+      }
+   }
+
+   return sortedSet2;
+}
+
 //Fully-polynomial time approximation O(n/ϵ * n), L contains no more than n/ϵ  elements, therefore the run-time is polynomial in n/ϵ
-//here approximation parameter 0<ϵ<1, this agorithmus return within 1+ϵ multiple of the optimal solution
+//here approximation parameter 0<ϵ<1, this agorithmus return a solution with tolerance within 1+ϵ multiple of optimal solution
 int approx_subset_sum(const std::vector<int>& set, int sum, double epsilon)
 {
-   return 0;
+   int n = int(set.size());
+   std::vector<int> L = { 0 };
+
+   for (int i = 0; i < n; i++)
+   {
+      std::vector<int>L2 = L;
+      std::transform(L.begin(), L.end(), L2.begin(), [&](const int& elem)
+      {
+         return elem + set[i];
+      });
+
+      L = merge(merge_sort(L), merge_sort(L2));
+      L = trim(L, epsilon / (2 * n));
+
+      std::vector<int>::iterator it = std::remove_if(L.begin(), L.end(), std::bind2nd(std::greater<int>(), sum));
+      L.erase(it, L.end());
+   }
+
+   return L.back();
 }

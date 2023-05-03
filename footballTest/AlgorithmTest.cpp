@@ -117,4 +117,10 @@ void AlgoTest::test()
 
    set = { 13, 14, 5, 2 };
    CPPUNIT_ASSERT(exact_subset_sum(set, 9) != 9);
+
+   set = { 104, 102, 201, 101 };
+   int optimal = set[0] + set[1] + set[3];
+   int approx = approx_subset_sum(set, 308, 0.4);
+   CPPUNIT_ASSERT(approx == 302);
+   CPPUNIT_ASSERT(approx <= (1+0.4)*optimal);
 }
