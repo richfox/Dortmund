@@ -31,11 +31,16 @@ PointSegRelation mat::get_point_segment_relation(const Point2& from,const Point2
    {
       //if ((query[0]>=min(from[0],to[0]) && query[0]<=max(from[0],to[0])) &&
       //    (query[1]>=min(from[1],to[1]) && query[1]<=max(from[1],to[1])))
-      if ((to-query) * (from-query) <= 0)
+      double scalar = (to - query) * (from - query);
+      if (scalar < 0) //点积为负表示方向基本相反，夹角在90°到180°之间
       {
          return PointSegRelation::PointOnSeg;
       }
-      else
+      else if (scalar == 0) //点积为0表示正交，夹角90°，因为又在线段上，所以表示此点和一个线段端点重合
+      {
+         return PointSegRelation::PointOnSeg;
+      }
+      else //点积为正表示方向基本相同，夹角在0°到90°之间
       {
          return PointSegRelation::PointOnSegExt;
       }
