@@ -34,6 +34,10 @@ void MathTest::test()
    relation = get_point_segment_relation(from,to,query);
    CPPUNIT_ASSERT(relation == mat::PointOnSeg);
 
+   query = Point2(0,1);
+   relation = get_point_segment_relation(from,to,query);
+   CPPUNIT_ASSERT(relation == mat::PointOnSeg);
+
    query = Point2(0,1.5);
    relation = get_point_segment_relation(from,to,query);
    CPPUNIT_ASSERT(relation == mat::PointOnSegExt);
