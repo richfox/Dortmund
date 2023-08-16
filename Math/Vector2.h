@@ -63,13 +63,13 @@ namespace mat
       Vector2 operator*(double scalar) const
       {
          return Vector2((*this)[0]*scalar,
-                        (*this)[0]*scalar);
+                        (*this)[1]*scalar);
       }
 
       Vector2 operator/(double scalar) const
       {
          return Vector2((*this)[0]/scalar,
-                        (*this)[0]/scalar);
+                        (*this)[1]/scalar);
       }
 
       Vector2& operator+=(const Vector2& that)

@@ -5,3 +5,4 @@ EXPORTS
    is_point_inside_triangle
    segments_intersect
    any_segments_intersect
+   project_point_to_line

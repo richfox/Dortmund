@@ -23,6 +23,8 @@ void MathTest::test()
 {
    cout << "\r\ntest math functions...\r\n" << endl;
 
+   const double testtol = 1.E-3;
+
    //测试点和线段关系
    Point2 from(0,0);
    Point2 to(0,1);
@@ -143,4 +145,15 @@ void MathTest::test()
    segments.push_back({{0,1},{2,1}});
    segments.push_back({{1,0},{1,2}});
    CPPUNIT_ASSERT(any_segments_intersect(segments)==true);
+
+   //测试点到线的投影
+   Point2 toproject(1, 1);
+   Point2 projected = project_point_to_line(toproject, Point2::Origin(), Vector2::X());
+   CPPUNIT_ASSERT(equal(projected, Point2(1, 0), testtol) == true);
+
+   projected = project_point_to_line(toproject, Point2::Origin(), Vector2::Y());
+   CPPUNIT_ASSERT(equal(projected, Point2(0, 1), testtol) == true);
+
+   projected = project_point_to_line(toproject, Point2(2, 0), Vector2::X());
+   CPPUNIT_ASSERT(equal(projected, Point2(1, 0), testtol) == true);
 }

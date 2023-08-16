@@ -50,4 +50,8 @@ namespace mat
 
    //判断任意一对线段是否相交
    bool any_segments_intersect(const std::vector<std::pair<const Point2,const Point2>>& segments);
+
+   //点到线的投影
+   //输入p: 要投影的点， 输入q: 线上一个点， 输入n: 经过q点的线的方向向量，输出投影点
+   Point2 project_point_to_line(const Point2& p, const Point2& q, const mat::Vector2& n);
 }

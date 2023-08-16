@@ -258,3 +258,11 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
    return false;
 }
 
+
+Point2 mat::project_point_to_line(const Point2& p, const Point2& q, const mat::Vector2& n)
+{
+   Vector2 un = n.Normalize(tol);
+
+   //第一个乘法是两个向量的点积，第二个是标量乘向量
+   return q + (un * (p - q)) * un;
+}
