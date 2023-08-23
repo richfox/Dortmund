@@ -19,10 +19,7 @@ double mat::direction(const Point2& from,const Point2& to,const Point2& query)
 bool mat::on_segment(const Point2& from,const Point2& to,const Point2& query)
 {
    double d = direction(from,to,query);
-   if (d > 0)
-      return d < tol;
-   else
-      return -d < tol;
+   return fabs(d) < tol;
 }
 
 PointSegRelation mat::get_point_segment_relation(const Point2& from,const Point2& to,const Point2& query)
