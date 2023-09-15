@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "footballTest.h"
 #include ".\..\football\football.h"
+#include ".\..\Container\Bitmap.h"
 
 
 CPPUNIT_TEST_SUITE_REGISTRATION(FormationTest);
@@ -38,6 +39,18 @@ void FormationTest::test_defence()
 	CPPUNIT_ASSERT(_formation->get_defence_player() == 4);
 }
 
+
+void FormationTest::test_other()
+{
+   g_mark;
+   set_mark(Marking::FIRST, true);
+   CPPUNIT_ASSERT(g_mark == Marking::FIRST);
+   set_mark(Marking::SECOND, true);
+   CPPUNIT_ASSERT(g_mark == 0x03);
+
+   CPPUNIT_ASSERT(is_marked(Marking::FIRST) == true);
+   CPPUNIT_ASSERT(is_marked(Marking::FOURTH) == false);
+}
 
 
 

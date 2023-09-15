@@ -157,6 +157,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BoostGraphLibrary.h" />
     <ClInclude Include="BSTree.h" />
     <ClInclude Include="DisjointSet.h" />

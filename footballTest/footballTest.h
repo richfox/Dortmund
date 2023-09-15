@@ -11,6 +11,7 @@ class FormationTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(test_defence_player);
 	CPPUNIT_TEST(test_offense);
 	CPPUNIT_TEST(test_defence);
+	CPPUNIT_TEST(test_other);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -20,6 +21,8 @@ public:
 	void test_defence_player();
 	void test_offense();
 	void test_defence();
+
+	void test_other();
 
 private:
 	std::auto_ptr<Formation> _formation;
