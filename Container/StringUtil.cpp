@@ -119,13 +119,7 @@ std::wstring XFU::double_to_string(const double input,int precision/*=-1*/,bool 
       }
       else
       {
-         if (precision > 0 && ignorezero)
-         {
-            if (abs(input/iMod - int(input/iMod)) < tol || abs(input/iMod - int(input/iMod)) > 1-tol)
-               precision = 0;
-         }
-         else
-            precision = 8;
+         precision = 8;
 
          swprintf_s(szOut,L"%.*e",precision,input);
       }
@@ -155,13 +149,7 @@ std::wstring XFU::double_to_string(const double input,int precision/*=-1*/,bool 
       }
       else
       {
-         if (precision > 0 && ignorezero)
-         {
-            if (abs(input - int(input)) < tol || abs(input - int(input)) > 1-tol)
-               precision = 0;
-         }
-         else
-            precision = 8;
+         precision = 8;
 
          swprintf_s(szOut,L"%.*f",precision,input);
       }
