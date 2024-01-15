@@ -132,7 +132,7 @@ std::wstring XFU::double_to_string(const double input,int precision/*=-1*/,bool 
          wstring tail = res.substr(res.find('e'));
 
          size_t pos = res.find('.');
-         while (header[header.size()-1]=='0' && (header.size()-1)>pos)
+         while (header[header.size()-1]=='0' && header.size()-1>pos)
             header.resize(header.size()-1);
 
          if (header[header.size()-1]=='.')
@@ -164,7 +164,7 @@ std::wstring XFU::double_to_string(const double input,int precision/*=-1*/,bool 
       if (precision > 0 && ignorezero)
       {
          size_t pos = res.find('.');
-         while (res[res.size()-1]=='0' && (res.size()-1)>pos)
+         while (res[res.size()-1]=='0' && res.size()-1>pos)
             res.resize(res.size()-1);
 
          if (res[res.size()-1]=='.')
