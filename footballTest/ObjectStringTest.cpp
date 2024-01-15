@@ -221,8 +221,10 @@ void ObjectStringTest::test()
    double tol = 0.000001;
    CPPUNIT_ASSERT(double_to_string(18,6) == L"18");
    CPPUNIT_ASSERT(double_to_string(10,6) == L"10");
+   CPPUNIT_ASSERT(double_to_string(0.00000000,6) == L"0");
    CPPUNIT_ASSERT(double_to_string(18.00000001,6) == L"18");
    CPPUNIT_ASSERT(double_to_string(17.99999999,6) == L"18");
+   CPPUNIT_ASSERT(double_to_string(180.00000001,6) == L"180");
    CPPUNIT_ASSERT(double_to_string(18.1234567,6) == L"18.123457");
    CPPUNIT_ASSERT(double_to_string(200000000,6) == L"2e+08");
    CPPUNIT_ASSERT(double_to_string(199999999,6) == L"2e+08");
@@ -230,8 +232,10 @@ void ObjectStringTest::test()
 
    CPPUNIT_ASSERT(double_to_string(18,6,false) == L"18.000000");
    CPPUNIT_ASSERT(double_to_string(10,6,false) == L"10.000000");
+   CPPUNIT_ASSERT(double_to_string(0.00000000,6,false) == L"0.000000");
    CPPUNIT_ASSERT(double_to_string(18.00000001,6,false) == L"18.000000");
    CPPUNIT_ASSERT(double_to_string(17.99999999,6,false) == L"18.000000");
+   CPPUNIT_ASSERT(double_to_string(180.00000001,6,false) == L"180.000000");
    CPPUNIT_ASSERT(double_to_string(18.1234567,6,false) == L"18.123457");
    CPPUNIT_ASSERT(double_to_string(200000000,6,false) == L"2.000000e+08");
    CPPUNIT_ASSERT(double_to_string(199999999,6,false) == L"2.000000e+08");
