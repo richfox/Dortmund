@@ -6,6 +6,7 @@
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/TextOutputter.h>
 #include <iostream>
+#include "Windows.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -18,6 +19,12 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	runner.run();
+
+	DWORD count = 0;
+	std::wstring x = L"run unit test finished!!!";
+    WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), x.c_str(), DWORD(x.length()), &count, 0);
+
 	_getch();
+
 	return 0;
 }
