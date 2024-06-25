@@ -22,6 +22,7 @@
     <ProjectGuid>{EA9FF633-18F0-4A06-BAA4-4B2FB02984E4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Bildverarbeitung</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
