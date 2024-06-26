@@ -20,8 +20,10 @@
       <fetchDebugImportLibraries>1</fetchDebugImportLibraries>
     </fetchDebug>
     <fetchRelease val="1">
+     <test>
       <fetchReleaseExecutables>1</fetchReleaseExecutables>
       <fetchReleaseImportLibraries>1</fetchReleaseImportLibraries>
+     </test>
     </fetchRelease>
     <fetchGenerated>1</fetchGenerated>
   </image>
