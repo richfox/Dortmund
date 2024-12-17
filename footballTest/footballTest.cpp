@@ -50,6 +50,12 @@ void FormationTest::test_other()
 
    CPPUNIT_ASSERT(is_marked(Marking::FIRST) == true);
    CPPUNIT_ASSERT(is_marked(Marking::FOURTH) == false);
+
+   set_mark(Marking::FIRST, false);
+
+   CPPUNIT_ASSERT(is_marked(Marking::FIRST) == false);
+   CPPUNIT_ASSERT(is_marked(Marking::SECOND) == true);
+   CPPUNIT_ASSERT(is_marked(Marking::FOURTH) == false);
 }
 
 
