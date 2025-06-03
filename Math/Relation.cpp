@@ -28,8 +28,6 @@ PointSegRelation mat::get_point_segment_relation(const Point2& from,const Point2
 {
    if (on_segment(from,to,query))
    {
-      //if ((query[0]>=min(from[0],to[0]) && query[0]<=max(from[0],to[0])) &&
-      //    (query[1]>=min(from[1],to[1]) && query[1]<=max(from[1],to[1])))
       double scalar = (to - query) * (from - query);
       if (scalar < -tol) //点积为负表示方向基本相反，夹角在90°到180°之间，因为又在线段上，所以表示此点落在线段两个端点之间
       {
