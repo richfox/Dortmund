@@ -44,7 +44,6 @@ PointSegRelation mat::get_point_segment_relation(const Point2& from,const Point2
    }
    else
    {
-      double det = direction(from,to,query);
       if (det > 0)
       {
          return PointSegRelation::RightSide;
