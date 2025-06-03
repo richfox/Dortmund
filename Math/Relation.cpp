@@ -17,16 +17,16 @@ double mat::direction(const Point2& from,const Point2& to,const Point2& query)
    return determinant(query-from,to-from);
 }
 
-bool mat::on_segment(const Point2& from,const Point2& to,const Point2& query)
-{
-   //叉积为0表示共线
-   double d = direction(from,to,query);
-   return fabs(d) < tol;
-}
+//bool mat::on_segment(const Point2& from,const Point2& to,const Point2& query)
+//{
+//   double d = direction(from,to,query);
+//   return fabs(d) < tol;
+//}
 
 PointSegRelation mat::get_point_segment_relation(const Point2& from,const Point2& to,const Point2& query)
 {
-   if (on_segment(from,to,query))
+   double det = direction(from,to,query);
+   if (fabs(det) < tol) //叉积为0表示共线
    {
       double scalar = (to - query) * (from - query);
       if (scalar < -tol) //点积为负表示方向基本相反，夹角在90°到180°之间，因为又在线段上，所以表示此点落在线段两个端点之间
