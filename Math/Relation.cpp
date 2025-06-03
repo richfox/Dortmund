@@ -13,11 +13,13 @@ static const double tol = 1.E-10;
 
 double mat::direction(const Point2& from,const Point2& to,const Point2& query)
 {
+   //叉积等价的行列式
    return determinant(query-from,to-from);
 }
 
 bool mat::on_segment(const Point2& from,const Point2& to,const Point2& query)
 {
+   //叉积为0表示共线
    double d = direction(from,to,query);
    return fabs(d) < tol;
 }
