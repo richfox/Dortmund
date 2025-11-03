@@ -37,7 +37,7 @@ PointSegRelation mat::get_point_segment_relation(const Point2& from,const Point2
       {
          return PointSegRelation::PointOnSegExt;
       }
-      else //点积为0表示正交，夹角90°，因为又在线段上，所以表示此点和一个线段端点重合
+      else //点积为0表示正交夹角90°，或者其中一个向量为0，因为又在线段上，所以表示此点和一个线段端点重合
       {
          return PointSegRelation::PointOnSeg;
       }
