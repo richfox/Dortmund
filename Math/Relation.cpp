@@ -247,7 +247,7 @@ bool mat::any_segments_intersect(const std::vector<std::pair<const Point2, const
          if ((above!=sTree.end() && below!=sTree.end()) &&
             (segments_intersect(segments[above->i_].first,segments[above->i_].second,segments[below->i_].first,segments[below->i_].second)))
             return true;
-         sTree.erase({ep.i_,segments[ep.i_].first,segments[ep.i_].second});
+         sTree.erase(current);
       }
    }
 
