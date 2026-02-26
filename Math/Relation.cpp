@@ -101,6 +101,31 @@ bool mat::segments_intersect(const Point2& A,const Point2& B,const Point2& C,con
       return false;
 }
 
+int mat::segments_intersect_point(const Point2& A, const Point2& B, const Point2& C, const Point2& D, Point2& s)
+{
+   //A + t(B - A) = C + u(D - C)
+   //通过对该等式两边进行叉积消元，我们可以直接求出 t
+   //A%(D - C) + t(B - A)%(D - C) = C%(D - C) + u(D - C)%(D - C)
+   //因为任何向量与自身的叉积都等于0，右边的u项直接消失!
+   //t(B - A)%(D - C) = (C - A)%(D - C)
+   double nen = determinant(B - A, D - C);
+   if (fabs(nen) >= tol)
+   {
+      double t = determinant(C - A, D - C) / nen;
+      s = A + t * (B - A);
+      return 1;
+   }
+   else
+   {
+      //两条直线平行
+      double det = direction(A, B, C);
+      if (fabs(det) < tol) //叉积为0表示共线
+         return 2;
+   }
+
+   return 0;
+}
+
 
 enum SegPointType : unsigned char
 {

@@ -4,5 +4,6 @@ EXPORTS
    get_point_segment_relation
    is_point_inside_triangle
    segments_intersect
+   segments_intersect_point
    any_segments_intersect
    project_point_to_line

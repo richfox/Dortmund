@@ -46,7 +46,7 @@ namespace mat
    //********/\ 
    //******C/  \B
    bool segments_intersect(const Point2& A,const Point2& B,const Point2& C,const Point2& D);
-
+   int segments_intersect_point(const Point2& A, const Point2& B, const Point2& C, const Point2& D, Point2& s);
 
    //判断任意一对线段是否相交
    bool any_segments_intersect(const std::vector<std::pair<const Point2,const Point2>>& segments);

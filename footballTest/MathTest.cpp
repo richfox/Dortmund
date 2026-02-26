@@ -94,6 +94,9 @@ void MathTest::test()
    Point2 P3(0,0);
    Point2 P4(1,1);
    CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==true);
+   Point2 s;
+   CPPUNIT_ASSERT(segments_intersect_point(P1,P2,P3,P4,s)==1);
+   CPPUNIT_ASSERT(equal(s, Point2(0.5, 0.5), testtol) == true);
 
    P1 = Point2(0,1);
    P2 = Point2(0.5,1);
@@ -106,12 +109,28 @@ void MathTest::test()
    P3 = Point2(0.5,1);
    P4 = Point2(1,2);
    CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==true);
+   CPPUNIT_ASSERT(segments_intersect_point(P1,P2,P3,P4,s)==1);
+   CPPUNIT_ASSERT(equal(s, Point2(0.5, 1), testtol) == true);
 
    P1 = Point2(0,1);
    P2 = Point2(1,1);
    P3 = Point2(2,1);
    P4 = Point2(2,2);
    CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==false);
+
+   P1 = Point2(0,1);
+   P2 = Point2(1,1);
+   P3 = Point2(0,2);
+   P4 = Point2(2,2);
+   CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==false);
+   CPPUNIT_ASSERT(segments_intersect_point(P1,P2,P3,P4,s)==0);
+
+   P1 = Point2(0,1);
+   P2 = Point2(1,1);
+   P3 = Point2(2,1);
+   P4 = Point2(3,1);
+   CPPUNIT_ASSERT(segments_intersect(P1,P2,P3,P4)==false);
+   CPPUNIT_ASSERT(segments_intersect_point(P1,P2,P3,P4,s)==2);
 
    //测试任意一对线段是否相交
    //类似算法导论图 33-5
