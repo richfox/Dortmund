@@ -56,13 +56,13 @@ bool binary_tree_search(const BSTree<int>& tree,int x)
 
 
 
-//一维区域查找
-std::vector<int> range_query(const std::map<int, const char*>& tree, int x, int x2)
+//一维区域查找，使用红黑树
+std::vector<int> range_query(const std::map<int, const char*>& tree, int lower, int upper)
 {
    std::vector<int> res;
 
-   auto p = tree.equal_range(x);
-   auto q = tree.equal_range(x2);
+   auto p = tree.equal_range(lower);
+   auto q = tree.equal_range(upper);
    for (auto& it = p.first; it != q.second; it++)
    {
       res.push_back(it->first);
