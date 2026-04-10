@@ -123,4 +123,25 @@ void AlgoTest::test()
    int approx = approx_subset_sum(set, 308, 0.4);
    CPPUNIT_ASSERT(approx == 302);
    CPPUNIT_ASSERT(approx <= (1+0.4)*optimal);
+
+
+   const std::map<int, const char*> m
+   {
+      {0, "zero"},
+      {2, "two"},
+      {3, "three"},
+      {5, "five"}
+   };
+
+   auto res = range_query(m, 0, 5);
+   CPPUNIT_ASSERT(res == std::vector<int>({ 0, 2, 3, 5 }));
+
+   res = range_query(m, 0, 4);
+   CPPUNIT_ASSERT(res == std::vector<int>({ 0, 2, 3 }));
+
+   res = range_query(m, 1, 5);
+   CPPUNIT_ASSERT(res == std::vector<int>({ 2, 3, 5 }));
+
+   res = range_query(m, 1, 4);
+   CPPUNIT_ASSERT(res == std::vector<int>({ 2, 3 }));
 }
