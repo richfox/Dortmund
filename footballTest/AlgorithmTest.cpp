@@ -133,15 +133,28 @@ void AlgoTest::test()
       {5, "five"}
    };
 
-   auto res = range_query(m, 0, 5);
+   auto res = range_query(m, Interval(0, 5));
    CPPUNIT_ASSERT(res == std::vector<int>({ 0, 2, 3, 5 }));
 
-   res = range_query(m, 0, 4);
+   res = range_query(m, Interval(0, 4));
    CPPUNIT_ASSERT(res == std::vector<int>({ 0, 2, 3 }));
 
-   res = range_query(m, 1, 5);
+   res = range_query(m, Interval(1, 5));
    CPPUNIT_ASSERT(res == std::vector<int>({ 2, 3, 5 }));
 
-   res = range_query(m, 1, 4);
+   res = range_query(m, Interval(1, 4));
    CPPUNIT_ASSERT(res == std::vector<int>({ 2, 3 }));
+
+
+   //                  [0        2]
+   //[-4   -3]   [-2      1][1   2]
+   std::vector<Interval> intervals;
+   intervals.push_back({0,2});
+   intervals.push_back({-4,-3});
+   intervals.push_back({-2,1});
+   intervals.push_back({1,2});
+   BSTree<int>* root = constructIntervalTree(intervals);
+   CPPUNIT_ASSERT(root->_element == 0);
+   CPPUNIT_ASSERT(root->_lson->_element == -4);
+   CPPUNIT_ASSERT(root->_rson->_element == 1);
 }

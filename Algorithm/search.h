@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 #include "..\Container\BSTree.h"
 
 
@@ -54,19 +55,65 @@ bool binary_tree_search(const BSTree<int>& tree,int x)
 }
 
 
+struct Interval
+{
+   Interval(int l, int u)
+      :lower(l),
+      upper(u)
+   {}
+
+   int lower, upper;
+};
 
 
 //一维区域查找，使用红黑树
-std::vector<int> range_query(const std::map<int, const char*>& tree, int lower, int upper)
+std::vector<int> range_query(const std::map<int, const char*>& tree, const Interval& interval)
 {
    std::vector<int> res;
 
-   auto p = tree.equal_range(lower);
-   auto q = tree.equal_range(upper);
+   auto p = tree.equal_range(interval.lower);
+   auto q = tree.equal_range(interval.upper);
    for (auto& it = p.first; it != q.second; it++)
    {
       res.push_back(it->first);
    }
 
    return res;
+}
+
+//构造区间树
+BSTree<int>* constructIntervalTree(const std::vector<Interval>& intervals)
+{
+   if (intervals.empty())
+      return nullptr;
+
+   std::vector<int> tmp;
+   tmp.reserve(intervals.size() * 2);
+   for (const auto& i : intervals)
+   {
+      tmp.push_back(i.lower);
+      tmp.push_back(i.upper);
+   }
+   std::sort(tmp.begin(), tmp.end());
+   int median = tmp[tmp.size() / 2 - 1];
+
+   BSTree<int>* root = new BSTree<int>(median);
+
+   std::vector<Interval> intervalsLeft;
+   std::vector<Interval> intervalsMid;
+   std::vector<Interval> intervalsRight;
+   for (const auto& i : intervals)
+   {
+      if (i.upper < median)
+         intervalsLeft.push_back(i);
+      else if (i.lower > median)
+         intervalsRight.push_back(i);
+      else
+         intervalsMid.push_back(i);
+   }
+
+   root->_lson = constructIntervalTree(intervalsLeft);
+   root->_rson = constructIntervalTree(intervalsRight);
+
+   return root;
 }
