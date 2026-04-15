@@ -94,8 +94,9 @@ BSTree<int>* constructIntervalTree(const std::vector<Interval>& intervals)
       tmp.push_back(i.lower);
       tmp.push_back(i.upper);
    }
-   std::sort(tmp.begin(), tmp.end());
-   int median = tmp[tmp.size() / 2 - 1];
+   int n = tmp.size() / 2 - 1;
+   std::nth_element(tmp.begin(), tmp.begin() + n, tmp.end());
+   int median = tmp[n];
 
    BSTree<int>* root = new BSTree<int>(median);
 
