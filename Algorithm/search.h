@@ -82,6 +82,7 @@ std::vector<int> range_query(const std::map<int, const char*>& tree, const Inter
 }
 
 //构造区间树
+//一组共n 个区间所对应的区间树，可以在O(nlogn)时间内构造出来
 BSTree<int>* constructIntervalTree(const std::vector<Interval>& intervals)
 {
    if (intervals.empty())
